@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "main": "src/index.js",
   "scripts": {
-    "start": "NODE_ENV=production node ./src/index.js",
-    "dev": "NODE_ENV=development node --watch ./src/index.js | pino-dev",
-    "dev:verbose": "NODE_ENV=development node --watch ./src/index.js | pino-pretty",
+    "start": "NODE_ENV=production node src/index.js",
+    "dev": "NODE_ENV=development node --watch src/index.js | pino-dev",
+    "dev:verbose": "NODE_ENV=development node --watch src/index.js | pino-pretty",
     "test": "NODE_ENV=test mocha --file test/setup.js --watch --recursive",
     "coverage": "NODE_ENV=test nyc mocha --recursive",
-    "init:db": "node ./utils/init-db.js"
+    "init:db": "node utils/init-db.js"
   },
   "keywords": [],
   "author": "luis-neira",
