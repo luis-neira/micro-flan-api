@@ -2,7 +2,7 @@
 
 const chai = require("chai");
 const request = require("supertest");
-const app = require("../../src/app");
+const app = require("../../../src/app");
 
 describe("GET /rentals", () => {
   it("gets all rentals", (done) => {

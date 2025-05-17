@@ -3,7 +3,7 @@
 const request = require("supertest");
 const chai = require("chai");
 
-const app = require("../../src/app");
+const app = require("../../../src/app");
 
 describe("POST /auth/login", () => {
   it("returns a valid token", (done) => {

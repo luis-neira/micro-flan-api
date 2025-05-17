@@ -1,6 +1,6 @@
 const sinon = require("sinon");
 const { expect } = require("chai");
-const getRentalsByType = require("../../../src/repos/rental/get-rentals");
+const getRentalsByType = require("../../../../src/repos/rental/get-rentals");
 
 describe("getRentals repo", () => {
   it("should call db methods and return results (manual stubs)", async () => {
