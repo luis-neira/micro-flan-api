@@ -13,10 +13,10 @@ module.exports = {
     useNullAsDefault: true,
     pool: { min: 2, max: os.cpus().length },
     migrations: {
-      directory: "./migrations",
+      directory: "./db/migrations",
     },
     seeds: {
-      directory: "./seeds",
+      directory: "./db/seeds",
     },
   },
 
@@ -28,10 +28,10 @@ module.exports = {
     useNullAsDefault: true,
     pool: { min: 2, max: os.cpus().length },
     migrations: {
-      directory: "./migrations",
+      directory: "./db/migrations",
     },
     seeds: {
-      directory: "./seeds",
+      directory: "./db/seeds",
     },
   },
 
@@ -43,10 +43,10 @@ module.exports = {
     useNullAsDefault: true,
     pool: { min: 2, max: os.cpus().length },
     migrations: {
-      directory: "./migrations",
+      directory: "./db/migrations",
     },
     seeds: {
-      directory: "./seeds",
+      directory: "./db/seeds",
     },
   },
 
@@ -58,10 +58,10 @@ module.exports = {
     useNullAsDefault: true,
     pool: { min: 2, max: os.cpus().length },
     migrations: {
-      directory: "./migrations",
+      directory: "./db/migrations",
     },
     seeds: {
-      directory: "./seeds",
+      directory: "./db/seeds",
     },
   },
 };
