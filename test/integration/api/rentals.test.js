@@ -109,7 +109,7 @@ describe("POST /rentals", () => {
   });
 });
 
-describe("PATCH /rentals", () => {
+describe("PATCH /rentals/:id", () => {
   it("edit rental by ID", (done) => {
     const newData = {
       id: 6,
@@ -142,7 +142,7 @@ describe("PATCH /rentals", () => {
   });
 });
 
-describe("DELETE /rentals", () => {
+describe("DELETE /rentals/:id", () => {
   it("delete rental by ID", (done) => {
     request(app)
       .delete("/rentals/6")
