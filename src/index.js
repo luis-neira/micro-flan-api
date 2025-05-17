@@ -3,7 +3,7 @@
 const http = require("node:http");
 
 const app = require("./app");
-const db = require("./db/instance");
+const db = require("../db/instance");
 
 const PORT = process.env.PORT || 3000;
 

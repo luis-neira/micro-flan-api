@@ -2,7 +2,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 const knex = require("../db/instance");
 
-const dbPath = path.resolve(__dirname, "../test.db");
+const dbPath = path.resolve("test.db");
 
 before(async () => {
   // Delete test DB if it exists

@@ -3,11 +3,11 @@
 const express = require("express");
 
 const createRentalController = require("../controllers/rental");
-const RentalRepo = require("../repos/rental");
-const db = require("../db/instance");
+const createRentalRepo = require("../repos/rental");
+const db = require("../../db/instance");
 
 const router = express.Router();
-const rentalRepo = new RentalRepo(db);
+const rentalRepo = createRentalRepo(db);
 const rentalController = createRentalController(rentalRepo);
 
 router
