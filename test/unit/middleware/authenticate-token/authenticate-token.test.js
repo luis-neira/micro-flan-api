@@ -1,5 +1,6 @@
 "use strict";
 
+require("dotenv").config();
 const chai = require("chai");
 const sinon = require("sinon");
 const createError = require("http-errors");
@@ -17,13 +18,13 @@ describe("authenticateToken middleware", () => {
       },
     };
 
-    const mockNext = sinon.fake();
+    const next = (err) => {
+      chai.expect(err).to.be.undefined;
+      chai.expect(req).to.have.property("user");
+      done();
+    };
 
-    authenticateToken(req, null, mockNext);
-
-    chai.expect(req).to.have.property("user");
-    chai.expect(mockNext.called).to.be.true;
-    done();
+    authenticateToken(req, null, next);
   });
 
   it("should fail validation: 401", (done) => {

@@ -7,6 +7,8 @@
     "dev": "NODE_ENV=development node --watch src/index.js | pino-dev",
     "dev:verbose": "NODE_ENV=development node --watch src/index.js | pino-pretty",
     "test": "NODE_ENV=test mocha --file test/setup.js --watch --recursive",
+    "test:unit": "NODE_ENV=test mocha --file test/setup.js 'test/unit/**/*.test.js'",
+    "test:integration": "NODE_ENV=test mocha --file test/setup.js 'test/integration/**/*.test.js'",
     "coverage": "NODE_ENV=test nyc mocha --recursive",
     "init:db": "node utils/init-db.js"
   },
