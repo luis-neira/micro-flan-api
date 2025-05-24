@@ -9,7 +9,7 @@
       "bathrooms": 1,
       "property_type": "apartment",
       "description": "A beautiful and spacious studio apartment with high-end finishes. The building amenities include a gym, pool, and rooftop lounge.",
-      "image": "https://www.example.com/luxury-studio.jpg"
+      "image": "https://images.unsplash.com/photo-1729053809347-c27ce1269bc3"
     },
     {
       "id": 2,
@@ -20,7 +20,7 @@
       "bathrooms": 1,
       "property_type": "house",
       "description": "A charming and comfortable 2 bedroom house with a lovely backyard. The property is located in a quiet neighborhood with easy access to shopping and dining.",
-      "image": "https://www.example.com/cozy-house.jpg"
+      "image": "https://images.unsplash.com/photo-1654024439475-c12d4c218582"
     },
     {
       "id": 3,
@@ -31,7 +31,7 @@
       "bathrooms": 1,
       "property_type": "apartment",
       "description": "A sleek and stylish 1 bedroom condo in the heart of downtown Chicago. The building amenities include a 24-hour doorman and a fitness center.",
-      "image": "https://www.example.com/stylish-condo.jpg"
+      "image": "https://images.unsplash.com/photo-1639967516473-a084068146e0"
     },
     {
       "id": 4,
@@ -42,7 +42,7 @@
       "bathrooms": 2,
       "property_type": "house",
       "description": "A spacious and bright 3 bedroom house with a fully-equipped kitchen. The property features a big backyard and a garage.",
-      "image": "https://www.example.com/large-house.jpg"
+      "image": "https://images.unsplash.com/photo-1592183664157-cfc9a2562e12"
     },
     {
       "id": 5,
@@ -53,7 +53,7 @@
       "bathrooms": 1,
       "property_type": "apartment",
       "description": "A cozy and well-appointed 2 bedroom flat in a prime location of London. The building amenities include a lift and a cleaning service.",
-      "image": "https://www.example.com/comfortable-flat.jpg"
+      "image": "https://images.unsplash.com/photo-1524061614234-8449637d36ce"
     }
   ],
   "tenants": [
