@@ -4,13 +4,15 @@
   "main": "src/index.js",
   "scripts": {
     "start": "NODE_ENV=production node src/index.js",
-    "dev": "NODE_ENV=development node --watch src/index.js | pino-dev",
-    "dev:verbose": "NODE_ENV=development node --watch src/index.js | pino-pretty",
+    "dev": "node --watch src/index.js | pino-dev",
+    "dev:verbose": "node --watch src/index.js | pino-pretty",
     "test": "NODE_ENV=test mocha --file test/setup.js --watch --recursive",
     "test:unit": "NODE_ENV=test mocha 'test/unit/**/*.test.js'",
     "test:integration": "NODE_ENV=test mocha --file test/setup.js 'test/integration/**/*.test.js'",
     "coverage": "NODE_ENV=test nyc mocha --recursive",
-    "init:db": "node utils/init-db.js"
+    "db:setup": "./scripts/setup-postgres.sh",
+    "db:init": "node -r dotenv/config utils/init-db.js",
+    "db:stop": "docker container stop express-postgres"
   },
   "keywords": [],
   "author": "luis-neira",
