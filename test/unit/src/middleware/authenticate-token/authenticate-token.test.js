@@ -6,6 +6,7 @@ const sinon = require("sinon");
 const createError = require("http-errors");
 
 const authenticateToken = require("../../../../../src/middleware/authenticate-token");
+const { expect } = chai;
 
 const TOKEN =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoiYWRtaW4iLCJpYXQiOjE3NDYwMzEwODV9.qFR1BJvk1LFgMP61eXu4HBnvyUrum1DgVV55AJnvLJs";
@@ -19,8 +20,8 @@ describe("middleware: 'authenticateToken'", () => {
     };
 
     const next = (err) => {
-      chai.expect(err).to.be.undefined;
-      chai.expect(req).to.have.property("user");
+      expect(err).to.be.undefined;
+      expect(req).to.have.property("user");
       done();
     };
 
@@ -38,7 +39,7 @@ describe("middleware: 'authenticateToken'", () => {
 
     authenticateToken(req, null, mockNext);
 
-    chai.expect(mockNext.args[0][0]).to.deep.equal(createError(401));
+    expect(mockNext.args[0][0]).to.deep.equal(createError(401));
     done();
   });
 
@@ -53,7 +54,7 @@ describe("middleware: 'authenticateToken'", () => {
 
     authenticateToken(req, null, mockNext);
 
-    chai.expect(mockNext.args[0][0]).to.deep.equal(createError(403));
+    expect(mockNext.args[0][0]).to.deep.equal(createError(403));
     done();
   });
 });

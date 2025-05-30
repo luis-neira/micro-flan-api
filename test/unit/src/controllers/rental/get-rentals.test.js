@@ -1,6 +1,7 @@
-const { expect } = require("chai");
+const chai = require("chai");
 const sinon = require("sinon");
 const getRentals = require("../../../../../src/controllers/rental/get-rentals");
+const { expect } = chai;
 
 describe("rental-controller: 'getRentals'", () => {
   it("should return rentals", async () => {
