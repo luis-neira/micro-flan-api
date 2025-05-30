@@ -10,7 +10,7 @@ const authenticateToken = require("../../../../src/middleware/authenticate-token
 const TOKEN =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoiYWRtaW4iLCJpYXQiOjE3NDYwMzEwODV9.qFR1BJvk1LFgMP61eXu4HBnvyUrum1DgVV55AJnvLJs";
 
-describe("authenticateToken middleware", () => {
+describe("middleware: 'authenticateToken'", () => {
   it("should pass validation", (done) => {
     const req = {
       headers: {

@@ -3,7 +3,7 @@
 const assert = require("node:assert");
 const requestTime = require("../../../../src/middleware/timer");
 
-describe("requestTime middleware", () => {
+describe("middleware: 'requestTime'", () => {
   it("should add a 'requestTime' property to the 'req' parameter", () => {
     const req = {};
     requestTime(req, null, () => {});
