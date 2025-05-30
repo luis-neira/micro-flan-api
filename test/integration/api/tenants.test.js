@@ -6,15 +6,15 @@ const app = require("../../../src/app");
 const knex = require("../../../db/instance");
 
 describe("GET /tenants", () => {
-  before(function (done) {
-    knex.migrate
-      .latest()
-      .then(() => knex.seed.run())
-      .finally(() => done());
+  before(async function () {
+    await knex.migrate.latest();
+    await knex.seed.run();
+    return;
   });
 
-  after(function (done) {
-    knex.migrate.rollback({}, true).then(() => done());
+  after(async function () {
+    knex.migrate.rollback({}, true);
+    return;
   });
 
   it("gets all tenants", (done) => {

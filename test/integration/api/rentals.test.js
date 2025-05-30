@@ -6,15 +6,15 @@ const app = require("../../../src/app");
 const knex = require("../../../db/instance");
 
 describe("GET /rentals", () => {
-  before(function (done) {
-    knex.migrate
-      .latest()
-      .then(() => knex.seed.run())
-      .finally(() => done());
+  before(async function () {
+    await knex.migrate.latest();
+    await knex.seed.run();
+    return;
   });
 
-  after(function (done) {
-    knex.migrate.rollback({}, true).then(() => done());
+  after(async function () {
+    knex.migrate.rollback({}, true);
+    return;
   });
 
   it("gets all rentals", (done) => {
@@ -81,15 +81,15 @@ describe("GET /rentals", () => {
 });
 
 describe("POST /rentals", () => {
-  before(function (done) {
-    knex.migrate
-      .latest()
-      .then(() => knex.seed.run())
-      .finally(() => done());
+  before(async function () {
+    await knex.migrate.latest();
+    await knex.seed.run();
+    return;
   });
 
-  after(function (done) {
-    knex.migrate.rollback({}, true).then(() => done());
+  after(async function () {
+    knex.migrate.rollback({}, true);
+    return;
   });
 
   it("add rental", (done) => {
@@ -133,15 +133,15 @@ describe("POST /rentals", () => {
 });
 
 describe("PATCH /rentals/:id", () => {
-  before(function (done) {
-    knex.migrate
-      .latest()
-      .then(() => knex.seed.run())
-      .finally(() => done());
+  before(async function () {
+    await knex.migrate.latest();
+    await knex.seed.run();
+    return;
   });
 
-  after(function (done) {
-    knex.migrate.rollback({}, true).then(() => done());
+  after(async function () {
+    knex.migrate.rollback({}, true);
+    return;
   });
 
   it("edit rental by ID", (done) => {
@@ -179,15 +179,15 @@ describe("PATCH /rentals/:id", () => {
 });
 
 describe("DELETE /rentals/:id", () => {
-  before(function (done) {
-    knex.migrate
-      .latest()
-      .then(() => knex.seed.run())
-      .finally(() => done());
+  before(async function () {
+    await knex.migrate.latest();
+    await knex.seed.run();
+    return;
   });
 
-  after(function (done) {
-    knex.migrate.rollback({}, true).then(() => done());
+  after(async function () {
+    knex.migrate.rollback({}, true);
+    return;
   });
 
   it("delete rental by ID", (done) => {
@@ -218,15 +218,15 @@ describe("DELETE /rentals/:id", () => {
 });
 
 describe("GET /rentals/1/tenants", () => {
-  before(function (done) {
-    knex.migrate
-      .latest()
-      .then(() => knex.seed.run())
-      .finally(() => done());
+  before(async function () {
+    await knex.migrate.latest();
+    await knex.seed.run();
+    return;
   });
 
-  after(function (done) {
-    knex.migrate.rollback({}, true).then(() => done());
+  after(async function () {
+    knex.migrate.rollback({}, true);
+    return;
   });
 
   it("gets all tenents per rental", (done) => {
