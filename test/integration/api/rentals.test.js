@@ -3,8 +3,20 @@
 const chai = require("chai");
 const request = require("supertest");
 const app = require("../../../src/app");
+const knex = require("../../../db/instance");
 
 describe("GET /rentals", () => {
+  before(function (done) {
+    knex.migrate
+      .latest()
+      .then(() => knex.seed.run())
+      .finally(() => done());
+  });
+
+  after(function (done) {
+    knex.migrate.rollback({}, true).then(() => done());
+  });
+
   it("gets all rentals", (done) => {
     request(app)
       .get("/rentals")
@@ -69,6 +81,17 @@ describe("GET /rentals", () => {
 });
 
 describe("POST /rentals", () => {
+  before(function (done) {
+    knex.migrate
+      .latest()
+      .then(() => knex.seed.run())
+      .finally(() => done());
+  });
+
+  after(function (done) {
+    knex.migrate.rollback({}, true).then(() => done());
+  });
+
   it("add rental", (done) => {
     request(app)
       .post("/rentals")
@@ -110,9 +133,22 @@ describe("POST /rentals", () => {
 });
 
 describe("PATCH /rentals/:id", () => {
+  before(function (done) {
+    knex.migrate
+      .latest()
+      .then(() => knex.seed.run())
+      .finally(() => done());
+  });
+
+  after(function (done) {
+    knex.migrate.rollback({}, true).then(() => done());
+  });
+
   it("edit rental by ID", (done) => {
+    const id = 5;
+
     const newData = {
-      id: 6,
+      id,
       title: "Student Studio",
       location: "Paris, FR",
       price: 900,
@@ -125,7 +161,7 @@ describe("PATCH /rentals/:id", () => {
     };
 
     request(app)
-      .patch("/rentals/6")
+      .patch(`/rentals/${id}`)
       .send(newData)
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
@@ -143,9 +179,20 @@ describe("PATCH /rentals/:id", () => {
 });
 
 describe("DELETE /rentals/:id", () => {
+  before(function (done) {
+    knex.migrate
+      .latest()
+      .then(() => knex.seed.run())
+      .finally(() => done());
+  });
+
+  after(function (done) {
+    knex.migrate.rollback({}, true).then(() => done());
+  });
+
   it("delete rental by ID", (done) => {
     request(app)
-      .delete("/rentals/6")
+      .delete("/rentals/5")
       .expect(200)
       .end((err) => {
         if (err) {
@@ -171,6 +218,17 @@ describe("DELETE /rentals/:id", () => {
 });
 
 describe("GET /rentals/1/tenants", () => {
+  before(function (done) {
+    knex.migrate
+      .latest()
+      .then(() => knex.seed.run())
+      .finally(() => done());
+  });
+
+  after(function (done) {
+    knex.migrate.rollback({}, true).then(() => done());
+  });
+
   it("gets all tenents per rental", (done) => {
     request(app)
       .get("/rentals/1/tenants")

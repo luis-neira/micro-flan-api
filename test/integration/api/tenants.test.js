@@ -3,8 +3,20 @@
 const chai = require("chai");
 const request = require("supertest");
 const app = require("../../../src/app");
+const knex = require("../../../db/instance");
 
 describe("GET /tenants", () => {
+  before(function (done) {
+    knex.migrate
+      .latest()
+      .then(() => knex.seed.run())
+      .finally(() => done());
+  });
+
+  after(function (done) {
+    knex.migrate.rollback({}, true).then(() => done());
+  });
+
   it("gets all tenants", (done) => {
     request(app)
       .get("/tenants")

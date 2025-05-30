@@ -8,7 +8,7 @@ module.exports = {
   test: {
     client: "better-sqlite3",
     connection: {
-      filename: "test.db",
+      filename: ":memory:",
     },
     useNullAsDefault: true,
     pool: { min: 2, max: os.cpus().length },
@@ -39,11 +39,14 @@ module.exports = {
   },
 
   staging: {
-    client: "better-sqlite3",
+    client: "pg",
     connection: {
-      filename: "./rentals.db",
+      host: "localhost",
+      port: 5432,
+      user: "postgres",
+      database: "postgres",
+      password: process.env.POSTGRES_PASSWORD,
     },
-    useNullAsDefault: true,
     pool: { min: 2, max: os.cpus().length },
     migrations: {
       directory: "./db/migrations",
@@ -54,11 +57,14 @@ module.exports = {
   },
 
   production: {
-    client: "better-sqlite3",
+    client: "pg",
     connection: {
-      filename: "./rentals.db",
+      host: "localhost",
+      port: 5432,
+      user: "postgres",
+      database: "postgres",
+      password: process.env.POSTGRES_PASSWORD,
     },
-    useNullAsDefault: true,
     pool: { min: 2, max: os.cpus().length },
     migrations: {
       directory: "./db/migrations",
