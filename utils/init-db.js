@@ -1,14 +1,14 @@
 "use strict";
 
-const fs = require("node:fs");
-const path = require("node:path");
+// const fs = require("node:fs");
+// const path = require("node:path");
 const knex = require("../db/instance");
 
-const dbPath = path.resolve("rentals.db");
+// const dbPath = path.resolve("rentals.db");
 
-if (fs.existsSync(dbPath)) {
-  fs.unlinkSync(dbPath);
-}
+// if (fs.existsSync(dbPath)) {
+//   fs.unlinkSync(dbPath);
+// }
 
 // Re-run knex with fresh migrations/seeds
 knex.migrate
