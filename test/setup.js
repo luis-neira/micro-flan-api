@@ -1,3 +1,5 @@
+"use strict";
+
 const knex = require("../db/instance");
 
 before(async () => {
