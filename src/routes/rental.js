@@ -1,25 +1,18 @@
 "use strict";
 
 const express = require("express");
+const awilixExpress = require("awilix-express");
+const makeRentalAPI = require("../controllers/rental");
 
-const createRentalController = require("../controllers/rental");
-const createRentalRepo = require("../repos/rental");
-const db = require("../../db/instance");
+const { makeFunctionInvoker } = awilixExpress;
 
 const router = express.Router();
-const rentalRepo = createRentalRepo(db);
-const rentalController = createRentalController(rentalRepo);
+const api = makeFunctionInvoker(makeRentalAPI);
 
-router
-  .route("/")
-  .get(rentalController.getRentals)
-  .post(rentalController.createRental);
+router.route("/").get(api("getRentals")).post(api("createRental"));
 
-router
-  .route("/:id")
-  .patch(rentalController.updateRental)
-  .delete(rentalController.deleteRental);
+router.route("/:id").patch(api("updateRental")).delete(api("deleteRental"));
 
-router.route("/:id/tenants").get(rentalController.getRentalTenants);
+router.route("/:id/tenants").get(api("getRentalTenants"));
 
 module.exports = router;

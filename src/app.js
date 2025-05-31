@@ -8,6 +8,8 @@ const logger = require("pino-http");
 const helmet = require("helmet");
 const { xss } = require("express-xss-sanitizer");
 
+const awilixContainer = require("./ioc-container");
+
 const cors = require("./middleware/cors");
 const timer = require("./middleware/timer");
 
@@ -22,6 +24,12 @@ if (process.env.NODE_ENV !== "test") {
   app.use(logger());
 }
 app.use(timer);
+
+// a new scope for each request!
+app.use((req, res, next) => {
+  req.container = awilixContainer.createScope();
+  return next();
+});
 
 // parsing
 app.use(cookieParser());

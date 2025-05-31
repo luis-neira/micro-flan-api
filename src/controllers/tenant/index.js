@@ -2,9 +2,9 @@
 
 const getTenants = require("./get-tenants");
 
-function createTenantsController(tenantRepo) {
+function createTenantsController(cradle) {
   return {
-    getTenants: getTenants({ tenantRepo }),
+    getTenants: getTenants(cradle),
   };
 }
 

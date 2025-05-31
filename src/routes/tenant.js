@@ -1,15 +1,14 @@
 "use strict";
 
 const express = require("express");
+const awilixExpress = require("awilix-express");
+const makeTenantAPI = require("../controllers/tenant");
 
-const createTenantController = require("../controllers/tenant");
-const createTenantRepo = require("../repos/tenant");
-const db = require("../../db/instance");
+const { makeFunctionInvoker } = awilixExpress;
 
 const router = express.Router();
-const tenantRepo = createTenantRepo(db);
-const tenantController = createTenantController(tenantRepo);
+const api = makeFunctionInvoker(makeTenantAPI);
 
-router.route("/").get(tenantController.getTenants);
+router.route("/").get(api("getTenants"));
 
 module.exports = router;

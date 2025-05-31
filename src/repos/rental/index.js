@@ -6,14 +6,14 @@ const createRental = require("./create-rental");
 const updateRental = require("./update-rental");
 const deleteRental = require("./delete-rental");
 
-function createRentalRepo(db) {
+function makeRentalRepo(cradle) {
   return {
-    getRentals: getRentals({ db }),
-    getRentalTenants: getRentalTenants({ db }),
-    createRental: createRental({ db }),
-    updateRental: updateRental({ db }),
-    deleteRental: deleteRental({ db }),
+    getRentals: getRentals(cradle),
+    getRentalTenants: getRentalTenants(cradle),
+    createRental: createRental(cradle),
+    updateRental: updateRental(cradle),
+    deleteRental: deleteRental(cradle),
   };
 }
 
-module.exports = createRentalRepo;
+module.exports = makeRentalRepo;
