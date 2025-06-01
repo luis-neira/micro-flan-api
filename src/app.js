@@ -24,7 +24,7 @@ if (process.env.NODE_ENV !== "test") {
 }
 app.use(timer);
 
-// a new scope for each request!
+// new scope for each request!
 app.use((req, res, next) => {
   req.container = awilixContainer.createScope();
   return next();
@@ -45,10 +45,12 @@ app.use("/rentals", rentalRoutes);
 app.use("/tenants", tenantRoutes);
 app.use("/auth", authRoutes);
 
+// 404
 app.use((req, res, next) => {
   next(createError(404));
 });
 
+// error handler
 app.use((err, req, res, next) => {
   if (process.env.NODE_ENV !== "test") {
     req.log.error(err);

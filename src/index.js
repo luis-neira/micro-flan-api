@@ -1,8 +1,8 @@
 "use strict";
 
 require("dotenv").config();
-
 const debug = require("debug")("http");
+
 const awilixContainer = require("./ioc-container");
 const app = require("./app");
 const initServer = require("./server");
