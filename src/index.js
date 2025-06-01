@@ -15,7 +15,9 @@ db.raw("SELECT 1+1 AS result").asCallback((err) => {
     process.exit(1);
   }
 
-  debug("Database connection successful");
+  const { client } = db.client.config;
+
+  debug("Database client " + client + " connected");
 
   initServer(app);
 });
