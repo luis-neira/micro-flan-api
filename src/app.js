@@ -1,7 +1,6 @@
 "use strict";
 
 const express = require("express");
-const createError = require("http-errors");
 const cookieParser = require("cookie-parser");
 const logger = require("pino-http");
 const helmet = require("helmet");
@@ -11,6 +10,8 @@ const awilixContainer = require("./ioc-container");
 
 const cors = require("./middleware/cors");
 const timer = require("./middleware/timer");
+const handleResourceNotFound = require("./middleware/not-found");
+const handleDefaultError = require("./middleware/error");
 
 const rentalRoutes = require("./routes/rental");
 const tenantRoutes = require("./routes/tenant");
@@ -45,30 +46,9 @@ app.use("/rentals", rentalRoutes);
 app.use("/tenants", tenantRoutes);
 app.use("/auth", authRoutes);
 
-// 404
-app.use((req, res, next) => {
-  next(createError(404));
-});
-
-// error handler
-app.use((err, req, res, next) => {
-  const isDevEnv = process.env.NODE_ENV === "development";
-  const { statusCode, message } = err;
-
-  if (isDevEnv && (statusCode >= 500 || !statusCode)) {
-    req.log.error(err);
-  }
-
-  const response = {
-    error: true,
-    code: statusCode || 500,
-    message: message || "Something went wrong!",
-    ...(isDevEnv && { stack: err.stack }),
-  };
-
-  res.status(response.code);
-  res.json(response);
-});
+// error handlers
+app.use(handleResourceNotFound);
+app.use(handleDefaultError);
 
 if (require.main === module) {
   const PORT = process.env.PORT || 3000;
