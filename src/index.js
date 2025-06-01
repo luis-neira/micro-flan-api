@@ -3,7 +3,9 @@
 const http = require("node:http");
 
 const app = require("./app");
-const db = require("../db/instance");
+const awilixContainer = require("./ioc-container");
+
+const db = awilixContainer.resolve("db");
 
 const PORT = process.env.PORT || 3000;
 

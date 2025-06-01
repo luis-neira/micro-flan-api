@@ -2,7 +2,9 @@
 
 // const fs = require("node:fs");
 // const path = require("node:path");
-const knex = require("../db/instance");
+const makeKnexInstance = require("../db/instance");
+
+const knex = makeKnexInstance(process.env.NODE_ENV);
 
 // const dbPath = path.resolve("rentals.db");
 
