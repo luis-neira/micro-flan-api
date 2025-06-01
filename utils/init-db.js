@@ -2,9 +2,11 @@
 
 // const fs = require("node:fs");
 // const path = require("node:path");
-const makeKnexInstance = require("../db/instance");
 
-const knex = makeKnexInstance(process.env.NODE_ENV);
+const knexFile = require("../knexfile");
+const knex = require("knex")(knexFile[process.env.NODE_ENV]);
+
+const db = knex(knexFile[process.env.NODE_ENV]);
 
 // const dbPath = path.resolve("rentals.db");
 
@@ -13,12 +15,12 @@ const knex = makeKnexInstance(process.env.NODE_ENV);
 // }
 
 // Re-run knex with fresh migrations/seeds
-knex.migrate
+db.migrate
   .latest()
   .then(() => {
-    return knex.seed.run();
+    return db.seed.run();
   })
-  .then(() => knex.destroy())
+  .then(() => db.destroy())
   .then(() => {
     console.log("Data successfully imported to rentals.db");
   })
