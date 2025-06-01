@@ -1,6 +1,5 @@
 "use strict";
 
-require("dotenv").config();
 const express = require("express");
 const createError = require("http-errors");
 const cookieParser = require("cookie-parser");

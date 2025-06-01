@@ -1,5 +1,6 @@
 "use strict";
 
+require("dotenv").config();
 const awilixContainer = require("../src/ioc-container");
 
 const knex = awilixContainer.resolve("db");
