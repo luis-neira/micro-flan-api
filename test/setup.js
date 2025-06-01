@@ -1,6 +1,8 @@
 "use strict";
 
-const knex = require("../db/instance");
+const awilixContainer = require("../src/ioc-container");
+
+const knex = awilixContainer.resolve("db");
 
 before(async () => {
   // Re-run knex with fresh migrations/seeds
