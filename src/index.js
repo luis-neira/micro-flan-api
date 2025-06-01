@@ -3,8 +3,8 @@
 require("dotenv").config();
 const http = require("node:http");
 
-const app = require("./app");
 const awilixContainer = require("./ioc-container");
+const app = require("./app");
 
 const db = awilixContainer.resolve("db");
 
