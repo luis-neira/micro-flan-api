@@ -52,12 +52,22 @@ app.use((req, res, next) => {
 
 // error handler
 app.use((err, req, res, next) => {
-  if (process.env.NODE_ENV !== "test") {
+  const isDevEnv = process.env.NODE_ENV === "development";
+  const { statusCode, message } = err;
+
+  if (isDevEnv && (statusCode >= 500 || !statusCode)) {
     req.log.error(err);
   }
 
-  res.status(err.status || 500);
-  res.json({ error: err.message || "Something went wrong!" });
+  const response = {
+    error: true,
+    code: statusCode || 500,
+    message: message || "Something went wrong!",
+    ...(isDevEnv && { stack: err.stack }),
+  };
+
+  res.status(response.code);
+  res.json(response);
 });
 
 if (require.main === module) {
