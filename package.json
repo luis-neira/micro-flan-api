@@ -4,8 +4,8 @@
   "main": "src/index.js",
   "scripts": {
     "start": "NODE_ENV=production node src/index.js",
-    "dev": "node --watch src/index.js | pino-dev",
-    "dev:verbose": "node --watch src/index.js | pino-pretty",
+    "dev": "DEBUG=http node --watch src/index.js | pino-dev",
+    "dev:verbose": "DEBUG=http node --watch src/index.js | pino-pretty",
     "test": "NODE_ENV=test mocha --file test/setup.js --watch --recursive",
     "test:unit": "NODE_ENV=test mocha 'test/unit/**/*.test.js'",
     "test:integration": "NODE_ENV=test mocha --file test/setup.js 'test/integration/**/*.test.js'",
@@ -24,6 +24,7 @@
     "better-sqlite3": "^11.10.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
+    "debug": "^4.4.1",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "express-xss-sanitizer": "^2.0.0",
