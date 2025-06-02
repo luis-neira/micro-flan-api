@@ -1,6 +1,7 @@
 "use strict";
 
 const express = require("express");
+const { scopePerRequest } = require("awilix-express");
 const cookieParser = require("cookie-parser");
 const logger = require("pino-http");
 const helmet = require("helmet");
@@ -26,10 +27,7 @@ if (process.env.NODE_ENV !== "test") {
 app.use(timer);
 
 // new scope for each request!
-app.use((req, res, next) => {
-  req.container = awilixContainer.createScope();
-  return next();
-});
+app.use(scopePerRequest(awilixContainer));
 
 // parsing
 app.use(cookieParser());
