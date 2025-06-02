@@ -15,6 +15,7 @@ awilixContainer.register({
   db: asFunction(makeKnexInstance, {
     lifetime: Lifetime.SINGLETON,
     injectionMode: InjectionMode.CLASSIC,
+    dispose: (knex) => knex.destroy(),
   }),
   rentalRepo: asFunction(makeRentalRepo, {
     lifetime: Lifetime.SINGLETON,

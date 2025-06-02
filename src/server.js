@@ -3,6 +3,8 @@
 const http = require("node:http");
 const debug = require("debug")("http");
 
+const awilixContainer = require("./ioc-container");
+
 const PORT = process.env.PORT || 3000;
 
 let server = null;
@@ -13,6 +15,33 @@ function initServer(app) {
   server.listen(PORT, "0.0.0.0");
   server.on("error", onError);
   server.on("listening", onListening);
+
+  process.on("uncaughtException", unexpectedErrorHandler);
+  process.on("unhandledRejection", unexpectedErrorHandler);
+}
+
+function unexpectedErrorHandler(error) {
+  console.log(error);
+  exitHandler();
+}
+
+function exitHandler() {
+  if (server) {
+    server.close(() => {
+      debug("Server closed");
+      awilixContainer
+        .dispose()
+        .then(() => {
+          debug("Container has been disposed");
+        })
+        .catch(console.error)
+        .finally(() => {
+          process.exit(1);
+        });
+    });
+  } else {
+    process.exit(1);
+  }
 }
 
 /**

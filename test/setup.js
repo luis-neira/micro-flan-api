@@ -14,6 +14,7 @@ before(async () => {
 
 after(async function () {
   // Destroy knex connection
-  await knex.destroy();
+  await awilixContainer.dispose();
+  // await knex.destroy();
   return;
 });
