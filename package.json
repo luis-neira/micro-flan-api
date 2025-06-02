@@ -12,7 +12,8 @@
     "coverage": "NODE_ENV=test nyc mocha --recursive",
     "db:setup": "./scripts/setup-postgres.sh",
     "db:init": "node -r dotenv/config utils/init-db.js",
-    "db:stop": "docker container stop express-postgres"
+    "db:stop": "docker stop express-postgres",
+    "db:start": "docker start express-postgres"
   },
   "engines": {
     "node": ">=20.0.0",
