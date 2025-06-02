@@ -22,7 +22,7 @@ express-2025/
 
 ### Prerequisites
 
-* [Node.js](https://nodejs.org/) (version 14 or higher)
+* [Node.js](https://nodejs.org/) (version 20 or higher)
 * [npm](https://www.npmjs.com/) (comes with Node.js)
 * [Knex.js](https://knexjs.org/) (for database migrations and queries)
 

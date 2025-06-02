@@ -1,5 +1,5 @@
 {
-  "name": "crud",
+  "name": "crud-express-2025",
   "version": "1.0.0",
   "main": "src/index.js",
   "scripts": {
@@ -13,6 +13,10 @@
     "db:setup": "./scripts/setup-postgres.sh",
     "db:init": "node -r dotenv/config utils/init-db.js",
     "db:stop": "docker container stop express-postgres"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
   },
   "keywords": [],
   "author": "luis-neira",
