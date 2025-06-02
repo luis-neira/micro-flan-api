@@ -14,7 +14,7 @@ function loginUser() {
     });
 
     if (!user) {
-      return next(createError(401, "Invalid credentials"));
+      return next(createError.Unauthorized("Invalid credentials"));
     }
 
     const token = jwt.sign(

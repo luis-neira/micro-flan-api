@@ -8,12 +8,12 @@ function authenticateToken(req, res, next) {
   const token = authHeader && authHeader.split(" ")[1];
 
   if (!token) {
-    return next(createError(401));
+    return next(createError.Unauthorized());
   }
 
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
     if (err) {
-      return next(createError(403));
+      return next(createError.Forbidden());
     }
     req.user = user;
     next();

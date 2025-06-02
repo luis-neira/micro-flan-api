@@ -9,7 +9,7 @@ function getRentals({ rentalRepo }) {
       const { type } = req.query;
 
       if (type && typeof type !== "string") {
-        return next(createError(400));
+        return next(createError.BadRequest());
       }
 
       const rentals = await rentalRepo.getRentals(type);

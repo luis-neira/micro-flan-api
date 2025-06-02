@@ -10,7 +10,7 @@ function getRentalTenants({ rentalRepo }) {
       const sanitized_id = Number(id);
 
       if (Number.isNaN(sanitized_id)) {
-        return next(createError(400));
+        return next(createError.BadRequest());
       }
 
       const tenants = await rentalRepo.getRentalTenants(sanitized_id);

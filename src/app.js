@@ -10,8 +10,8 @@ const awilixContainer = require("./ioc-container");
 
 const cors = require("./middleware/cors");
 const timer = require("./middleware/timer");
-const handleResourceNotFound = require("./middleware/not-found");
-const handleDefaultError = require("./middleware/error");
+const notFoundHandler = require("./middleware/not-found");
+const { errorHandler, errorConverter } = require("./middleware/error");
 
 const rentalRoutes = require("./routes/rental");
 const tenantRoutes = require("./routes/tenant");
@@ -47,8 +47,9 @@ app.use("/tenants", tenantRoutes);
 app.use("/auth", authRoutes);
 
 // error handlers
-app.use(handleResourceNotFound);
-app.use(handleDefaultError);
+app.use(notFoundHandler);
+app.use(errorConverter);
+app.use(errorHandler);
 
 if (require.main === module) {
   const PORT = process.env.PORT || 3000;

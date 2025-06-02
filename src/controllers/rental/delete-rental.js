@@ -10,13 +10,13 @@ function deleteRental({ rentalRepo }) {
       const parsedId = Number(id);
 
       if (Number.isNaN(parsedId)) {
-        return next(createError(400));
+        return next(createError.BadRequest());
       }
 
       const result = await rentalRepo.deleteRental(parsedId);
 
       if (result === 0) {
-        return next(createError(404));
+        return next(createError.NotFound());
       }
 
       res.sendStatus(200);
