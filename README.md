@@ -47,7 +47,6 @@ express-2025/
 
    ```env
    PORT=3000
-   DATABASE_URL=your_database_connection_string
    ```
 
 4. **Run database migrations (if applicable):**
