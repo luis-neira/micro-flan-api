@@ -3,16 +3,15 @@
 const http = require("node:http");
 const debug = require("debug")("http");
 
+const config = require("./config");
 const awilixContainer = require("./ioc-container");
-
-const PORT = process.env.PORT || 3000;
 
 let server = null;
 
 function initServer(app) {
   server = http.createServer(app);
 
-  server.listen(PORT, "0.0.0.0");
+  server.listen(config.port, "0.0.0.0");
   server.on("error", onError);
   server.on("listening", onListening);
 
@@ -56,11 +55,11 @@ function onError(error) {
   // handle specific listen errors with friendly messages
   switch (error.code) {
     case "EACCES":
-      console.error("Port " + PORT + " requires elevated privileges");
+      console.error("Port " + config.port + " requires elevated privileges");
       process.exit(1);
       break;
     case "EADDRINUSE":
-      console.error("Port " + PORT + " is already in use");
+      console.error("Port " + config.port + " is already in use");
       process.exit(1);
       break;
     default:

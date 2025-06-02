@@ -3,10 +3,11 @@
 // const fs = require("node:fs");
 // const path = require("node:path");
 
+const knex = require("knex");
 const knexFile = require("../knexfile");
-const knex = require("knex")(knexFile[process.env.NODE_ENV]);
+const config = require("../config");
 
-const db = knex(knexFile[process.env.NODE_ENV]);
+const db = knex(knexFile[config.nodeEnv]);
 
 // const dbPath = path.resolve("rentals.db");
 

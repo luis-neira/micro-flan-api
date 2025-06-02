@@ -2,6 +2,7 @@
 
 // Update with your config settings.
 const os = require("os");
+const config = require("./config");
 
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
@@ -25,11 +26,11 @@ module.exports = {
   development: {
     client: "pg",
     connection: {
-      host: "localhost",
-      port: 5432,
-      user: "postgres",
-      database: "postgres",
-      password: process.env.POSTGRES_PASSWORD,
+      host: config.postgresHost,
+      port: config.postgresPort,
+      user: config.postgresUser,
+      database: config.postgresDatabase,
+      password: config.postgresPassword,
     },
     pool: { min: 2, max: os.cpus().length },
     migrations: {
@@ -43,11 +44,11 @@ module.exports = {
   staging: {
     client: "pg",
     connection: {
-      host: "localhost",
-      port: 5432,
-      user: "postgres",
-      database: "postgres",
-      password: process.env.POSTGRES_PASSWORD,
+      host: config.postgresHost,
+      port: config.postgresPort,
+      user: config.postgresUser,
+      database: config.postgresDatabase,
+      password: config.postgresPassword,
     },
     pool: { min: 2, max: os.cpus().length },
     migrations: {
@@ -61,11 +62,11 @@ module.exports = {
   production: {
     client: "pg",
     connection: {
-      host: "localhost",
-      port: 5432,
-      user: "postgres",
-      database: "postgres",
-      password: process.env.POSTGRES_PASSWORD,
+      host: config.postgresHost,
+      port: config.postgresPort,
+      user: config.postgresUser,
+      database: config.postgresDatabase,
+      password: config.postgresPassword,
     },
     pool: { min: 2, max: os.cpus().length },
     migrations: {

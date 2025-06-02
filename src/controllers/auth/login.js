@@ -3,6 +3,8 @@
 const createError = require("http-errors");
 const jwt = require("jsonwebtoken");
 
+const config = require("../../config");
+
 const USERS = [{ id: 1, username: "admin", password: "password123" }];
 
 function loginUser() {
@@ -19,7 +21,7 @@ function loginUser() {
 
     const token = jwt.sign(
       { userId: user.id, username: user.username },
-      process.env.JWT_SECRET,
+      config.jwtSecret,
       { expiresIn: "1h" }
     );
 

@@ -2,8 +2,10 @@
 
 const createError = require("http-errors");
 
+const config = require("../config");
+
 const errorHandler = (err, req, res, next) => {
-  const isDevEnv = process.env.NODE_ENV === "development";
+  const isDevEnv = config.nodeEnv === "development";
   const { statusCode, message } = err;
 
   if (isDevEnv && statusCode >= 500) {

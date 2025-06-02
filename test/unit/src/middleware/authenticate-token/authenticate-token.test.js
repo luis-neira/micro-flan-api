@@ -1,6 +1,5 @@
 "use strict";
 
-require("dotenv").config();
 const chai = require("chai");
 const sinon = require("sinon");
 const createError = require("http-errors");

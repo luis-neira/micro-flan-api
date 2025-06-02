@@ -4,6 +4,7 @@ const awilix = require("awilix");
 const makeRentalRepo = require("../repos/rental");
 const makeTenantRepo = require("../repos/tenant");
 const makeKnexInstance = require("../db/instance");
+const config = require("../config");
 
 const { asFunction, asValue, createContainer, Lifetime, InjectionMode } =
   awilix;
@@ -11,7 +12,7 @@ const { asFunction, asValue, createContainer, Lifetime, InjectionMode } =
 const awilixContainer = createContainer();
 
 awilixContainer.register({
-  nodeEnv: asValue(process.env.NODE_ENV),
+  nodeEnv: asValue(config.nodeEnv),
   db: asFunction(makeKnexInstance, {
     lifetime: Lifetime.SINGLETON,
     injectionMode: InjectionMode.CLASSIC,

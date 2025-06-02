@@ -7,6 +7,7 @@ const logger = require("pino-http");
 const helmet = require("helmet");
 const { xss } = require("express-xss-sanitizer");
 
+const config = require("./config");
 const awilixContainer = require("./ioc-container");
 
 const cors = require("./middleware/cors");
@@ -21,7 +22,7 @@ const authRoutes = require("./routes/auth");
 // TODO: add unit tests for the app module
 const app = express();
 
-if (process.env.NODE_ENV !== "test") {
+if (config.nodeEnv !== "test") {
   app.use(logger());
 }
 app.use(timer);
@@ -50,7 +51,7 @@ app.use(errorConverter);
 app.use(errorHandler);
 
 if (require.main === module) {
-  const PORT = process.env.PORT || 3000;
+  const PORT = config.port || 3000;
   app.listen(PORT, () => {
     console.log(`App listening on port ${PORT}`);
   });
