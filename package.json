@@ -14,7 +14,8 @@
     "db:init": "node -r dotenv/config utils/init-db.js",
     "db:stop": "docker stop express-postgres",
     "db:start": "docker start express-postgres",
-    "docker:start": "docker run --rm -p 3000:3000 -v $(pwd):/app -v /app/node_modules --name express-api express-app"
+    "docker:start": "docker run --rm -p 3000:3000 -v $(pwd):/app -v /app/node_modules --name express-api express-app",
+    "docker:stop": "docker stop express-api"
   },
   "engines": {
     "node": ">=20.0.0",
