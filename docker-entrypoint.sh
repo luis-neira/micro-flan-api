@@ -1,7 +1,7 @@
 #!/bin/sh
 
-echo "Waiting for Postgres to start..."
-sh ./wait-for db:5432 
+# echo "Waiting for Postgres to start..."
+# sh ./wait-for db:5432 
 
 echo "Migrating the databse..."
 npm run db:init 
