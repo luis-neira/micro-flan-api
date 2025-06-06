@@ -5,6 +5,7 @@ services:
         condition: service_healthy
         restart: true
     build: .
+    image: crud_api:1
     container_name: api
     volumes:
       - .:/app
