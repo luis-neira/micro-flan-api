@@ -17,6 +17,20 @@ function initServer(app) {
 
   process.on("uncaughtException", unexpectedErrorHandler);
   process.on("unhandledRejection", unexpectedErrorHandler);
+
+  process.on("SIGINT", gracefulShutdown);
+  process.on("SIGTERM", gracefulShutdown);
+  process.on("SIGUSR2", gracefulShutdown); // Sent by nodemon
+}
+
+function gracefulShutdown() {
+  awilixContainer
+    .dispose()
+    .catch((err) => {
+      console.error(err);
+      process.exit(1);
+    })
+    .then(() => process.exit());
 }
 
 function unexpectedErrorHandler(error) {
