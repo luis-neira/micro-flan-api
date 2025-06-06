@@ -1,16 +1,16 @@
 services:
-  app:
+  api:
     depends_on: 
       - db
     build: .
-    container_name: node-dev
+    container_name: api
     volumes:
       - .:/app
       - /app/node_modules # Avoid overwriting installed node_modules
     ports:
       - "3000:3000"
-    environment:
-      - NODE_ENV=development
+    env_file:
+      - ./.env
     command: ["sh", "./docker-entrypoint.sh"]
   db:
     image: postgres:17
