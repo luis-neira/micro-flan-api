@@ -2,6 +2,7 @@
 
 const joi = require("joi");
 
+// TODO: use convict or env-schema
 const envVarSchema = joi
   .object({
     POSTGRES_PASSWORD: joi.string().required(),
