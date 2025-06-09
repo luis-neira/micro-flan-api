@@ -24,13 +24,23 @@ function initServer(app) {
 }
 
 function gracefulShutdown() {
-  awilixContainer
-    .dispose()
-    .catch((err) => {
-      console.error(err);
-      process.exit(1);
-    })
-    .then(() => process.exit());
+  if (server) {
+    server.close(() => {
+      debug("Server closed");
+      awilixContainer
+        .dispose()
+        .then(() => {
+          debug("Container has been disposed");
+          process.exit();
+        })
+        .catch((err) => {
+          console.error(err);
+          process.exit(1);
+        });
+    });
+  } else {
+    process.exit(1);
+  }
 }
 
 function unexpectedErrorHandler(error) {
