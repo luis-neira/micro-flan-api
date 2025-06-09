@@ -22,6 +22,7 @@ const authRoutes = require("./routes/auth");
 // TODO: add unit tests for the app module
 const app = express();
 
+// TODO: remove NODE_ENV
 if (config.nodeEnv !== "test") {
   app.use(logger());
 }
