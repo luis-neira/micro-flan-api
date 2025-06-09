@@ -2,22 +2,6 @@
 
 **Express 2025** is a practice repository designed to explore and demonstrate various features of the Express.js framework in a Node.js environment. It serves as a sandbox for experimenting with middleware, routing, error handling, and other Express-related functionalities.
 
-## 📁 Project Structure
-
-```
-express-2025/
-├── config/           # Configuration files
-├── db/               # Database-related scripts and migrations
-├── scripts/          # Utility scripts for setup and maintenance
-├── src/              # Main application source code
-├── test/             # Test suites and test cases
-├── utils/            # Helper functions and utilities
-├── data.json         # Sample data for testing or seeding
-├── knexfile.js       # Knex.js configuration file
-├── package.json      # Project metadata and dependencies
-└── README.md         # Project documentation
-```
-
 ## 🚀 Getting Started
 
 ### Prerequisites
