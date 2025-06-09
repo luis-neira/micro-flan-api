@@ -4,4 +4,4 @@ echo "Migrating the databse..."
 npm run db:init 
 
 echo "Starting the server..."
-npm run dev 
+exec npm run dev 
