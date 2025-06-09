@@ -5,7 +5,7 @@
 
 const knex = require("knex");
 const knexFile = require("../knexfile");
-const config = require("../config");
+const config = require("../src/config");
 
 const db = knex(knexFile[config.nodeEnv]);
 

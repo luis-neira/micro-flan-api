@@ -2,7 +2,7 @@
 
 // Update with your config settings.
 const os = require("os");
-const config = require("./config");
+const config = require("./src/config");
 
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
