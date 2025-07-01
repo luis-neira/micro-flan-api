@@ -1,36 +1,50 @@
 "use strict";
 
-const joi = require("joi");
+const Ajv = require("ajv")
+const ajv = new Ajv({ useDefaults: true })
 
-// TODO: use convict or env-schema
-const envVarSchema = joi
-  .object({
-    POSTGRES_PASSWORD: joi.string().required(),
-    POSTGRES_DB: joi.string().required(),
-    POSTGRES_HOST: joi.string().required(),
-    POSTGRES_PORT: joi.number().positive().default(5432),
-    POSTGRES_USER: joi.string().required(),
-    PORT: joi.number().positive().default(3000),
-    JWT_SECRET: joi.string().required(),
-    NODE_ENV: joi
-      .string()
-      .valid("test", "development", "staging", "production"),
-  })
-  .unknown();
+const schema = {
+  type: "object",
+  properties: {
+    POSTGRES_PASSWORD: { type: "string" },
+    POSTGRES_DB: { type: "string" },
+    POSTGRES_HOST: { type: "string" },
+    POSTGRES_PORT: { type: "string", default: "5432" },
+    POSTGRES_USER: { type: "string" },
+    PORT: { type: "string", default: "3000" },
+    JWT_SECRET: { type: "string" },
+    NODE_ENV: { type: "string" },
+  },
+  required: [
+    "POSTGRES_PASSWORD",
+    "POSTGRES_DB",
+    "POSTGRES_HOST",
+    "POSTGRES_PORT",
+    "POSTGRES_USER",
+    "PORT",
+    "JWT_SECRET",
+    "NODE_ENV",
+  ],
+  additionalProperties: true
+}
 
-const { value: envVars, error } = envVarSchema.validate(process.env);
+const validate = ajv.compile(schema)
 
-if (error) {
-  console.log(error);
+const env = { ...process.env };
+
+const isValid = validate(env)
+if (!isValid) {
+  console.log(validate.errors);
+  process.exit(1);
 }
 
 module.exports = {
-  postgresPassword: envVars.POSTGRES_PASSWORD,
-  postgresDatabase: envVars.POSTGRES_DB,
-  postgresHost: envVars.POSTGRES_HOST,
-  postgresPort: envVars.POSTGRES_PORT,
-  postgresUser: envVars.POSTGRES_USER,
-  port: envVars.PORT,
-  jwtSecret: envVars.JWT_SECRET,
-  nodeEnv: envVars.NODE_ENV,
+  postgresPassword: env.POSTGRES_PASSWORD,
+  postgresDatabase: env.POSTGRES_DB,
+  postgresHost: env.POSTGRES_HOST,
+  postgresPort: env.POSTGRES_PORT,
+  postgresUser: env.POSTGRES_USER,
+  port: env.PORT,
+  jwtSecret: env.JWT_SECRET,
+  nodeEnv: env.NODE_ENV,
 };
