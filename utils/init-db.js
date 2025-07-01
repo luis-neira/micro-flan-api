@@ -4,7 +4,7 @@ const knex = require("knex");
 const knexFile = require("../knexfile");
 const config = require("../src/config");
 
-const db = knex(knexFile[config.nodeEnv]);
+const db = knex(knexFile[config.dbEnv]);
 
 // Re-run knex with fresh migrations/seeds
 db.migrate

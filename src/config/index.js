@@ -13,7 +13,10 @@ const schema = {
     POSTGRES_USER: { type: "string" },
     PORT: { type: "string", default: "3000" },
     JWT_SECRET: { type: "string" },
-    NODE_ENV: { type: "string" },
+    STACK_TRACE: { type: "string" },
+    SERVER_LOGGING: { type: "string" },
+    DB_ENV: { type: "string" },
+    ENABLE_CORS: { type: "string" },
   },
   required: [
     "POSTGRES_PASSWORD",
@@ -23,7 +26,10 @@ const schema = {
     "POSTGRES_USER",
     "PORT",
     "JWT_SECRET",
-    "NODE_ENV",
+    "STACK_TRACE",
+    "SERVER_LOGGING",
+    "DB_ENV",
+    "ENABLE_CORS",
   ],
   additionalProperties: true
 }
@@ -46,5 +52,8 @@ module.exports = {
   postgresUser: env.POSTGRES_USER,
   port: env.PORT,
   jwtSecret: env.JWT_SECRET,
-  nodeEnv: env.NODE_ENV,
+  stackTrace: env.STACK_TRACE,
+  sererLogging: env.SERVER_LOGGING,
+  dbEnv: env.DB_ENV,
+  enableCors: env.ENABLE_CORS,
 };

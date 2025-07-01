@@ -12,7 +12,7 @@ const { asFunction, asValue, createContainer, Lifetime, InjectionMode } =
 const awilixContainer = createContainer();
 
 awilixContainer.register({
-  nodeEnv: asValue(config.nodeEnv),
+  dbEnv: asValue(config.dbEnv),
   db: asFunction(makeKnexInstance, {
     lifetime: Lifetime.SINGLETON,
     injectionMode: InjectionMode.CLASSIC,

@@ -5,10 +5,10 @@ const createError = require("http-errors");
 const config = require("../config");
 
 const errorHandler = (err, req, res, next) => {
-  const isDevEnv = config.nodeEnv === "development";
+  const showStackTrace = config.stackTrace === "true";
   const { statusCode, message } = err;
 
-  if (isDevEnv && statusCode >= 500) {
+  if (showStackTrace && statusCode >= 500) {
     req.log.error(err);
   }
 
@@ -16,7 +16,7 @@ const errorHandler = (err, req, res, next) => {
     error: true,
     code: statusCode,
     message: message,
-    ...(isDevEnv && { stack: err.stack }),
+    ...(showStackTrace && { stack: err.stack }),
   };
 
   res.status(response.code);

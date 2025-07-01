@@ -23,7 +23,7 @@ const authRoutes = require("./routes/auth");
 const app = express();
 
 // TODO: remove NODE_ENV
-if (config.nodeEnv !== "test") {
+if (config.sererLogging === "true") {
   app.use(logger());
 }
 app.use(timer);

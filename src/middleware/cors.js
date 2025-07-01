@@ -10,7 +10,7 @@ const whitelist = ["http://example1.com"];
 module.exports = () =>
   cors({
     origin:
-      config.nodeEnv === "production"
+      config.enableCors === "production"
         ? (origin, callback) => {
             if (whitelist.includes(origin)) {
               callback(null, true);

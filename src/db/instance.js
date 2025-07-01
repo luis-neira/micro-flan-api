@@ -3,8 +3,8 @@
 const knex = require("knex");
 const knexFile = require("../../knexfile");
 
-function makeKnexInstance(nodeEnv = "development") {
-  return knex(knexFile[nodeEnv]);
+function makeKnexInstance(dbEnv = "development") {
+  return knex(knexFile[dbEnv]);
 }
 
 module.exports = makeKnexInstance;
