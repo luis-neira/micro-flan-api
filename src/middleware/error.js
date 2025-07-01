@@ -5,7 +5,7 @@ const createError = require("http-errors");
 const config = require("../config");
 
 const errorHandler = (err, req, res, next) => {
-  const showStackTrace = config.stackTrace === "true";
+  const showStackTrace = config.enableStackTrace === "true";
   const { statusCode, message } = err;
 
   if (showStackTrace && statusCode >= 500) {
