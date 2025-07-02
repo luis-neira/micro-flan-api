@@ -50,5 +50,7 @@ COPY . .
 
 # Step 3: Run tests with .env.test loaded
 # RUN npm run test
-RUN --mount=type=bind,source=.env.test,target=.env.test \
-    /bin/sh -c "set -a && . .env.test && npm run test"
+# RUN --mount=type=bind,source=.env.test,target=.env.test \
+#     /bin/sh -c "set -a && . .env.test && npm run test"
+# Use POSIX-compatible `sh -c` with `set -a` to export envs
+RUN /bin/sh -c "set -a && . .env.test && npm run test"
