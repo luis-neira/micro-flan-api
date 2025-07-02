@@ -3,8 +3,9 @@
 const chai = require("chai");
 const request = require("supertest");
 const app = require("../../../src/app");
-const awilixContainer = require("../../../src/ioc-container");
+const getContainer = require("../../../src/ioc-container");
 
+const awilixContainer = getContainer();
 const knex = awilixContainer.resolve("db");
 
 describe("GET /rentals", () => {

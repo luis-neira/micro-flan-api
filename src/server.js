@@ -4,7 +4,9 @@ const http = require("node:http");
 const debug = require("debug")("http");
 
 const config = require("./config");
-const awilixContainer = require("./ioc-container");
+const getContainer = require("./ioc-container");
+
+const awilixContainer = getContainer();
 
 let server = null;
 

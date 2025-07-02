@@ -9,21 +9,30 @@ const config = require("../config");
 const { asFunction, asValue, createContainer, Lifetime, InjectionMode } =
   awilix;
 
-const awilixContainer = createContainer();
+// const awilixContainer = createContainer();
+let awilixContainer;
 
-awilixContainer.register({
-  dbEnv: asValue(config.dbEnv),
-  db: asFunction(makeKnexInstance, {
-    lifetime: Lifetime.SINGLETON,
-    injectionMode: InjectionMode.CLASSIC,
-    dispose: (knex) => knex.destroy(),
-  }),
-  rentalRepo: asFunction(makeRentalRepo, {
-    lifetime: Lifetime.SINGLETON,
-  }),
-  tenantRepo: asFunction(makeTenantRepo, {
-    lifetime: Lifetime.SINGLETON,
-  }),
-});
+function getContainer() {
+  if (!awilixContainer) {
+    awilixContainer = createContainer();
+  }
+  
+  awilixContainer.register({
+    dbEnv: asValue(config.dbEnv),
+    db: asFunction(makeKnexInstance, {
+      lifetime: Lifetime.SINGLETON,
+      injectionMode: InjectionMode.CLASSIC,
+      dispose: (knex) => knex.destroy(),
+    }),
+    rentalRepo: asFunction(makeRentalRepo, {
+      lifetime: Lifetime.SINGLETON,
+    }),
+    tenantRepo: asFunction(makeTenantRepo, {
+      lifetime: Lifetime.SINGLETON,
+    }),
+  });
 
-module.exports = awilixContainer;
+  return awilixContainer;
+}
+
+module.exports = getContainer;

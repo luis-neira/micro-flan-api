@@ -8,7 +8,7 @@ const helmet = require("helmet");
 const { xss } = require("express-xss-sanitizer");
 
 const config = require("./config");
-const awilixContainer = require("./ioc-container");
+const getContainer = require("./ioc-container");
 
 const cors = require("./middleware/cors");
 const timer = require("./middleware/timer");
@@ -29,7 +29,7 @@ if (config.sererLogging === "true") {
 app.use(timer);
 
 // new scope for each request!
-app.use(scopePerRequest(awilixContainer));
+app.use(scopePerRequest(getContainer()));
 
 // parsing
 app.use(cookieParser());
