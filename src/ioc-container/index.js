@@ -9,7 +9,6 @@ const config = require("../config");
 const { asFunction, asValue, createContainer, Lifetime, InjectionMode } =
   awilix;
 
-// const awilixContainer = createContainer();
 let awilixContainer;
 
 function getContainer() {
