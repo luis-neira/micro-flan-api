@@ -16,7 +16,9 @@
     "db:stop": "docker stop express-postgres",
     "db:start": "docker start express-postgres",
     "docker:start": "docker run --rm -p 3000:3000 -v $(pwd):/app -v /app/node_modules --name express-api express-app",
-    "docker:stop": "docker stop express-api"
+    "docker:stop": "docker stop express-api",
+    "docker:build": "docker build -t node-express-2025 --progress=plain --no-cache --target test .",
+    "docker:test": "docker compose run server npm run test"
   },
   "engines": {
     "node": ">=20.0.0",
