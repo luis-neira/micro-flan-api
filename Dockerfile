@@ -12,6 +12,8 @@ FROM node:${NODE_VERSION}-alpine3.21 AS base
 WORKDIR /usr/src/app
 EXPOSE 3000
 
+############################
+# DEV
 FROM base AS dev
 RUN --mount=type=bind,source=package.json,target=package.json \
     --mount=type=bind,source=package-lock.json,target=package-lock.json \
@@ -21,6 +23,8 @@ USER node
 COPY . .
 CMD npm run dev
 
+############################
+# PROD
 FROM base AS prod
 RUN --mount=type=bind,source=package.json,target=package.json \
     --mount=type=bind,source=package-lock.json,target=package-lock.json \
@@ -30,12 +34,21 @@ USER node
 COPY . .
 CMD node src/index.js
 
+############################
+# TEST
 FROM base AS test
-# ENV NODE_ENV=test
+USER root
+
+# Step 1: Install dependencies with .env.test loaded
 RUN --mount=type=bind,source=package.json,target=package.json \
     --mount=type=bind,source=package-lock.json,target=package-lock.json \
     --mount=type=cache,target=/root/.npm \
     npm ci --include=dev
 # USER node
+# Step 2: Copy source
 COPY . .
-RUN npm run test
+
+# Step 3: Run tests with .env.test loaded
+# RUN npm run test
+RUN --mount=type=bind,source=.env.test,target=.env.test \
+    /bin/sh -c "set -a && . .env.test && npm run test"

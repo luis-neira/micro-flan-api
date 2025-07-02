@@ -3,6 +3,11 @@
 // require("dotenv").config();
 const path = require("node:path");
 const fs = require("node:fs");
+
+const dotenv = require("dotenv");
+const envPath = path.resolve(__dirname, "..", ".env.test");
+dotenv.config({ path: envPath });
+
 const getContainer = require("../src/ioc-container");
 
 const location = path.join(__dirname, "..", "tmp", "test.db");

@@ -85,7 +85,7 @@ module.exports = {
   port: env.PORT,
   jwtSecret: env.JWT_SECRET,
   enableStackTrace: env.ENABLE_STACK_TRACE,
-  sererLogging: env.SERVER_LOGGING,
+  serverLogging: env.SERVER_LOGGING,
   dbEnv: env.DB_ENV,
   enableCors: env.ENABLE_CORS,
 };
