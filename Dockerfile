@@ -6,13 +6,13 @@
 
 # Want to help us make this template better? Share your feedback here: https://forms.gle/ybq9Krt8jtBL3iCk7
 
-ARG NODE_VERSION=20
+ARG NODE_VERSION=20.11.0
 
-FROM node:${NODE_VERSION}-alpine3.21 as base
+FROM node:${NODE_VERSION}-alpine3.21 AS base
 WORKDIR /usr/src/app
 EXPOSE 3000
 
-FROM base as dev
+FROM base AS dev
 RUN --mount=type=bind,source=package.json,target=package.json \
     --mount=type=bind,source=package-lock.json,target=package-lock.json \
     --mount=type=cache,target=/root/.npm \
@@ -21,7 +21,7 @@ USER node
 COPY . .
 CMD npm run dev
 
-FROM base as prod
+FROM base AS prod
 RUN --mount=type=bind,source=package.json,target=package.json \
     --mount=type=bind,source=package-lock.json,target=package-lock.json \
     --mount=type=cache,target=/root/.npm \
