@@ -1,6 +1,6 @@
 "use strict";
 
-require("dotenv").config();
+// require("dotenv").config();
 const path = require("node:path");
 const fs = require("node:fs");
 const getContainer = require("../src/ioc-container");

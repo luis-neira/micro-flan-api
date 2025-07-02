@@ -2,10 +2,11 @@
 
 const debug = require("debug")("http");
 
-const awilixContainer = require("./ioc-container");
+const getContainer = require("./ioc-container");
 const app = require("./app");
 const initServer = require("./server");
 
+const awilixContainer = getContainer();
 const db = awilixContainer.resolve("db");
 
 db.raw("SELECT 1+1 AS result").asCallback((err) => {
