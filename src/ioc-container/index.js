@@ -1,10 +1,11 @@
 "use strict";
 
 const awilix = require("awilix");
+
+const config = require("../config");
 const makeRentalRepo = require("../repos/rental");
 const makeTenantRepo = require("../repos/tenant");
 const makeKnexInstance = require("../db/instance");
-const config = require("../config");
 
 const { asFunction, asValue, createContainer, Lifetime, InjectionMode } =
   awilix;

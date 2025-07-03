@@ -2,9 +2,9 @@
 
 const debug = require("debug")("http");
 
-const getContainer = require("./ioc-container");
 const app = require("./app");
 const initServer = require("./server");
+const getContainer = require("./ioc-container");
 
 const awilixContainer = getContainer();
 const db = awilixContainer.resolve("db");
