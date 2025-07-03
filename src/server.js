@@ -17,56 +17,7 @@ function initServer(app) {
   server.on("error", onError);
   server.on("listening", onListening);
 
-  process.on("uncaughtException", unexpectedErrorHandler);
-  process.on("unhandledRejection", unexpectedErrorHandler);
-
-  process.on("SIGINT", gracefulShutdown);
-  process.on("SIGTERM", gracefulShutdown);
-  process.on("SIGUSR2", gracefulShutdown); // Sent by nodemon
-}
-
-function gracefulShutdown() {
-  if (server) {
-    server.close(() => {
-      debug("Server closed");
-      awilixContainer
-        .dispose()
-        .then(() => {
-          debug("DI-Container has been disposed");
-          process.exit();
-        })
-        .catch((err) => {
-          console.error(err);
-          process.exit(1);
-        });
-    });
-  } else {
-    process.exit(1);
-  }
-}
-
-function unexpectedErrorHandler(error) {
-  console.log(error);
-  exitHandler();
-}
-
-function exitHandler() {
-  if (server) {
-    server.close(() => {
-      debug("Server closed");
-      awilixContainer
-        .dispose()
-        .then(() => {
-          debug("DI-Container has been disposed");
-        })
-        .catch(console.error)
-        .finally(() => {
-          process.exit(1);
-        });
-    });
-  } else {
-    process.exit(1);
-  }
+  return server;
 }
 
 /**
