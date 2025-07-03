@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -e  # makes script exit if any command fails
+set -e
 
 echo "Migrating the databse..."
 npm run db:init 
