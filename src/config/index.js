@@ -21,7 +21,7 @@ if (!fullValidator(env)) {
   throw error
 }
 
-module.exports = {
+module.exports = Object.freeze({
   postgresPassword: env.POSTGRES_PASSWORD,
   postgresDatabase: env.POSTGRES_DB,
   postgresHost: env.POSTGRES_HOST,
@@ -33,4 +33,4 @@ module.exports = {
   serverLogging: env.SERVER_LOGGING,
   dbEnv: env.DB_ENV,
   enableCors: env.ENABLE_CORS,
-};
+});
