@@ -2,6 +2,7 @@
 
 const debug = require("debug")("http");
 
+const config = require("./config");
 const getContainer = require("./ioc-container");
 const initExpressApp = require("./app");
 const initServer = require("./server");
@@ -19,7 +20,6 @@ let server;
 // awilix
 const awilixContainer = getContainer();
 const db = awilixContainer.resolve("db");
-const config = awilixContainer.resolve("config");
 
 // bootstrap
 db.raw("SELECT 1+1 AS result").asCallback((err) => {
