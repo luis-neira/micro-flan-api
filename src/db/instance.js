@@ -1,10 +1,12 @@
 "use strict";
 
 const knex = require("knex");
-const knexFile = require("../../knexfile");
+const getKnexfile = require("../../knexfile");
+const config = require("../config");
 
 function makeKnexInstance(dbEnv = "development") {
-  return knex(knexFile[dbEnv]);
+  const knexfile = getKnexfile(config);
+  return knex(knexfile[dbEnv]);
 }
 
 module.exports = makeKnexInstance;

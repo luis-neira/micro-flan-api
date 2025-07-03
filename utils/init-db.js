@@ -1,10 +1,11 @@
 "use strict";
 
 const knex = require("knex");
-const knexFile = require("../knexfile");
+const getKnexfile = require("../knexfile");
 const config = require("../src/config");
 
-const db = knex(knexFile[config.dbEnv]);
+const knexfile = getKnexfile(config);
+const db = knex(knexfile[config.dbEnv]);
 
 // Re-run knex with fresh migrations/seeds
 db.migrate

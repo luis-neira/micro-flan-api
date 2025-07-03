@@ -32,7 +32,7 @@ function gracefulShutdown() {
       awilixContainer
         .dispose()
         .then(() => {
-          debug("Container has been disposed");
+          debug("DI-Container has been disposed");
           process.exit();
         })
         .catch((err) => {
@@ -57,7 +57,7 @@ function exitHandler() {
       awilixContainer
         .dispose()
         .then(() => {
-          debug("Container has been disposed");
+          debug("DI-Container has been disposed");
         })
         .catch(console.error)
         .finally(() => {
