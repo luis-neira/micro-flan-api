@@ -2,11 +2,14 @@
 
 const chai = require("chai");
 const request = require("supertest");
-const app = require("../../../src/app");
+const initExpressApp = require("../../../src/app");
 const getContainer = require("../../../src/ioc-container");
 
 const awilixContainer = getContainer();
 const knex = awilixContainer.resolve("db");
+const config = awilixContainer.resolve("config");
+
+const app = initExpressApp(config);
 
 describe("GET /tenants", () => {
   before(async function () {

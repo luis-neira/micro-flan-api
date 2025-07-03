@@ -3,9 +3,10 @@
 const debug = require("debug")("http");
 
 const getContainer = require("./ioc-container");
-const app = require("./app");
+const initExpressApp = require("./app");
 const initServer = require("./server");
 
+// process handlers
 process.on("uncaughtException", unexpectedErrorHandler);
 process.on("unhandledRejection", unexpectedErrorHandler);
 
@@ -15,10 +16,12 @@ process.on("SIGUSR2", gracefulShutdown); // Sent by nodemon
 
 let server;
 
+// awilix
 const awilixContainer = getContainer();
 const db = awilixContainer.resolve("db");
 const config = awilixContainer.resolve("config");
 
+// bootstrap
 db.raw("SELECT 1+1 AS result").asCallback((err) => {
   if (err) {
     console.error(err);
@@ -29,6 +32,7 @@ db.raw("SELECT 1+1 AS result").asCallback((err) => {
 
   debug("Database client " + client + " connected");
 
+  const app = initExpressApp(config);
   server = initServer(app, config);
 });
 

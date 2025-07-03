@@ -3,7 +3,13 @@
 const request = require("supertest");
 const chai = require("chai");
 
-const app = require("../../../src/app");
+const initExpressApp = require("../../../src/app");
+const getContainer = require("../../../src/ioc-container");
+
+const awilixContainer = getContainer();
+const config = awilixContainer.resolve("config");
+
+const app = initExpressApp(config);
 
 describe("POST /auth/login", () => {
   it("returns a valid token", (done) => {

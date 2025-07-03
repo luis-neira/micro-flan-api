@@ -19,41 +19,37 @@ const tenantRoutes = require("./routes/tenant");
 const authRoutes = require("./routes/auth");
 
 const awilixContainer = getContainer();
-const config = awilixContainer.resolve("config");
 
-const app = express();
+function initExpressApp(config) {
+  const app = express();
+  
+  app.use(logger(config));
+  app.use(timer);
+  
+  // new scope for each request!
+  app.use(scopePerRequest(awilixContainer));
+  
+  // parsing
+  app.use(cookieParser());
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: false }));
+  
+  // security
+  app.use(xss());
+  app.use(helmet());
+  app.use(cors(config));
+  
+  // routes
+  app.use("/rentals", rentalRoutes);
+  app.use("/tenants", tenantRoutes);
+  app.use("/auth", authRoutes);
+  
+  // error handlers
+  app.use(notFoundHandler);
+  app.use(errorConverter);
+  app.use(errorHandler);
 
-app.use(logger(config));
-app.use(timer);
+  return app;
+}
 
-// new scope for each request!
-app.use(scopePerRequest(awilixContainer));
-
-// parsing
-app.use(cookieParser());
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-
-// security
-app.use(xss());
-app.use(helmet());
-app.use(cors(config));
-
-// routes
-app.use("/rentals", rentalRoutes);
-app.use("/tenants", tenantRoutes);
-app.use("/auth", authRoutes);
-
-// error handlers
-app.use(notFoundHandler);
-app.use(errorConverter);
-app.use(errorHandler);
-
-// if (require.main === module) {
-//   const PORT = config.port || 3000;
-//   app.listen(PORT, () => {
-//     console.log(`App listening on port ${PORT}`);
-//   });
-// }
-
-module.exports = app;
+module.exports = initExpressApp;
