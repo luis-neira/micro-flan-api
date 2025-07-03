@@ -19,10 +19,8 @@ const rentalRoutes = require("./routes/rental");
 const tenantRoutes = require("./routes/tenant");
 const authRoutes = require("./routes/auth");
 
-// TODO: add unit tests for the app module
 const app = express();
 
-// TODO: remove NODE_ENV
 if (config.serverLogging === "true") {
   app.use(logger());
 }
