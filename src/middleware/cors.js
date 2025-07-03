@@ -3,14 +3,12 @@
 const cors = require("cors");
 const createError = require("http-errors");
 
-const config = require("../config");
-
 const whitelist = ["http://example1.com"];
 
-module.exports = () =>
+module.exports = (config) =>
   cors({
     origin:
-      config.enableCors === "production"
+      config.enableCors === "true"
         ? (origin, callback) => {
             if (whitelist.includes(origin)) {
               callback(null, true);

@@ -30,7 +30,7 @@ module.exports = Object.freeze({
   port: env.PORT,
   jwtSecret: env.JWT_SECRET,
   enableStackTrace: env.ENABLE_STACK_TRACE,
-  serverLogging: env.SERVER_LOGGING,
-  dbEnv: env.DB_ENV,
+  enableServerLogging: env.ENABLE_SERVER_LOGGING,
   enableCors: env.ENABLE_CORS,
+  dbEnv: env.DB_ENV,
 });

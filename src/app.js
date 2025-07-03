@@ -3,12 +3,12 @@
 const express = require("express");
 const { scopePerRequest } = require("awilix-express");
 const cookieParser = require("cookie-parser");
-const logger = require("pino-http");
 const helmet = require("helmet");
 const { xss } = require("express-xss-sanitizer");
 
 const getContainer = require("./ioc-container");
 
+const logger = require("./middleware/logger");
 const cors = require("./middleware/cors");
 const timer = require("./middleware/timer");
 const notFoundHandler = require("./middleware/not-found");
@@ -23,9 +23,7 @@ const config = awilixContainer.resolve("config");
 
 const app = express();
 
-if (config.serverLogging === "true") {
-  app.use(logger());
-}
+app.use(logger(config));
 app.use(timer);
 
 // new scope for each request!
@@ -39,7 +37,7 @@ app.use(express.urlencoded({ extended: false }));
 // security
 app.use(xss());
 app.use(helmet());
-app.use(cors());
+app.use(cors(config));
 
 // routes
 app.use("/rentals", rentalRoutes);

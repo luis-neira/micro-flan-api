@@ -15,7 +15,7 @@ const fullSchema = {
     PORT: { type: "string" },
     JWT_SECRET: { type: "string" },
     ENABLE_STACK_TRACE: { type: "string" },
-    SERVER_LOGGING: { type: "string" },
+    ENABLE_SERVER_LOGGING: { type: "string" },
     DB_ENV: { type: "string" },
     ENABLE_CORS: { type: "string" },
   },
@@ -26,7 +26,7 @@ const fullSchema = {
     },
   },
   then: {
-    required: ["SERVER_LOGGING"],
+    required: ["ENABLE_SERVER_LOGGING"],
   },
   else: {
     required: [
@@ -38,7 +38,7 @@ const fullSchema = {
       "PORT",
       "JWT_SECRET",
       "ENABLE_STACK_TRACE",
-      "SERVER_LOGGING",
+      "ENABLE_SERVER_LOGGING",
       "DB_ENV",
       "ENABLE_CORS",
     ],
