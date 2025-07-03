@@ -3,14 +3,9 @@
 const http = require("node:http");
 const debug = require("debug")("http");
 
-const getContainer = require("./ioc-container");
-
-const awilixContainer = getContainer();
-const config = awilixContainer.resolve("config");
-
 let server = null;
 
-function initServer(app) {
+function initServer(app, config) {
   server = http.createServer(app);
 
   server.listen(config.port, "0.0.0.0");
@@ -29,14 +24,16 @@ function onError(error) {
     throw error;
   }
 
+  const addr = server.address();
+
   // handle specific listen errors with friendly messages
   switch (error.code) {
     case "EACCES":
-      console.error("Port " + config.port + " requires elevated privileges");
+      console.error("Port " + addr.port + " requires elevated privileges");
       process.exit(1);
       break;
     case "EADDRINUSE":
-      console.error("Port " + config.port + " is already in use");
+      console.error("Port " + addr.port + " is already in use");
       process.exit(1);
       break;
     default:

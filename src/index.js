@@ -17,6 +17,7 @@ let server;
 
 const awilixContainer = getContainer();
 const db = awilixContainer.resolve("db");
+const config = awilixContainer.resolve("config");
 
 db.raw("SELECT 1+1 AS result").asCallback((err) => {
   if (err) {
@@ -28,7 +29,7 @@ db.raw("SELECT 1+1 AS result").asCallback((err) => {
 
   debug("Database client " + client + " connected");
 
-  server = initServer(app);
+  server = initServer(app, config);
 });
 
 function gracefulShutdown() {
