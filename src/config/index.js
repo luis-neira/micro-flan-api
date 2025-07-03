@@ -1,7 +1,12 @@
 "use strict";
 
-const defaultsValidator = require("./defaultsValidator");
-const fullValidator = require("./validator");
+const Ajv = require("ajv");
+const getDefaultsValidator = require("./defaultsValidator");
+const getFullValidator = require("./validator");
+
+const ajv = new Ajv();
+const defaultsValidator = getDefaultsValidator();
+const fullValidator = getFullValidator();
 
 // Clone env so we don't modify process.env directly
 const env = { ...process.env };
@@ -11,8 +16,9 @@ defaultsValidator(env);
 
 // Step 2: Validate
 if (!fullValidator(env)) {
-  console.error(fullValidator.errors);
-  process.exit(1);
+  const error = new Error(ajv.errorsText(fullValidator.errors, { dataVar: "env" }))
+  error.errors = fullValidator.errors
+  throw error
 }
 
 module.exports = {
