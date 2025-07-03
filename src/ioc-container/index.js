@@ -18,7 +18,7 @@ function getContainer() {
   }
   
   awilixContainer.register({
-    dbEnv: asValue(config.dbEnv),
+    config: asValue(config),
     db: asFunction(makeKnexInstance, {
       lifetime: Lifetime.SINGLETON,
       injectionMode: InjectionMode.CLASSIC,

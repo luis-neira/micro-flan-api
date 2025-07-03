@@ -3,10 +3,10 @@
 const http = require("node:http");
 const debug = require("debug")("http");
 
-const config = require("./config");
 const getContainer = require("./ioc-container");
 
 const awilixContainer = getContainer();
+const config = awilixContainer.resolve("config");
 
 let server = null;
 

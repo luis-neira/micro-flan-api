@@ -2,11 +2,10 @@
 
 const knex = require("knex");
 const getKnexfile = require("../../knexfile");
-const config = require("../config");
 
-function makeKnexInstance(dbEnv = "development") {
+function makeKnexInstance(config) {
   const knexfile = getKnexfile(config);
-  return knex(knexfile[dbEnv]);
+  return knex(knexfile[config.dbEnv]);
 }
 
 module.exports = makeKnexInstance;
