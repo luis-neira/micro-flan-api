@@ -39,18 +39,12 @@ CMD node src/index.js
 FROM base AS test
 USER root
 
-# Step 1: Install dependencies with .env.test loaded
 RUN --mount=type=bind,source=package.json,target=package.json \
     --mount=type=bind,source=package-lock.json,target=package-lock.json \
     --mount=type=cache,target=/root/.npm \
     npm ci --include=dev
-# USER node
-# Step 2: Copy source
+
 COPY . .
 
-# Step 3: Run tests with .env.test loaded
-# RUN npm run test
-# RUN --mount=type=bind,source=.env.test,target=.env.test \
-#     /bin/sh -c "set -a && . .env.test && npm run test"
 # Use POSIX-compatible `sh -c` with `set -a` to export envs
 RUN /bin/sh -c "set -a && . .env.test && npm run test"
