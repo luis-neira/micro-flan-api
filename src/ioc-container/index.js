@@ -2,7 +2,6 @@
 
 const awilix = require("awilix");
 
-const config = require("../config");
 const makeRentalRepo = require("../repos/rental");
 const makeTenantRepo = require("../repos/tenant");
 const makeKnexInstance = require("../db/instance");
@@ -12,7 +11,7 @@ const { asFunction, asValue, createContainer, Lifetime, InjectionMode } =
 
 let awilixContainer;
 
-function getContainer() {
+function buildContainer(config) {
   if (!awilixContainer) {
     awilixContainer = createContainer();
   }
@@ -35,4 +34,16 @@ function getContainer() {
   return awilixContainer;
 }
 
-module.exports = getContainer;
+function getContainer() {
+  if (!awilixContainer) {
+    return null;
+  }
+
+  return awilixContainer;
+}
+
+function resetContainer() {
+  awilixContainer = null;
+}
+
+module.exports = { getContainer, buildContainer, resetContainer };

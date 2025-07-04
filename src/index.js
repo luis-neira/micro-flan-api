@@ -3,79 +3,75 @@
 const debug = require("debug")("http");
 
 const config = require("./config");
-const getContainer = require("./ioc-container");
-const initExpressApp = require("./app");
+const { buildContainer } = require("./ioc-container");
+const buildExpressApp = require("./app");
 const initServer = require("./server");
 
-// process handlers
-process.on("uncaughtException", unexpectedErrorHandler);
-process.on("unhandledRejection", unexpectedErrorHandler);
-
-process.on("SIGINT", gracefulShutdown);
-process.on("SIGTERM", gracefulShutdown);
-process.on("SIGUSR2", gracefulShutdown); // Sent by nodemon
-
 let server;
+let container;
 
-// awilix
-const awilixContainer = getContainer();
-const db = awilixContainer.resolve("db");
+process.on("uncaughtException", (err) => handleUnexpectedError(err, "uncaughtException"));
+process.on("unhandledRejection", (err) => handleUnexpectedError(err, "unhandledRejection"));
+process.on("SIGINT", () => gracefulShutdown("SIGINT"));
+process.on("SIGTERM", () => gracefulShutdown("SIGTERM"));
+process.on("SIGUSR2", () => gracefulShutdown("SIGUSR2")); // nodemon
 
-// bootstrap
-db.raw("SELECT 1+1 AS result").asCallback((err) => {
-  if (err) {
-    console.error(err);
-    process.exit(1);
-  }
+bootstrapApp();
 
-  const { client } = db.client.config;
+async function bootstrapApp() {
+  try {
+    debug("Bootstrapping application...");
 
-  debug("Database client " + client + " connected");
+    // Setup DI container
+    container = buildContainer(config);
+    
+    // Test DB connection
+    const db = container.resolve("db");
+    await db.raw("SELECT 1+1 AS result");
+    debug("Database connected:", db.client.config.client);
 
-  const app = initExpressApp(config);
-  server = initServer(app, config);
-});
+    // Initialize Express app and HTTP server
+    const app = buildExpressApp(config);
+    server = initServer(app, config);
 
-function gracefulShutdown() {
-  if (server) {
-    server.close(() => {
-      debug("Server closed");
-      awilixContainer
-        .dispose()
-        .then(() => {
-          debug("DI-Container has been disposed");
-          process.exit();
-        })
-        .catch((err) => {
-          console.error(err);
-          process.exit(1);
-        });
-    });
-  } else {
-    process.exit(1);
+    debug("Application is up and running");
+  } catch (error) {
+    console.error("Bootstrap error:", error);
+    await shutdown(1);
   }
 }
 
-function unexpectedErrorHandler(error) {
-  console.log(error);
-  exitHandler();
+function gracefulShutdown(signal) {
+  debug(`Received ${signal}. Gracefully shutting down...`);
+  shutdown(0);
 }
 
-function exitHandler() {
+function handleUnexpectedError(error, source) {
+  console.error(`Unexpected error from ${source}:`, error);
+  shutdown(1);
+}
+
+function shutdown(exitCode) {
   if (server) {
     server.close(() => {
-      debug("Server closed");
-      awilixContainer
-        .dispose()
-        .then(() => {
-          debug("DI-Container has been disposed");
-        })
-        .catch(console.error)
-        .finally(() => {
-          process.exit(1);
-        });
-    });
+      debug("HTTP server closed");
+
+      if (container) {
+        container
+          .dispose()
+          .then(() => {
+            debug("DI Container disposed");
+          })
+          .catch((err) => {
+            console.error("Error during shutdown:", err);
+          })
+          .finally(() => {
+            process.exit(exitCode);
+          })
+      }
+
+    })
   } else {
-    process.exit(1);
+    process.exit(exitCode);
   }
 }

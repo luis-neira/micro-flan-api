@@ -6,7 +6,7 @@ const cookieParser = require("cookie-parser");
 const helmet = require("helmet");
 const { xss } = require("express-xss-sanitizer");
 
-const getContainer = require("./ioc-container");
+const { getContainer } = require("./ioc-container");
 
 const logger = require("./middleware/logger");
 const cors = require("./middleware/cors");
@@ -18,16 +18,15 @@ const rentalRoutes = require("./routes/rental");
 const tenantRoutes = require("./routes/tenant");
 const authRoutes = require("./routes/auth");
 
-const awilixContainer = getContainer();
 
-function initExpressApp(config) {
+function buildExpressApp(config) {
   const app = express();
   
   app.use(logger(config));
   app.use(timer);
   
   // new scope for each request!
-  app.use(scopePerRequest(awilixContainer));
+  app.use(scopePerRequest(getContainer()));
   
   // parsing
   app.use(cookieParser());
@@ -52,4 +51,4 @@ function initExpressApp(config) {
   return app;
 }
 
-module.exports = initExpressApp;
+module.exports = buildExpressApp;

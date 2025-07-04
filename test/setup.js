@@ -7,8 +7,10 @@ const dotenv = require("dotenv");
 const envPath = path.resolve(__dirname, "..", ".env.test");
 dotenv.config({ path: envPath });
 
-const getContainer = require("../src/ioc-container");
+const config = require("../src/config");
+const { buildContainer } = require("../src/ioc-container");
 
+const awilixContainer = buildContainer(config);
 const location = path.join(__dirname, "..", "tmp", "test.db");
 
 before(async () => {
@@ -17,7 +19,6 @@ before(async () => {
     fs.mkdirSync(dirName, { recursive: true });
   }
   // Re-run knex with fresh migrations/seeds
-  const awilixContainer = getContainer();
   const knex = awilixContainer.resolve("db");
   await knex.migrate.latest();
 
@@ -30,7 +31,6 @@ after(async function () {
     fs.unlinkSync(location);
   }
   
-  const awilixContainer = getContainer();
   // Destroy knex connection
   await awilixContainer.dispose();
   // await knex.destroy();
