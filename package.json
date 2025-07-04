@@ -4,7 +4,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "NODE_ENV=production node src/index.js",
-    "dev": "DEBUG=http node --watch src/index.js | pino-dev",
+    "dev": "node --watch src/index.js | pino-dev",
     "dev:verbose": "DEBUG=http node --watch src/index.js | pino-pretty",
     "test": "mocha --file test/setup.js --recursive",
     "test:watch": "mocha --file test/setup.js --watch --recursive",

@@ -1,7 +1,7 @@
 "use strict";
 
 const http = require("node:http");
-const debug = require("debug")("http");
+// const debug = require("debug")("http");
 
 let server = null;
 
@@ -47,7 +47,7 @@ function onError(error) {
 
 function onListening() {
   const addr = server.address();
-  debug("Server listening on port " + addr.port);
+  console.log("Server listening on port " + addr.port);
 }
 
 module.exports = initServer;
