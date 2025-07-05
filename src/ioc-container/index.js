@@ -36,7 +36,7 @@ function buildContainer(config) {
 
 function getContainer() {
   if (!awilixContainer) {
-    return null;
+    throw new Error("DI Container uninitialized");
   }
 
   return awilixContainer;
@@ -44,6 +44,10 @@ function getContainer() {
 
 function resetContainer() {
   awilixContainer = null;
+}
+
+function hasContainer() {
+  return !!awilixContainer;
 }
 
 module.exports = { getContainer, buildContainer, resetContainer };
