@@ -3,6 +3,7 @@
 let serverRef = null;
 let containerRef = null;
 
+// TODO: Split this function into two. One that handles signals, the other handles errors
 function registerLifecycleHandlers({ getServer, getContainer }) {
   serverRef = getServer;
   containerRef = getContainer;
