@@ -4,7 +4,6 @@ const config = require("./config");
 const { buildContainer } = require("./ioc-container");
 const buildExpressApp = require("./app");
 const initServer = require("./server");
-
 const { registerLifecycleHandlers } = require("./lifecycle");
 
 let server;
@@ -24,7 +23,7 @@ async function bootstrapApp() {
 
     // Setup DI container
     container = buildContainer(config);
-    
+
     // Test DB connection
     const db = container.resolve("db");
     await db.raw("SELECT 1+1 AS result");
