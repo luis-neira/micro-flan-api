@@ -1,7 +1,6 @@
 "use strict";
 
 const http = require("node:http");
-// const debug = require("debug")("http");
 
 let server = null;
 

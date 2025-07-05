@@ -1,7 +1,5 @@
 "use strict";
 
-// const debug = require("debug")("http");
-
 const config = require("./config");
 const { buildContainer } = require("./ioc-container");
 const buildExpressApp = require("./app");
@@ -26,6 +24,7 @@ async function bootstrapApp() {
 
     // Setup DI container
     container = buildContainer(config);
+    
     // Test DB connection
     const db = container.resolve("db");
     await db.raw("SELECT 1+1 AS result");
@@ -41,38 +40,3 @@ async function bootstrapApp() {
     process.exit(1);
   }
 }
-
-// function gracefulShutdown(signal) {
-//   debug(`Received ${signal}. Gracefully shutting down...`);
-//   shutdown(0);
-// }
-
-// function handleUnexpectedError(error, source) {
-//   console.error(`Unexpected error from ${source}:`, error);
-//   shutdown(1);
-// }
-
-// function shutdown(exitCode) {
-//   if (server) {
-//     server.close(() => {
-//       debug("HTTP server closed");
-
-//       if (container) {
-//         container
-//           .dispose()
-//           .then(() => {
-//             debug("DI Container disposed");
-//           })
-//           .catch((err) => {
-//             console.error("Error during shutdown:", err);
-//           })
-//           .finally(() => {
-//             process.exit(exitCode);
-//           })
-//       }
-
-//     })
-//   } else {
-//     process.exit(exitCode);
-//   }
-// }

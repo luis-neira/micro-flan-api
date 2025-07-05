@@ -1,7 +1,5 @@
 "use strict";
 
-// const debug = require("debug")("lifecycle");
-
 let serverRef = null;
 let containerRef = null;
 
