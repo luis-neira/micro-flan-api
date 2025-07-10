@@ -1,25 +1,50 @@
 "use strict";
 
+const closeWithGrace = require('close-with-grace');
+
 const config = require("./config");
 const { buildContainer } = require("./ioc-container");
 const buildExpressApp = require("./app");
 const initServer = require("./server");
-const { registerLifecycleHandlers } = require("./lifecycle");
 
 let server;
 let container;
 
 // Register lifecycle hooks early
-registerLifecycleHandlers({
-  getServer: () => server,
-  getContainer: () => container,
-});
+closeWithGrace({ delay: 5000 }, function ({ signal, err, manual }, cb) {
+  if (err) {
+    console.error(err)
+  } else {
+    console.log(`${signal} received, server closing`)
+  }
+
+  // await closeYourServer()
+  if (server) {
+    server.close(() => {
+      console.log("HTTP server closed");
+
+      if (container) {
+        container
+          .dispose()
+          .then(() => {
+            console.log("DI Container disposed");
+            console.log("Shutdown complete");
+          })
+          .catch(cb)
+          .finally(cb)
+      }
+
+    })
+  } else {
+    cb();
+  }
+})
 
 bootstrapApp();
 
 async function bootstrapApp() {
   try {
-    console.log("Bootstrapping application...");
+    console.log("Bootstrapping application..."); 
 
     // Setup DI container
     container = buildContainer(config);
