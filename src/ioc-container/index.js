@@ -50,4 +50,4 @@ function hasContainer () {
   return !!awilixContainer
 }
 
-module.exports = { getContainer, buildContainer, resetContainer }
+module.exports = { getContainer, buildContainer, resetContainer, hasContainer }

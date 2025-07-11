@@ -10,7 +10,6 @@ const initServer = require('./server')
 let server
 let container
 
-// Register lifecycle hooks early
 closeWithGrace({ delay: 5000 }, function ({ signal, err, manual }, cb) {
   if (err) {
     console.error(err)

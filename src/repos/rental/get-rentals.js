@@ -2,7 +2,7 @@
 
 function getRentals ({ db }) {
   return (type) => {
-    if (type === 'house' || type == 'apartment') {
+    if (type === 'house' || type === 'apartment') {
       return db.select().from('rentals').where({ property_type: type })
     }
 

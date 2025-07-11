@@ -7,13 +7,13 @@ function getRentalTenants ({ rentalRepo }) {
     try {
       const { id } = req.params
 
-      const sanitized_id = Number(id)
+      const sanitizedId = Number(id)
 
-      if (Number.isNaN(sanitized_id)) {
+      if (Number.isNaN(sanitizedId)) {
         return next(createError.BadRequest())
       }
 
-      const tenants = await rentalRepo.getRentalTenants(sanitized_id)
+      const tenants = await rentalRepo.getRentalTenants(sanitizedId)
 
       res.json(tenants)
     } catch (error) {
