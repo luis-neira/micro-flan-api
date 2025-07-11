@@ -4,7 +4,7 @@ const awilix = require('awilix')
 
 const makeRentalRepo = require('../repos/rental')
 const makeTenantRepo = require('../repos/tenant')
-const makeKnexInstance = require('../db/instance')
+const makeKnexInstance = require('../db')
 
 const { asFunction, asValue, createContainer, Lifetime, InjectionMode } =
   awilix
