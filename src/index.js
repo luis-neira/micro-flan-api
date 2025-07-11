@@ -23,6 +23,7 @@ async function main () {
     const container = di.initDIContainer({ config, logger })
 
     await testDBConnection(container.cradle)
+
     const app = initExpressApp(container.cradle)
     const server = startHttpServer(app, container.cradle)
 
@@ -33,18 +34,18 @@ async function main () {
         logger.info(`${signal} received, server closing`)
       }
 
-      if (server) {
+      try {
         await promisify(server.close.bind(server))()
         logger.info('HTTP server closed')
+      } catch (error) {
+        logger.error(error, 'Error closing server')
       }
 
-      if (container) {
-        try {
-          await container.dispose()
-          logger.info('DI Container disposed')
-        } catch (disposeErr) {
-          logger.error(disposeErr, 'Error disposing DI Container:')
-        }
+      try {
+        await container.dispose()
+        logger.info('DI Container disposed')
+      } catch (disposeErr) {
+        logger.error(disposeErr, 'Error disposing DI Container')
       }
 
       logger.info('Shutdown complete')
