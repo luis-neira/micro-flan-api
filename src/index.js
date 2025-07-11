@@ -2,12 +2,15 @@
 
 const closeWithGrace = require('close-with-grace')
 const { promisify } = require('node:util')
-const buildLogger = require('./logger/builder')
 
 const config = require('./config')
-const { buildContainer } = require('./ioc-container')
-const buildExpressApp = require('./app')
-const initServer = require('./server')
+const buildLogger = require('./logger/builder')
+
+const di = require("./bootstrap/initDIContainer")
+const testDBConnection = require("./bootstrap/testDBConnection")
+const initExpressApp = require("./bootstrap/initExpressApp")
+const startHttpServer = require("./bootstrap/startHttpServer")
+
 const { instance: logger, stop: stopLogger } = buildLogger()
 
 main()
@@ -16,44 +19,12 @@ async function main () {
   try {
     logger.info('Bootstrapping application...')
 
-    let container = null
+    di.logInfo = (msg) => logger.info(msg)
+    const container = di.initDIContainer({ config, logger })
 
-    try {
-      logger.info('→ Building DI container')
-      container = buildContainer({ config, logger })
-      logger.info('✔ DI container built')
-    } catch (err) {
-      throw new Error(`Failed to build DI container: ${err.message}`, { cause: err })
-    }
-
-    try {
-      logger.info('→ Testing database connection')
-      const db = container.resolve('db')
-      await db.raw('SELECT 1+1 AS result')
-      const { connection } = db.client.config
-      logger.info(`✔ Database connected on port ${connection.port}`)
-    } catch (err) {
-      throw new Error(`Failed to connect to database: ${err.message}`, { cause: err })
-    }
-
-    let app = null
-
-    try {
-      logger.info('→ Initializing Express app')
-      app = buildExpressApp(container.cradle)
-      logger.info('✔ Express app created')
-    } catch (err) {
-      throw new Error(`Failed to build Express app: ${err.message}`, { cause: err })
-    }
-
-    let server = null
-
-    try {
-      logger.info('→ Starting HTTP server')
-      server = initServer(app, container.cradle)
-    } catch (err) {
-      throw new Error(`Failed to start HTTP server: ${err.message}`, { cause: err })
-    }
+    await testDBConnection(container.cradle)
+    const app = initExpressApp(container.cradle)
+    const server = startHttpServer(app, container.cradle)
 
     closeWithGrace({ delay: 5000 }, async function ({ signal, err, manual }) {
       if (err) {
