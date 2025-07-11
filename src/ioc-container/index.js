@@ -6,8 +6,6 @@ const makeRentalRepo = require('../repos/rental')
 const makeTenantRepo = require('../repos/tenant')
 const makeKnexInstance = require('../db')
 
-// let awilixContainer
-
 function buildContainer ({ config, logger }) {
   const {
     asFunction,
@@ -38,21 +36,4 @@ function buildContainer ({ config, logger }) {
   return awilixContainer
 }
 
-// function getContainer () {
-//   if (!awilixContainer) {
-//     throw new Error('DI Container uninitialized')
-//   }
-
-//   return awilixContainer
-// }
-
-// function resetContainer () {
-//   awilixContainer = null
-// }
-
-// function hasContainer () {
-//   return !!awilixContainer
-// }
-
-// module.exports = { getContainer, buildContainer, resetContainer, hasContainer }
 module.exports = { buildContainer }
