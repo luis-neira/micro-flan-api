@@ -2,11 +2,11 @@
 
 const buildExpressApp = require('../app')
 
-function initExpressApp (opts) {
+function initExpressApp (container) {
   try {
-    const { logger } = opts
+    const { logger } = container.cradle
     logger.info('→ Initializing Express app')
-    const app = buildExpressApp(opts)
+    const app = buildExpressApp(container)
     logger.info('✔ Express app created')
     return app
   } catch (err) {

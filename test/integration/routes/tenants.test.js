@@ -2,26 +2,23 @@
 
 const chai = require('chai')
 const request = require('supertest')
-const buildExpressApp = require('../../../src/app')
-const { getContainer } = require('../../../src/ioc-container')
+const setupTestApp = require('../../testSetup')
 
-const awilixContainer = getContainer()
-const knex = awilixContainer.resolve('db')
-const config = awilixContainer.resolve('config')
-
-const app = buildExpressApp({
-  config,
-  logger: () => { }
-})
+let app = null
+let container = null
+let knex = null
 
 describe('GET /tenants', () => {
-  before(async function () {
-    await knex.migrate.latest()
-    await knex.seed.run()
+  before(async () => {
+    const setup = await setupTestApp()
+    app = setup.app
+    container = setup.container
+    knex = setup.knex
   })
 
-  after(async function () {
-    knex.migrate.rollback({}, true)
+  after(async () => {
+    await knex.migrate.rollback({}, true)
+    await container.dispose()
   })
 
   it('gets all tenants', (done) => {

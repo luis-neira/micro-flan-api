@@ -6,15 +6,18 @@ const makeRentalRepo = require('../repos/rental')
 const makeTenantRepo = require('../repos/tenant')
 const makeKnexInstance = require('../db')
 
-const { asFunction, asValue, createContainer, Lifetime, InjectionMode } =
-  awilix
-
-let awilixContainer
+// let awilixContainer
 
 function buildContainer ({ config, logger }) {
-  if (!awilixContainer) {
-    awilixContainer = createContainer()
-  }
+  const {
+    asFunction,
+    asValue,
+    createContainer,
+    Lifetime,
+    InjectionMode
+  } = awilix
+
+  const awilixContainer = createContainer()
 
   awilixContainer.register({
     config: asValue(config),
@@ -35,20 +38,21 @@ function buildContainer ({ config, logger }) {
   return awilixContainer
 }
 
-function getContainer () {
-  if (!awilixContainer) {
-    throw new Error('DI Container uninitialized')
-  }
+// function getContainer () {
+//   if (!awilixContainer) {
+//     throw new Error('DI Container uninitialized')
+//   }
 
-  return awilixContainer
-}
+//   return awilixContainer
+// }
 
-function resetContainer () {
-  awilixContainer = null
-}
+// function resetContainer () {
+//   awilixContainer = null
+// }
 
-function hasContainer () {
-  return !!awilixContainer
-}
+// function hasContainer () {
+//   return !!awilixContainer
+// }
 
-module.exports = { getContainer, buildContainer, resetContainer, hasContainer }
+// module.exports = { getContainer, buildContainer, resetContainer, hasContainer }
+module.exports = { buildContainer }

@@ -6,8 +6,6 @@ const cookieParser = require('cookie-parser')
 const helmet = require('helmet')
 const { xss } = require('express-xss-sanitizer')
 
-const { getContainer } = require('./ioc-container')
-
 const pinoHttp = require('./middleware/logger')
 const cors = require('./middleware/cors')
 const timer = require('./middleware/timer')
@@ -18,14 +16,16 @@ const rentalRoutes = require('./routes/rental')
 const tenantRoutes = require('./routes/tenant')
 const authRoutes = require('./routes/auth')
 
-function buildExpressApp ({ config, logger }) {
+function buildExpressApp (container) {
+  const { config, logger } = container.cradle
+
   const app = express()
 
   app.use(pinoHttp({ config, logger }))
   app.use(timer)
 
   // new scope for each request!
-  app.use(scopePerRequest(getContainer()))
+  app.use(scopePerRequest(container))
 
   // parsing
   app.use(cookieParser())

@@ -2,16 +2,19 @@
 
 const request = require('supertest')
 const chai = require('chai')
+const setupTestApp = require('../../testSetup')
 
-const buildExpressApp = require('../../../src/app')
-const { getContainer } = require('../../../src/ioc-container')
+let app = null
+let container = null
 
-const awilixContainer = getContainer()
-const config = awilixContainer.resolve('config')
+before(async () => {
+  const setup = await setupTestApp()
+  app = setup.app
+  container = setup.container
+})
 
-const app = buildExpressApp({
-  config,
-  logger: () => { }
+after(async () => {
+  await container.dispose()
 })
 
 describe('POST /auth/login', () => {

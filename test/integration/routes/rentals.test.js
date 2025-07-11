@@ -2,26 +2,23 @@
 
 const chai = require('chai')
 const request = require('supertest')
-const buildExpressApp = require('../../../src/app')
-const { getContainer } = require('../../../src/ioc-container')
+const setupTestApp = require('../../testSetup')
 
-const awilixContainer = getContainer()
-const knex = awilixContainer.resolve('db')
-const config = awilixContainer.resolve('config')
-
-const app = buildExpressApp({
-  config,
-  logger: () => { }
-})
+let app = null
+let container = null
+let knex = null
 
 describe('GET /rentals', () => {
-  before(async function () {
-    await knex.migrate.latest()
-    await knex.seed.run()
+  before(async () => {
+    const setup = await setupTestApp()
+    app = setup.app
+    container = setup.container
+    knex = setup.knex
   })
 
-  after(async function () {
-    knex.migrate.rollback({}, true)
+  after(async () => {
+    await knex.migrate.rollback({}, true)
+    await container.dispose()
   })
 
   it('gets all rentals', (done) => {
@@ -88,13 +85,16 @@ describe('GET /rentals', () => {
 })
 
 describe('POST /rentals', () => {
-  before(async function () {
-    await knex.migrate.latest()
-    await knex.seed.run()
+  before(async () => {
+    const setup = await setupTestApp()
+    app = setup.app
+    container = setup.container
+    knex = setup.knex
   })
 
-  after(async function () {
-    knex.migrate.rollback({}, true)
+  after(async () => {
+    await knex.migrate.rollback({}, true)
+    await container.dispose()
   })
 
   it('add rental', (done) => {
@@ -138,13 +138,16 @@ describe('POST /rentals', () => {
 })
 
 describe('PATCH /rentals/:id', () => {
-  before(async function () {
-    await knex.migrate.latest()
-    await knex.seed.run()
+  before(async () => {
+    const setup = await setupTestApp()
+    app = setup.app
+    container = setup.container
+    knex = setup.knex
   })
 
-  after(async function () {
-    knex.migrate.rollback({}, true)
+  after(async () => {
+    await knex.migrate.rollback({}, true)
+    await container.dispose()
   })
 
   it('edit rental by ID', (done) => {
@@ -182,13 +185,16 @@ describe('PATCH /rentals/:id', () => {
 })
 
 describe('DELETE /rentals/:id', () => {
-  before(async function () {
-    await knex.migrate.latest()
-    await knex.seed.run()
+  before(async () => {
+    const setup = await setupTestApp()
+    app = setup.app
+    container = setup.container
+    knex = setup.knex
   })
 
-  after(async function () {
-    knex.migrate.rollback({}, true)
+  after(async () => {
+    await knex.migrate.rollback({}, true)
+    await container.dispose()
   })
 
   it('delete rental by ID', (done) => {
@@ -219,13 +225,16 @@ describe('DELETE /rentals/:id', () => {
 })
 
 describe('GET /rentals/1/tenants', () => {
-  before(async function () {
-    await knex.migrate.latest()
-    await knex.seed.run()
+  before(async () => {
+    const setup = await setupTestApp()
+    app = setup.app
+    container = setup.container
+    knex = setup.knex
   })
 
-  after(async function () {
-    knex.migrate.rollback({}, true)
+  after(async () => {
+    await knex.migrate.rollback({}, true)
+    await container.dispose()
   })
 
   it('gets all tenents per rental', (done) => {

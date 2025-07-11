@@ -11,11 +11,11 @@ const testDBConnection = require('./bootstrap/testDBConnection')
 const initExpressApp = require('./bootstrap/initExpressApp')
 const startHttpServer = require('./bootstrap/startHttpServer')
 
-const logger = buildLogger()
-
 main()
 
 async function main () {
+  const logger = buildLogger()
+
   try {
     logger.info('Bootstrapping application...')
 
@@ -24,7 +24,7 @@ async function main () {
 
     await testDBConnection(container.cradle)
 
-    const app = initExpressApp(container.cradle)
+    const app = initExpressApp(container)
     const server = startHttpServer(app, container.cradle)
 
     closeWithGrace({ delay: 5000 }, async function ({ signal, err, manual }) {
