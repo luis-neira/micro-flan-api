@@ -9,14 +9,7 @@ function buildLogger () {
     instance = pino()
   }
 
-  async function stop () {
-    instance = null
-  }
-
-  return {
-    instance,
-    stop
-  }
+  return instance
 }
 
 module.exports = buildLogger

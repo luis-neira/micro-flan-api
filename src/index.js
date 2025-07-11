@@ -4,14 +4,14 @@ const closeWithGrace = require('close-with-grace')
 const { promisify } = require('node:util')
 
 const config = require('./config')
-const buildLogger = require('./logger/builder')
+const buildLogger = require('./logger')
 
 const di = require('./bootstrap/initDIContainer')
 const testDBConnection = require('./bootstrap/testDBConnection')
 const initExpressApp = require('./bootstrap/initExpressApp')
 const startHttpServer = require('./bootstrap/startHttpServer')
 
-const { instance: logger, stop: stopLogger } = buildLogger()
+const logger = buildLogger()
 
 main()
 
@@ -49,7 +49,6 @@ async function main () {
       }
 
       logger.info('Shutdown complete')
-      stopLogger()
     })
   } catch (error) {
     logger.error(formatBootstrapError(error))
