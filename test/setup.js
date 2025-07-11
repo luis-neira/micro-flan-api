@@ -16,6 +16,7 @@ const awilixContainer = buildContainer({
 })
 const location = path.join(__dirname, '..', 'tmp', 'test.db')
 
+// TODO: Each test should isolated, improve awilix DI.
 before(async () => {
   const dirName = require('path').dirname(location)
   if (!fs.existsSync(dirName)) {
