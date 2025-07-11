@@ -9,7 +9,10 @@ const awilixContainer = getContainer()
 const knex = awilixContainer.resolve('db')
 const config = awilixContainer.resolve('config')
 
-const app = buildExpressApp(config)
+const app = buildExpressApp({
+  config,
+  logger: () => { }
+})
 
 describe('GET /tenants', () => {
   before(async function () {

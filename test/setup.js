@@ -10,7 +10,10 @@ dotenv.config({ path: envPath })
 const config = require('../src/config')
 const { buildContainer } = require('../src/ioc-container')
 
-const awilixContainer = buildContainer(config)
+const awilixContainer = buildContainer({
+  config,
+  logger: () => { }
+})
 const location = path.join(__dirname, '..', 'tmp', 'test.db')
 
 before(async () => {

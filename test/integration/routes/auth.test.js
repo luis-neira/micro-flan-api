@@ -9,7 +9,10 @@ const { getContainer } = require('../../../src/ioc-container')
 const awilixContainer = getContainer()
 const config = awilixContainer.resolve('config')
 
-const app = buildExpressApp(config)
+const app = buildExpressApp({
+  config,
+  logger: () => { }
+})
 
 describe('POST /auth/login', () => {
   it('returns a valid token', (done) => {
