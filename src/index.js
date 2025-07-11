@@ -6,7 +6,7 @@ const { promisify } = require('node:util')
 const config = require('./config')
 const buildLogger = require('./logger')
 
-const di = require('./bootstrap/initDIContainer')
+const initDIContainer = require('./bootstrap/initDIContainer')
 const testDBConnection = require('./bootstrap/testDBConnection')
 const initExpressApp = require('./bootstrap/initExpressApp')
 const startHttpServer = require('./bootstrap/startHttpServer')
@@ -19,8 +19,7 @@ async function main () {
   try {
     logger.info('Bootstrapping application...')
 
-    di.logInfo = (msg) => logger.info(msg)
-    const container = di.initDIContainer({ config, logger })
+    const container = initDIContainer({ config, logger })
 
     await testDBConnection(container.cradle)
 
