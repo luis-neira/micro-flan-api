@@ -3,6 +3,7 @@
 const knex = require('knex')
 const getKnexfile = require('../../knexfile')
 
+// TODO: use PG instead
 function makeKnexInstance (config) {
   let instance = null
 
