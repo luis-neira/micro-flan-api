@@ -4,7 +4,7 @@ const knex = require('knex')
 const getKnexfile = require('../../knexfile')
 
 function makeKnexInstance (config) {
-  let instance = null;
+  let instance = null
 
   if (!instance) {
     const knexfile = getKnexfile(config)

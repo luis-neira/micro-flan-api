@@ -19,37 +19,33 @@ const tenantRoutes = require('./routes/tenant')
 const authRoutes = require('./routes/auth')
 
 function buildExpressApp ({ config, logger }) {
-  let app = null;
+  const app = express()
 
-  if (!app) {
-    app = express()
-  
-    app.use(pinoHttp({ config, logger }))
-    app.use(timer)
-  
-    // new scope for each request!
-    app.use(scopePerRequest(getContainer()))
+  app.use(pinoHttp({ config, logger }))
+  app.use(timer)
 
-    // parsing
-    app.use(cookieParser())
-    app.use(express.json())
-    app.use(express.urlencoded({ extended: false }))
-  
-    // security
-    app.use(xss())
-    app.use(helmet())
-    app.use(cors(config))
-  
-    // routes
-    app.use('/rentals', rentalRoutes)
-    app.use('/tenants', tenantRoutes)
-    app.use('/auth', authRoutes)
-  
-    // error handlers
-    app.use(notFoundHandler)
-    app.use(errorConverter)
-    app.use(errorHandler)
-  }
+  // new scope for each request!
+  app.use(scopePerRequest(getContainer()))
+
+  // parsing
+  app.use(cookieParser())
+  app.use(express.json())
+  app.use(express.urlencoded({ extended: false }))
+
+  // security
+  app.use(xss())
+  app.use(helmet())
+  app.use(cors(config))
+
+  // routes
+  app.use('/rentals', rentalRoutes)
+  app.use('/tenants', tenantRoutes)
+  app.use('/auth', authRoutes)
+
+  // error handlers
+  app.use(notFoundHandler)
+  app.use(errorConverter)
+  app.use(errorHandler)
 
   return app
 }

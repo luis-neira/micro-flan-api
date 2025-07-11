@@ -3,15 +3,14 @@
 const pino = require('pino')
 
 function buildLogger () {
-  let instance = null;
+  let instance = null
 
   if (!instance) {
-    instance = pino();
+    instance = pino()
   }
 
-  async function stop() {
+  async function stop () {
     instance = null
-    return
   }
 
   return {

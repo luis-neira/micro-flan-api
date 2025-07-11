@@ -2,14 +2,12 @@
 
 const http = require('node:http')
 
-let server = null
-
-function initServer (app, { config, logger}) {
-  server = http.createServer(app)
+function initServer (app, { config, logger }) {
+  const server = http.createServer(app)
 
   server.listen(config.port, '0.0.0.0')
-  server.on('error', (err) => onError(err, logger))
-  server.on('listening', () => onListening(logger))
+  server.on('error', (err) => onError(err, { logger, server }))
+  server.on('listening', () => onListening({ logger, server }))
 
   return server
 }
@@ -18,7 +16,10 @@ function initServer (app, { config, logger}) {
  * Event listener for HTTP server "error" event.
  */
 
-function onError (error, logger) {
+function onError (error, {
+  logger,
+  server
+}) {
   if (error.syscall !== 'listen') {
     throw error
   }
@@ -44,7 +45,10 @@ function onError (error, logger) {
  * Event listener for HTTP server "listening" event.
  */
 
-function onListening (logger) {
+function onListening ({
+  logger,
+  server
+}) {
   const addr = server.address()
   logger.info('Server listening on port ' + addr.port)
 }
