@@ -1,6 +1,7 @@
 'use strict'
 
 const closeWithGrace = require('close-with-grace')
+const { promisify } = require('node:util');
 
 const config = require('./config')
 const { buildContainer } = require('./ioc-container')
@@ -18,7 +19,7 @@ closeWithGrace({ delay: 5000 }, async function ({ signal, err, manual }, cb) {
   }
 
   if (server) {
-    await new Promise((resolve) => server.close(resolve))
+    await promisify(server.close.bind(server))()
     console.log('HTTP server closed')
   }
 
