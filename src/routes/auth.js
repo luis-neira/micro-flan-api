@@ -1,12 +1,12 @@
-"use strict";
+'use strict'
 
-const express = require("express");
+const express = require('express')
 
-const createAuthController = require("../controllers/auth");
+const createAuthController = require('../controllers/auth')
 
-const router = express.Router();
-const authController = createAuthController();
+const router = express.Router()
+const authController = createAuthController()
 
-router.post("/login", authController.login);
+router.post('/login', authController.login)
 
-module.exports = router;
+module.exports = router

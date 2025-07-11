@@ -1,30 +1,30 @@
-"use strict";
+'use strict'
 
-const createError = require("http-errors");
+const createError = require('http-errors')
 
-function updateRental({ rentalRepo }) {
+function updateRental ({ rentalRepo }) {
   return async (req, res, next) => {
     try {
-      const rental = req.body;
-      const { id } = req.params;
+      const rental = req.body
+      const { id } = req.params
 
-      const parsedId = Number(id);
+      const parsedId = Number(id)
 
       if (Number.isNaN(parsedId)) {
-        return next(createError.BadRequest());
+        return next(createError.BadRequest())
       }
 
-      const [updatedRental] = await rentalRepo.updateRental(id, rental);
+      const [updatedRental] = await rentalRepo.updateRental(id, rental)
 
       if (updatedRental == null) {
-        return next(createError.NotFound());
+        return next(createError.NotFound())
       }
 
-      res.json(updatedRental);
+      res.json(updatedRental)
     } catch (error) {
-      next(error);
+      next(error)
     }
-  };
+  }
 }
 
-module.exports = updateRental;
+module.exports = updateRental

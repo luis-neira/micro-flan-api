@@ -1,24 +1,24 @@
-"use strict";
+'use strict'
 
-const createError = require("http-errors");
+const createError = require('http-errors')
 
-function getRentals({ rentalRepo }) {
+function getRentals ({ rentalRepo }) {
   // TODO add middleware for validation i.e. zod
   return async (req, res, next) => {
     try {
-      const { type } = req.query;
+      const { type } = req.query
 
-      if (type && typeof type !== "string") {
-        return next(createError.BadRequest());
+      if (type && typeof type !== 'string') {
+        return next(createError.BadRequest())
       }
 
-      const rentals = await rentalRepo.getRentals(type);
+      const rentals = await rentalRepo.getRentals(type)
 
-      res.json(rentals);
+      res.json(rentals)
     } catch (error) {
-      next(error);
+      next(error)
     }
-  };
+  }
 }
 
-module.exports = getRentals;
+module.exports = getRentals

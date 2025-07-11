@@ -1,11 +1,11 @@
-"use strict";
+'use strict'
 
-const getTenants = require("./get-tenants");
+const getTenants = require('./get-tenants')
 
-function createTenantsController(cradle) {
+function createTenantsController (cradle) {
   return {
-    getTenants: getTenants(cradle),
-  };
+    getTenants: getTenants(cradle)
+  }
 }
 
-module.exports = createTenantsController;
+module.exports = createTenantsController

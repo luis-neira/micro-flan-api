@@ -1,13 +1,13 @@
-"use strict";
+'use strict'
 
-function getRentals({ db }) {
+function getRentals ({ db }) {
   return (type) => {
-    if (type === "house" || type == "apartment") {
-      return db.select().from("rentals").where({ property_type: type });
+    if (type === 'house' || type == 'apartment') {
+      return db.select().from('rentals').where({ property_type: type })
     }
 
-    return db.select().from("rentals");
-  };
+    return db.select().from('rentals')
+  }
 }
 
-module.exports = getRentals;
+module.exports = getRentals

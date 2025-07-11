@@ -6,6 +6,8 @@
     "start": "NODE_ENV=production node src/index.js",
     "dev": "node --watch src/index.js | pino-dev",
     "dev:verbose": "node --watch src/index.js | pino-pretty",
+    "lint": "standard",
+    "lint:fix": "standard --fix",
     "test": "mocha --file test/setup.js --recursive",
     "test:watch": "mocha --file test/setup.js --watch --recursive",
     "test:unit": "mocha --file test/setup.js  'test/unit/**/*.test.js'",
@@ -50,6 +52,7 @@
     "pino-dev": "^4.0.3",
     "pino-pretty": "^13.0.0",
     "sinon": "^20.0.0",
+    "standard": "^17.1.2",
     "supertest": "^7.1.0"
   }
 }

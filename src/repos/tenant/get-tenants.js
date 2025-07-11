@@ -1,9 +1,9 @@
-"use strict";
+'use strict'
 
-function getTenants({ db }) {
+function getTenants ({ db }) {
   return () => {
-    return db.select().from("tenants");
-  };
+    return db.select().from('tenants')
+  }
 }
 
-module.exports = getTenants;
+module.exports = getTenants

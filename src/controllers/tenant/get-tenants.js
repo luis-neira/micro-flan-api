@@ -1,11 +1,11 @@
-"use strict";
+'use strict'
 
-function getTenants({ tenantRepo }) {
+function getTenants ({ tenantRepo }) {
   return async (req, res, next) => {
-    const tenants = await tenantRepo.getTenants();
+    const tenants = await tenantRepo.getTenants()
 
-    res.json(tenants);
-  };
+    res.json(tenants)
+  }
 }
 
-module.exports = getTenants;
+module.exports = getTenants

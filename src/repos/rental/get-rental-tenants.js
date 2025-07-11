@@ -1,9 +1,9 @@
-"use strict";
+'use strict'
 
-function getRentalTenants({ db }) {
+function getRentalTenants ({ db }) {
   return (id) => {
-    return db.select("*").from("tenants").where({ rental_id: id });
-  };
+    return db.select('*').from('tenants').where({ rental_id: id })
+  }
 }
 
-module.exports = getRentalTenants;
+module.exports = getRentalTenants

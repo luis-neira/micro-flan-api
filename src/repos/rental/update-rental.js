@@ -1,9 +1,9 @@
-"use strict";
+'use strict'
 
-function updateRental({ db }) {
+function updateRental ({ db }) {
   return (id, rental) => {
-    return db("rentals").where({ id }).update(rental, ["*"]);
-  };
+    return db('rentals').where({ id }).update(rental, ['*'])
+  }
 }
 
-module.exports = updateRental;
+module.exports = updateRental

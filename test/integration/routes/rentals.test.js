@@ -1,258 +1,248 @@
-"use strict";
+'use strict'
 
-const chai = require("chai");
-const request = require("supertest");
-const buildExpressApp = require("../../../src/app");
-const { getContainer } = require("../../../src/ioc-container");
+const chai = require('chai')
+const request = require('supertest')
+const buildExpressApp = require('../../../src/app')
+const { getContainer } = require('../../../src/ioc-container')
 
-const awilixContainer = getContainer();
-const knex = awilixContainer.resolve("db");
-const config = awilixContainer.resolve("config");
+const awilixContainer = getContainer()
+const knex = awilixContainer.resolve('db')
+const config = awilixContainer.resolve('config')
 
-const app = buildExpressApp(config);
+const app = buildExpressApp(config)
 
-describe("GET /rentals", () => {
+describe('GET /rentals', () => {
   before(async function () {
-    await knex.migrate.latest();
-    await knex.seed.run();
-    return;
-  });
+    await knex.migrate.latest()
+    await knex.seed.run()
+  })
 
   after(async function () {
-    knex.migrate.rollback({}, true);
-    return;
-  });
+    knex.migrate.rollback({}, true)
+  })
 
-  it("gets all rentals", (done) => {
+  it('gets all rentals', (done) => {
     request(app)
-      .get("/rentals")
-      .set("Accept", "application/json")
-      .expect("Content-Type", /json/)
+      .get('/rentals')
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
       .expect(200)
       .end((err, res) => {
         if (err) {
-          return done(err);
+          return done(err)
         }
 
-        chai.expect(res.body).to.be.a("array");
-        chai.expect(res.body.length).to.be.eql(5);
+        chai.expect(res.body).to.be.a('array')
+        chai.expect(res.body.length).to.be.eql(5)
 
-        done();
-      });
-  });
+        done()
+      })
+  })
 
-  it("gets all house rentals", (done) => {
+  it('gets all house rentals', (done) => {
     request(app)
-      .get("/rentals")
-      .query({ type: "house" })
-      .set("Accept", "application/json")
-      .expect("Content-Type", /json/)
+      .get('/rentals')
+      .query({ type: 'house' })
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
       .expect(200)
       .end((err, res) => {
         if (err) {
-          return done(err);
+          return done(err)
         }
 
-        chai.expect(res.body).to.be.a("array");
-        chai.expect(res.body.length).to.be.eql(2);
+        chai.expect(res.body).to.be.a('array')
+        chai.expect(res.body.length).to.be.eql(2)
         for (const rental of res.body) {
-          chai.expect(rental).to.have.property("property_type", "house");
+          chai.expect(rental).to.have.property('property_type', 'house')
         }
 
-        done();
-      });
-  });
+        done()
+      })
+  })
 
-  it("gets all apartment rentals", (done) => {
+  it('gets all apartment rentals', (done) => {
     request(app)
-      .get("/rentals")
-      .query({ type: "apartment" })
-      .set("Accept", "application/json")
-      .expect("Content-Type", /json/)
+      .get('/rentals')
+      .query({ type: 'apartment' })
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
       .expect(200)
       .end((err, res) => {
         if (err) {
-          return done(err);
+          return done(err)
         }
 
-        chai.expect(res.body).to.be.a("array");
-        chai.expect(res.body.length).to.be.eql(3);
+        chai.expect(res.body).to.be.a('array')
+        chai.expect(res.body.length).to.be.eql(3)
         for (const rental of res.body) {
-          chai.expect(rental).to.have.property("property_type", "apartment");
+          chai.expect(rental).to.have.property('property_type', 'apartment')
         }
 
-        done();
-      });
-  });
-});
+        done()
+      })
+  })
+})
 
-describe("POST /rentals", () => {
+describe('POST /rentals', () => {
   before(async function () {
-    await knex.migrate.latest();
-    await knex.seed.run();
-    return;
-  });
+    await knex.migrate.latest()
+    await knex.seed.run()
+  })
 
   after(async function () {
-    knex.migrate.rollback({}, true);
-    return;
-  });
+    knex.migrate.rollback({}, true)
+  })
 
-  it("add rental", (done) => {
+  it('add rental', (done) => {
     request(app)
-      .post("/rentals")
+      .post('/rentals')
       .send({
-        title: "Student Studio",
-        location: "Paris, FR",
+        title: 'Student Studio',
+        location: 'Paris, FR',
         price: 900,
         bedrooms: 1,
         bathrooms: 1,
-        property_type: "apartment",
+        property_type: 'apartment',
         description:
           "Small but functional studio, great for students or holidays in France's capital !",
-        image: "https://www.example.com/student-studio.jpg",
+        image: 'https://www.example.com/student-studio.jpg'
       })
-      .set("Accept", "application/json")
-      .expect("Content-Type", /json/)
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
       .expect(201)
       .end((err, res) => {
         if (err) {
-          return done(err);
+          return done(err)
         }
 
         chai.expect(res.body).to.be.eql({
           id: 6,
-          title: "Student Studio",
-          location: "Paris, FR",
+          title: 'Student Studio',
+          location: 'Paris, FR',
           price: 900,
           bedrooms: 1,
           bathrooms: 1,
-          property_type: "apartment",
+          property_type: 'apartment',
           description:
             "Small but functional studio, great for students or holidays in France's capital !",
-          image: "https://www.example.com/student-studio.jpg",
-        });
+          image: 'https://www.example.com/student-studio.jpg'
+        })
 
-        done();
-      });
-  });
-});
+        done()
+      })
+  })
+})
 
-describe("PATCH /rentals/:id", () => {
+describe('PATCH /rentals/:id', () => {
   before(async function () {
-    await knex.migrate.latest();
-    await knex.seed.run();
-    return;
-  });
+    await knex.migrate.latest()
+    await knex.seed.run()
+  })
 
   after(async function () {
-    knex.migrate.rollback({}, true);
-    return;
-  });
+    knex.migrate.rollback({}, true)
+  })
 
-  it("edit rental by ID", (done) => {
-    const id = 5;
+  it('edit rental by ID', (done) => {
+    const id = 5
 
     const newData = {
       id,
-      title: "Student Studio",
-      location: "Paris, FR",
+      title: 'Student Studio',
+      location: 'Paris, FR',
       price: 900,
       bedrooms: 1,
       bathrooms: 1,
-      property_type: "apartment",
+      property_type: 'apartment',
       description:
         "Small but VERY VERY functional studio, great for students or holidays in France's capital !",
-      image: "https://www.example.com/student-studio.jpg",
-    };
+      image: 'https://www.example.com/student-studio.jpg'
+    }
 
     request(app)
       .patch(`/rentals/${id}`)
       .send(newData)
-      .set("Accept", "application/json")
-      .expect("Content-Type", /json/)
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
       .expect(200)
       .end((err, res) => {
         if (err) {
-          return done(err);
+          return done(err)
         }
 
-        chai.expect(res.body).to.be.eql(newData);
+        chai.expect(res.body).to.be.eql(newData)
 
-        done();
-      });
-  });
-});
+        done()
+      })
+  })
+})
 
-describe("DELETE /rentals/:id", () => {
+describe('DELETE /rentals/:id', () => {
   before(async function () {
-    await knex.migrate.latest();
-    await knex.seed.run();
-    return;
-  });
+    await knex.migrate.latest()
+    await knex.seed.run()
+  })
 
   after(async function () {
-    knex.migrate.rollback({}, true);
-    return;
-  });
+    knex.migrate.rollback({}, true)
+  })
 
-  it("delete rental by ID", (done) => {
+  it('delete rental by ID', (done) => {
     request(app)
-      .delete("/rentals/5")
+      .delete('/rentals/5')
       .expect(200)
       .end((err) => {
         if (err) {
-          return done(err);
+          return done(err)
         }
 
-        done();
-      });
-  });
+        done()
+      })
+  })
 
-  it("return error if rental does not exist", (done) => {
+  it('return error if rental does not exist', (done) => {
     request(app)
-      .delete("/rentals/1000")
+      .delete('/rentals/1000')
       .expect(404)
       .end((err) => {
         if (err) {
-          return done(err);
+          return done(err)
         }
 
-        done();
-      });
-  });
-});
+        done()
+      })
+  })
+})
 
-describe("GET /rentals/1/tenants", () => {
+describe('GET /rentals/1/tenants', () => {
   before(async function () {
-    await knex.migrate.latest();
-    await knex.seed.run();
-    return;
-  });
+    await knex.migrate.latest()
+    await knex.seed.run()
+  })
 
   after(async function () {
-    knex.migrate.rollback({}, true);
-    return;
-  });
+    knex.migrate.rollback({}, true)
+  })
 
-  it("gets all tenents per rental", (done) => {
+  it('gets all tenents per rental', (done) => {
     request(app)
-      .get("/rentals/1/tenants")
-      .set("Accept", "application/json")
-      .expect("Content-Type", /json/)
+      .get('/rentals/1/tenants')
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
       .expect(200)
       .end((err, res) => {
         if (err) {
-          return done(err);
+          return done(err)
         }
 
-        chai.expect(res.body).to.be.a("array");
-        chai.expect(res.body.length).to.be.eql(2);
+        chai.expect(res.body).to.be.a('array')
+        chai.expect(res.body.length).to.be.eql(2)
         for (const rental of res.body) {
-          chai.expect(rental).to.have.property("rental_id", 1);
+          chai.expect(rental).to.have.property('rental_id', 1)
         }
 
-        done();
-      });
-  });
-});
+        done()
+      })
+  })
+})

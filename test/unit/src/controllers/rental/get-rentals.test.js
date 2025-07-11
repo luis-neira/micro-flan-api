@@ -1,28 +1,28 @@
-const chai = require("chai");
-const sinon = require("sinon");
-const getRentals = require("../../../../../src/controllers/rental/get-rentals");
-const { expect } = chai;
+const chai = require('chai')
+const sinon = require('sinon')
+const getRentals = require('../../../../../src/controllers/rental/get-rentals')
+const { expect } = chai
 
 // TODO fix spies, stubs & mocks
 describe("rental-controller: 'getRentals'", () => {
-  it("should return rentals", async () => {
-    const fakeRentals = [{ id: 1 }, { id: 2 }];
+  it('should return rentals', async () => {
+    const fakeRentals = [{ id: 1 }, { id: 2 }]
 
-    const fake = sinon.fake.resolves(fakeRentals);
+    const fake = sinon.fake.resolves(fakeRentals)
 
     const mock = {
-      getRentals: fake,
-    };
+      getRentals: fake
+    }
 
     const req = {
-      query: {},
-    };
+      query: {}
+    }
     const res = {
-      json: sinon.spy(),
-    };
+      json: sinon.spy()
+    }
 
-    await getRentals({ rentalRepo: mock })(req, res);
+    await getRentals({ rentalRepo: mock })(req, res)
 
-    expect(res.json.calledWith(fakeRentals)).to.be.true;
-  });
-});
+    expect(res.json.calledWith(fakeRentals)).to.be.true
+  })
+})

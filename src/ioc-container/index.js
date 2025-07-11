@@ -1,53 +1,53 @@
-"use strict";
+'use strict'
 
-const awilix = require("awilix");
+const awilix = require('awilix')
 
-const makeRentalRepo = require("../repos/rental");
-const makeTenantRepo = require("../repos/tenant");
-const makeKnexInstance = require("../db/instance");
+const makeRentalRepo = require('../repos/rental')
+const makeTenantRepo = require('../repos/tenant')
+const makeKnexInstance = require('../db/instance')
 
 const { asFunction, asValue, createContainer, Lifetime, InjectionMode } =
-  awilix;
+  awilix
 
-let awilixContainer;
+let awilixContainer
 
-function buildContainer(config) {
+function buildContainer (config) {
   if (!awilixContainer) {
-    awilixContainer = createContainer();
+    awilixContainer = createContainer()
   }
-  
+
   awilixContainer.register({
     config: asValue(config),
     db: asFunction(makeKnexInstance, {
       lifetime: Lifetime.SINGLETON,
       injectionMode: InjectionMode.CLASSIC,
-      dispose: (knex) => knex.destroy(),
+      dispose: (knex) => knex.destroy()
     }),
     rentalRepo: asFunction(makeRentalRepo, {
-      lifetime: Lifetime.SINGLETON,
+      lifetime: Lifetime.SINGLETON
     }),
     tenantRepo: asFunction(makeTenantRepo, {
-      lifetime: Lifetime.SINGLETON,
-    }),
-  });
+      lifetime: Lifetime.SINGLETON
+    })
+  })
 
-  return awilixContainer;
+  return awilixContainer
 }
 
-function getContainer() {
+function getContainer () {
   if (!awilixContainer) {
-    throw new Error("DI Container uninitialized");
+    throw new Error('DI Container uninitialized')
   }
 
-  return awilixContainer;
+  return awilixContainer
 }
 
-function resetContainer() {
-  awilixContainer = null;
+function resetContainer () {
+  awilixContainer = null
 }
 
-function hasContainer() {
-  return !!awilixContainer;
+function hasContainer () {
+  return !!awilixContainer
 }
 
-module.exports = { getContainer, buildContainer, resetContainer };
+module.exports = { getContainer, buildContainer, resetContainer }

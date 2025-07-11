@@ -1,11 +1,11 @@
-"use strict";
+'use strict'
 
-function createRental({ db }) {
+function createRental ({ db }) {
   return async (inputData) => {
-    const [id] = await db.insert(inputData).into("rentals");
+    const [id] = await db.insert(inputData).into('rentals')
 
-    return db.first().from("rentals").where({ id });
-  };
+    return db.first().from('rentals').where({ id })
+  }
 }
 
-module.exports = createRental;
+module.exports = createRental

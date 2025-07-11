@@ -1,25 +1,25 @@
-"use strict";
+'use strict'
 
-const createError = require("http-errors");
+const createError = require('http-errors')
 
-function getRentalTenants({ rentalRepo }) {
+function getRentalTenants ({ rentalRepo }) {
   return async (req, res, next) => {
     try {
-      const { id } = req.params;
+      const { id } = req.params
 
-      const sanitized_id = Number(id);
+      const sanitized_id = Number(id)
 
       if (Number.isNaN(sanitized_id)) {
-        return next(createError.BadRequest());
+        return next(createError.BadRequest())
       }
 
-      const tenants = await rentalRepo.getRentalTenants(sanitized_id);
+      const tenants = await rentalRepo.getRentalTenants(sanitized_id)
 
-      res.json(tenants);
+      res.json(tenants)
     } catch (error) {
-      next(error);
+      next(error)
     }
-  };
+  }
 }
 
-module.exports = getRentalTenants;
+module.exports = getRentalTenants

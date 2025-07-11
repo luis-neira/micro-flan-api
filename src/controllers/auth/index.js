@@ -1,11 +1,11 @@
-"use strict";
+'use strict'
 
-const login = require("./login");
+const login = require('./login')
 
-function createAuthController() {
+function createAuthController () {
   return {
-    login: login(),
-  };
+    login: login()
+  }
 }
 
-module.exports = createAuthController;
+module.exports = createAuthController

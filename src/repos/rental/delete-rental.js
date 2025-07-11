@@ -1,9 +1,9 @@
-"use strict";
+'use strict'
 
-function updateRental({ db }) {
+function updateRental ({ db }) {
   return (id) => {
-    return db("rentals").where({ id }).del();
-  };
+    return db('rentals').where({ id }).del()
+  }
 }
 
-module.exports = updateRental;
+module.exports = updateRental
