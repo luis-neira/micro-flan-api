@@ -2,7 +2,7 @@
 
 const initServer = require('../server')
 
-function startHttpServer(app, opts) {
+function startHttpServer (app, opts) {
   try {
     const { logger } = opts
     logger.info('→ Starting HTTP server')
@@ -13,4 +13,4 @@ function startHttpServer(app, opts) {
   }
 }
 
-module.exports = startHttpServer;
+module.exports = startHttpServer

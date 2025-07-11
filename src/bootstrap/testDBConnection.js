@@ -1,6 +1,6 @@
 'use strict'
 
-async function testDatabaseConnection({ db, logger }) {
+async function testDatabaseConnection ({ db, logger }) {
   try {
     logger.info('→ Testing database connection')
     await db.raw('SELECT 1+1 AS result')
@@ -11,4 +11,4 @@ async function testDatabaseConnection({ db, logger }) {
   }
 }
 
-module.exports = testDatabaseConnection;
+module.exports = testDatabaseConnection

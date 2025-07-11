@@ -6,10 +6,10 @@ const { promisify } = require('node:util')
 const config = require('./config')
 const buildLogger = require('./logger/builder')
 
-const di = require("./bootstrap/initDIContainer")
-const testDBConnection = require("./bootstrap/testDBConnection")
-const initExpressApp = require("./bootstrap/initExpressApp")
-const startHttpServer = require("./bootstrap/startHttpServer")
+const di = require('./bootstrap/initDIContainer')
+const testDBConnection = require('./bootstrap/testDBConnection')
+const initExpressApp = require('./bootstrap/initExpressApp')
+const startHttpServer = require('./bootstrap/startHttpServer')
 
 const { instance: logger, stop: stopLogger } = buildLogger()
 

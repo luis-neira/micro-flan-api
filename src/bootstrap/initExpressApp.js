@@ -1,10 +1,10 @@
 'use strict'
 
-const buildExpressApp = require('../app');
+const buildExpressApp = require('../app')
 
-function initExpressApp(opts) {
+function initExpressApp (opts) {
   try {
-    const { logger } = opts;
+    const { logger } = opts
     logger.info('→ Initializing Express app')
     const app = buildExpressApp(opts)
     logger.info('✔ Express app created')
@@ -14,4 +14,4 @@ function initExpressApp(opts) {
   }
 }
 
-module.exports = initExpressApp;
+module.exports = initExpressApp

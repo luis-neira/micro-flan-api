@@ -9,10 +9,10 @@ const getKnexfile = require('../knexfile')
 const knexfile = getKnexfile(config)
 const db = knex(knexfile[config.dbEnv])
 
-let pinoOpts = {}
-if (config.dbEnv === "development") {
+const pinoOpts = {}
+if (config.dbEnv === 'development') {
   pinoOpts.transport = {
-    target: "pino-dev"
+    target: 'pino-dev'
   }
 }
 
@@ -26,6 +26,6 @@ db.migrate
     logger.info('Data successfully imported to rentals.db')
   })
   .catch((err) => {
-    logger.error(err, "Migration error")
+    logger.error(err, 'Migration error')
     process.exit(1)
   })

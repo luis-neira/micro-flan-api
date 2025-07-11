@@ -2,7 +2,7 @@
 
 const { buildContainer } = require('../ioc-container')
 
-function initDIContainer({ config, logger }) {
+function initDIContainer ({ config, logger }) {
   try {
     module.exports.logInfo('→ Building DI container')
     const container = buildContainer({ config, logger })
@@ -13,7 +13,7 @@ function initDIContainer({ config, logger }) {
   }
 }
 
-module.exports.initDIContainer = initDIContainer;
+module.exports.initDIContainer = initDIContainer
 
 module.exports.logError = console.error
 module.exports.logInfo = console.log
