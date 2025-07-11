@@ -43,7 +43,7 @@ async function main () {
       app = buildExpressApp(container.cradle)
       logger.info('✔ Express app created')
     } catch (err) {
-      throw new Error(`Failed to initialize Express app: ${err.message}`, { cause: err })
+      throw new Error(`Failed to build Express app: ${err.message}`, { cause: err })
     }
 
     let server = null
