@@ -2,15 +2,17 @@
 
 const closeWithGrace = require('close-with-grace')
 const { promisify } = require('node:util');
-const logger = require('pino')()
+const buildLogger = require('./logger/builder');
 
 const config = require('./config')
 const { buildContainer } = require('./ioc-container')
 const buildExpressApp = require('./app')
 const initServer = require('./server')
 
-let server
-let container
+const { instance: logger, stop: stopLogger } = buildLogger();
+
+let server = null;
+let container = null;
 
 closeWithGrace({ delay: 5000 }, async function ({ signal, err, manual }, cb) {
   if (err) {
@@ -34,69 +36,104 @@ closeWithGrace({ delay: 5000 }, async function ({ signal, err, manual }, cb) {
   }
 
   logger.info('Shutdown complete')
+  stopLogger();
 })
 
-bootstrapApp()
+main()
 
-async function bootstrapApp() {
+async function main() {
   try {
     logger.info('Bootstrapping application...')
 
-    container = await setupContainer()
-    await testDatabase(container)
-    const app = await setupExpressApp()
-    server = await startHttpServer(app)
+    try {
+      logger.info('→ Building DI container')
+      container = buildContainer({ config, buildLogger })
+      logger.info('✔ DI container built')
+    } catch (err) {
+      throw new Error(`Failed to build DI container: ${err.message}`, { cause: err })
+    }
 
-    logger.info('Application is up and running')
+    try {
+      logger.info('→ Testing database connection')
+      const db = container.resolve('db')
+      await db.raw('SELECT 1+1 AS result')
+      const { connection } = db.client.config;
+      logger.info(`✔ Database connected on port ${connection.port}`)
+    } catch (err) {
+      throw new Error(`Failed to connect to database: ${err.message}`, { cause: err })
+    }
+    
+    let app = null;
+
+    try {
+      logger.info('→ Initializing Express app')
+      app = buildExpressApp({
+        config,
+        logger,
+      })
+      logger.info('✔ Express app created')
+    } catch (err) {
+      throw new Error(`Failed to initialize Express app: ${err.message}`, { cause: err })
+    }
+
+    try {
+      logger.info('→ Starting HTTP server')
+      server = initServer(app, {
+        config,
+        logger,
+      })
+    } catch (err) {
+      throw new Error(`Failed to start HTTP server: ${err.message}`, { cause: err })
+    }
   } catch (error) {
     logger.error(formatBootstrapError(error))
     process.exit(1)
   }
 }
 
-async function setupContainer() {
-  try {
-    logger.info('→ Building DI container')
-    const c = buildContainer(config)
-    logger.info('✔ DI container built')
-    return c
-  } catch (err) {
-    throw new Error(`Failed to build DI container: ${err.message}`, { cause: err })
-  }
-}
+// async function setupContainer({ config }) {
+//   try {
+//     logger.info('→ Building DI container')
+//     const c = buildContainer(config)
+//     logger.info('✔ DI container built')
+//     return c
+//   } catch (err) {
+//     throw new Error(`Failed to build DI container: ${err.message}`, { cause: err })
+//   }
+// }
 
-async function testDatabase(container) {
-  try {
-    logger.info('→ Testing database connection')
-    const db = container.resolve('db')
-    await db.raw('SELECT 1+1 AS result')
-    logger.info('✔ Database connected:', db.client.config.client)
-  } catch (err) {
-    throw new Error(`Failed to connect to database: ${err.message}`, { cause: err })
-  }
-}
+// async function testDatabase(container) {
+//   try {
+//     logger.info('→ Testing database connection')
+//     const db = container.resolve('db').instance
+//     await db.raw('SELECT 1+1 AS result')
+//     logger.info('✔ Database connected:', db.client.config.client)
+//   } catch (err) {
+//     throw new Error(`Failed to connect to database: ${err.message}`, { cause: err })
+//   }
+// }
 
-async function setupExpressApp() {
-  try {
-    logger.info('→ Initializing Express app')
-    const app = buildExpressApp(config)
-    logger.info('✔ Express app created')
-    return app
-  } catch (err) {
-    throw new Error(`Failed to initialize Express app: ${err.message}`, { cause: err })
-  }
-}
+// async function setupExpressApp({ config }) {
+//   try {
+//     logger.info('→ Initializing Express app')
+//     const app = buildExpressApp(config)
+//     logger.info('✔ Express app created')
+//     return app
+//   } catch (err) {
+//     throw new Error(`Failed to initialize Express app: ${err.message}`, { cause: err })
+//   }
+// }
 
-async function startHttpServer(app) {
-  try {
-    logger.info('→ Starting HTTP server')
-    const s = initServer(app, config)
-    logger.info('✔ Server started')
-    return s
-  } catch (err) {
-    throw new Error(`Failed to start HTTP server: ${err.message}`, { cause: err })
-  }
-}
+// async function startHttpServer(app) {
+//   try {
+//     logger.info('→ Starting HTTP server')
+//     const s = initServer(app, config)
+//     logger.info('✔ Server started')
+//     return s
+//   } catch (err) {
+//     throw new Error(`Failed to start HTTP server: ${err.message}`, { cause: err })
+//   }
+// }
 
 function formatBootstrapError(error) {
   let message = `Bootstrap error: ${error.message}`

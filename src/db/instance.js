@@ -4,8 +4,14 @@ const knex = require('knex')
 const getKnexfile = require('../../knexfile')
 
 function makeKnexInstance (config) {
-  const knexfile = getKnexfile(config)
-  return knex(knexfile[config.dbEnv])
+  let instance = null;
+
+  if (!instance) {
+    const knexfile = getKnexfile(config)
+    instance = knex(knexfile[config.dbEnv])
+  }
+
+  return instance
 }
 
 module.exports = makeKnexInstance

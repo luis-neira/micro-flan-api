@@ -11,17 +11,18 @@ const { asFunction, asValue, createContainer, Lifetime, InjectionMode } =
 
 let awilixContainer
 
-function buildContainer (config) {
+function buildContainer ({ config, logger }) {
   if (!awilixContainer) {
     awilixContainer = createContainer()
   }
 
   awilixContainer.register({
     config: asValue(config),
+    logger: asValue(logger),
     db: asFunction(makeKnexInstance, {
       lifetime: Lifetime.SINGLETON,
       injectionMode: InjectionMode.CLASSIC,
-      dispose: (knex) => knex.destroy()
+      dispose: (knex) => knex.destroy(),
     }),
     rentalRepo: asFunction(makeRentalRepo, {
       lifetime: Lifetime.SINGLETON

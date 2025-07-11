@@ -1,11 +1,13 @@
 'use strict'
 
-const logger = require('pino-http')
+const pinoHttp = require('pino-http')
 
-module.exports = (config) => {
+module.exports = ({ config, logger}) => {
   if (config.enableServerLogging === 'false') {
     return (req, res, next) => next()
   }
 
-  return logger()
+  return pinoHttp({
+    logger: logger || undefined,
+  })
 }

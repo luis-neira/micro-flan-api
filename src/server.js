@@ -4,12 +4,12 @@ const http = require('node:http')
 
 let server = null
 
-function initServer (app, config) {
+function initServer (app, { config, logger}) {
   server = http.createServer(app)
 
   server.listen(config.port, '0.0.0.0')
-  server.on('error', onError)
-  server.on('listening', onListening)
+  server.on('error', (err) => onError(err, logger))
+  server.on('listening', () => onListening(logger))
 
   return server
 }
@@ -18,7 +18,7 @@ function initServer (app, config) {
  * Event listener for HTTP server "error" event.
  */
 
-function onError (error) {
+function onError (error, logger) {
   if (error.syscall !== 'listen') {
     throw error
   }
@@ -28,11 +28,11 @@ function onError (error) {
   // handle specific listen errors with friendly messages
   switch (error.code) {
     case 'EACCES':
-      console.error('Port ' + addr.port + ' requires elevated privileges')
+      logger.error('Port ' + addr.port + ' requires elevated privileges')
       process.exit(1)
       break
     case 'EADDRINUSE':
-      console.error('Port ' + addr.port + ' is already in use')
+      logger.error('Port ' + addr.port + ' is already in use')
       process.exit(1)
       break
     default:
@@ -44,9 +44,9 @@ function onError (error) {
  * Event listener for HTTP server "listening" event.
  */
 
-function onListening () {
+function onListening (logger) {
   const addr = server.address()
-  console.log('Server listening on port ' + addr.port)
+  logger.info('Server listening on port ' + addr.port)
 }
 
 module.exports = initServer
