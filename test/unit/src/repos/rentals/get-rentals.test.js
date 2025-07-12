@@ -13,9 +13,9 @@ describe("rental-repository: 'getRentals'", () => {
 
     const result = await getRentalsByType({ db })('apartment')
 
-    expect(db.select.calledOnce).to.be.true
-    expect(db.from.calledWith('rentals')).to.be.true
-    expect(db.where.calledWith({ property_type: 'apartment' })).to.be.true
+    expect(db.select.calledOnce).to.equal(true)
+    expect(db.from.calledWith('rentals')).to.equal(true)
+    expect(db.where.calledWith({ property_type: 'apartment' })).to.equal(true)
     expect(result).to.deep.equal([{ id: 1, property_type: 'apartment' }])
   })
 })

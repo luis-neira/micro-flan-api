@@ -13,6 +13,7 @@ const startHttpServer = require('./bootstrap/startHttpServer')
 
 main()
 
+// App entry point
 async function main () {
   const logger = buildLogger()
 

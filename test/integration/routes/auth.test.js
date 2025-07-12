@@ -4,6 +4,7 @@ const request = require('supertest')
 const chai = require('chai')
 const setupTestApp = require('../../testSetup')
 
+const { expect } = chai
 let app = null
 let container = null
 
@@ -33,7 +34,7 @@ describe('POST /auth/login', () => {
           return done(err)
         }
 
-        chai.expect(res.body).to.have.property('token')
+        expect(res.body).to.have.property('token')
         done()
       })
   })

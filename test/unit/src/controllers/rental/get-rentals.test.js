@@ -23,6 +23,6 @@ describe("rental-controller: 'getRentals'", () => {
 
     await getRentals({ rentalRepo: mock })(req, res)
 
-    expect(res.json.calledWith(fakeRentals)).to.be.true
+    expect(res.json.calledWith(fakeRentals)).to.equal(true)
   })
 })

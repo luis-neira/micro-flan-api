@@ -19,7 +19,7 @@ describe("middleware: 'authenticateToken'", () => {
     }
 
     const next = (err) => {
-      expect(err).to.be.undefined
+      expect(err).to.equal(undefined)
       expect(req).to.have.property('user')
       done()
     }
