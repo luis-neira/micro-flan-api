@@ -4,7 +4,7 @@ const closeWithGrace = require('close-with-grace')
 const { promisify } = require('node:util')
 
 const config = require('./config')
-const buildLogger = require('./logger')
+const buildLogger = require('./infra/logger')
 
 const initDIContainer = require('./bootstrap/initDIContainer')
 const testDBConnection = require('./bootstrap/testDBConnection')

@@ -1,6 +1,6 @@
 'use strict'
 
-const { buildContainer } = require('../ioc-container')
+const { buildContainer } = require('../infra/ioc-container')
 
 function initDIContainer ({ config, logger }) {
   try {

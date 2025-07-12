@@ -1,7 +1,7 @@
 'use strict'
 
 const knex = require('knex')
-const getKnexfile = require('../../knexfile')
+const getKnexfile = require('../../../knexfile')
 
 // TODO: use PG instead
 function makeKnexInstance (config) {
