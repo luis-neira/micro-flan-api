@@ -3,7 +3,7 @@
 const path = require('node:path')
 const fs = require('node:fs')
 
-const { buildContainer } = require('../src/ioc-container')
+const { buildContainer } = require('../src/infra/ioc-container')
 const buildExpressApp = require('../src/app')
 const config = require('../src/config')
 
