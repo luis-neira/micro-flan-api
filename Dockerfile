@@ -29,7 +29,9 @@ FROM base AS prod
 RUN --mount=type=bind,source=package.json,target=package.json \
     --mount=type=bind,source=package-lock.json,target=package-lock.json \
     --mount=type=cache,target=/root/.npm \
-    export HUSKY=0 && npm ci --omit=dev
+    npm ci
+# remove devDeps to keep final image clean
+RUN npm prune --omit=dev
 USER node
 COPY . .
 CMD ["node", "src/index.js"]
