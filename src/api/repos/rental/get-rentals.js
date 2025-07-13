@@ -1,12 +1,18 @@
 'use strict'
 
 function getRentals ({ db }) {
-  return (type) => {
+  return async (type) => {
     if (type === 'house' || type === 'apartment') {
-      return db.select().from('rentals').where({ property_type: type })
+      // return db.select().from('rentals').where({ property_type: type })
+      const result = await db.raw('SELECT * FROM rentals WHERE property_type = ?', [type])
+
+      return result.rows || result
     }
 
-    return db.select().from('rentals')
+    // return db.select().from('rentals')
+    const result = await db.raw('SELECT * FROM rentals')
+
+    return result.rows || result
   }
 }
 

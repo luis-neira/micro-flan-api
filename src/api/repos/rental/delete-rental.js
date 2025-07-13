@@ -1,8 +1,11 @@
 'use strict'
 
 function updateRental ({ db }) {
-  return (id) => {
-    return db('rentals').where({ id }).del()
+  return async (id) => {
+    // return db('rentals').where({ id }).del()
+    const result = await db.raw('DELETE FROM rentals WHERE id = ?', [id])
+
+    return result.rowCount || result.changes
   }
 }
 
