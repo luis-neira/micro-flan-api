@@ -3,7 +3,7 @@
 const jwt = require('jsonwebtoken')
 const createError = require('http-errors')
 
-const config = require('../../config')
+const config = require('@config')
 
 function authenticateToken (req, res, next) {
   const authHeader = req.headers.authorization

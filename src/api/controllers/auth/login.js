@@ -3,7 +3,7 @@
 const createError = require('http-errors')
 const jwt = require('jsonwebtoken')
 
-const config = require('../../../config')
+const config = require('@config')
 
 const USERS = [{ id: 1, username: 'admin', password: 'password123' }]
 

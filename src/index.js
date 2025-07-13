@@ -1,5 +1,6 @@
 'use strict'
 
+require('module-alias/register')
 const closeWithGrace = require('close-with-grace')
 const { promisify } = require('node:util')
 

@@ -2,7 +2,7 @@
 
 const createError = require('http-errors')
 
-const config = require('../../config')
+const config = require('@config')
 
 const errorHandler = (err, req, res, next) => {
   const showStackTrace = config.enableStackTrace === 'true'
