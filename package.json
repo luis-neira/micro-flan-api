@@ -31,7 +31,8 @@
   },
   "_moduleAliases": {
     "@config" : "src/config",
-    "@api" : "src/api"
+    "@api" : "src/api",
+    "@testSetup" : "test/testSetup.js"
   },
   "engines": {
     "node": ">=20.0.0",

@@ -2,7 +2,7 @@
 
 const request = require('supertest')
 const chai = require('chai')
-const setupTestApp = require('../../testSetup')
+const setupTestApp = require('@testSetup')
 
 const { expect } = chai
 let app = null

@@ -2,7 +2,7 @@
 
 const chai = require('chai')
 const request = require('supertest')
-const setupTestApp = require('../../testSetup')
+const setupTestApp = require('@testSetup')
 
 let app = null
 let container = null

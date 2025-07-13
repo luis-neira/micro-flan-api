@@ -4,7 +4,7 @@ const chai = require('chai')
 const sinon = require('sinon')
 const createError = require('http-errors')
 
-const authenticateToken = require('../../../../../src/api/middleware/authenticate-token')
+const authenticateToken = require('@api/middleware/authenticate-token')
 const { expect } = chai
 
 const TOKEN =
