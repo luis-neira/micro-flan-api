@@ -1,8 +1,7 @@
 'use strict'
 
-const net = require('net')
+const net = require('node:net')
 const Docker = require('dockerode')
-const config = require('@config')
 const { Client } = require('pg')
 
 function dockerConsole () {
@@ -27,7 +26,7 @@ function dockerConsole () {
         host: '127.0.0.1',
         port: 5432, // or 5555 if you remap
         user: 'postgres',
-        password: config.postgresPassword,
+        password: 'password',
         database: 'postgres' // default
       })
     },
@@ -61,7 +60,7 @@ const Containers = {
     name: 'test-postgres',
     Image: 'postgres:17-alpine3.21',
     Env: [
-        `POSTGRES_PASSWORD=${config.postgresPassword}`
+      'POSTGRES_PASSWORD=password'
     ],
     Tty: false,
     HostConfig: {
