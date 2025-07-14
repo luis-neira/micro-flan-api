@@ -24,7 +24,7 @@ function dockerConsole () {
       //   await waitForPort('127.0.0.1', 5432, 30000)
       await waitForPostgres({
         host: '127.0.0.1',
-        port: 5432, // or 5555 if you remap
+        port: 5555, // or 5555 if you remap
         user: 'postgres',
         password: 'password',
         database: 'postgres' // default
@@ -65,7 +65,7 @@ const Containers = {
     Tty: false,
     HostConfig: {
       PortBindings: {
-        '5432/tcp': [{ HostIp: '0.0.0.0', HostPort: '5432' }]
+        '5432/tcp': [{ HostIp: '0.0.0.0', HostPort: '5555' }]
       },
       AutoRemove: true
     }
