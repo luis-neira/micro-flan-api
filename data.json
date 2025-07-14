@@ -1,7 +1,6 @@
 {
   "rentals": [
     {
-      "id": 1,
       "title": "Luxury Studio Apartment",
       "location": "New York, NY",
       "price": 2500,
@@ -12,7 +11,6 @@
       "image": "https://images.unsplash.com/photo-1729053809347-c27ce1269bc3"
     },
     {
-      "id": 2,
       "title": "Cozy 2 Bedroom House",
       "location": "Los Angeles, CA",
       "price": 1500,
@@ -23,7 +21,6 @@
       "image": "https://images.unsplash.com/photo-1654024439475-c12d4c218582"
     },
     {
-      "id": 3,
       "title": "Stylish 1 Bedroom Condo",
       "location": "Chicago, IL",
       "price": 2000,
@@ -34,7 +31,6 @@
       "image": "https://images.unsplash.com/photo-1639967516473-a084068146e0"
     },
     {
-      "id": 4,
       "title": "Large 3 Bedroom House",
       "location": "Miami, FL",
       "price": 3500,
@@ -45,7 +41,6 @@
       "image": "https://images.unsplash.com/photo-1592183664157-cfc9a2562e12"
     },
     {
-      "id": 5,
       "title": "Comfortable 2 Bedroom Flat",
       "location": "London, UK",
       "price": 1200,
@@ -58,7 +53,6 @@
   ],
   "tenants": [
     {
-        "id": 1,
         "firstname": "John",
         "lastname": "Doe",
         "email": "john.doe@email.com",
@@ -67,7 +61,6 @@
         "rental_id": 2
     },
     {
-        "id": 2,
         "firstname": "Justin",
         "lastname": "Thompson",
         "email": "justinthompson@email.com",
@@ -76,7 +69,6 @@
         "rental_id": 1
     },
     {
-        "id": 3,
         "firstname": "Laura",
         "lastname": "Thompson",
         "email": "laura.thompson@email.com",
@@ -85,7 +77,6 @@
         "rental_id": 1
     },
     {
-        "id": 4,
         "firstname": "David",
         "lastname": "Fitzgerald",
         "email": "fitzgerald.david@email.com",

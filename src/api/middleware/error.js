@@ -9,7 +9,11 @@ const errorHandler = (err, req, res, next) => {
   const { statusCode, message } = err
 
   if (showStackTrace && statusCode >= 500) {
-    req.log.error(err)
+    if (config.enableServerLogging === 'true') {
+      req.log.error(err)
+    } else {
+      console.error(err)
+    }
   }
 
   const response = {

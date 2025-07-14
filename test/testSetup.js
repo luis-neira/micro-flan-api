@@ -21,7 +21,7 @@ async function setupTestApp () {
 
   // migrate & seed
   await knex.migrate.latest()
-  await knex.seed.run()
+  // await knex.seed.run()
 
   // build app by passing container
   const app = buildExpressApp(container)
