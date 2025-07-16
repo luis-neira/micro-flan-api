@@ -15,7 +15,6 @@
     "coverage": "nyc mocha -r test/setup.js -r test/hooks.js --recursive",
     "db:init": "node -r dotenv/config utils/init-db.js",
     "docker:build": "docker build -t node-express-2025 --progress=plain --no-cache --target test .",
-    "docker:test": "docker compose run --rm --env-from-file .env.test server npm run test",
     "prepare": "husky"
   },
   "lint-staged": {
