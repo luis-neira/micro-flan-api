@@ -1,6 +1,5 @@
 'use strict'
 
-const net = require('node:net')
 const Docker = require('dockerode')
 const { Client } = require('pg')
 
@@ -21,7 +20,6 @@ function dockerConsole () {
         const containerObj = await docker.createContainer(container)
         await containerObj.start()
       }
-      //   await waitForPort('127.0.0.1', 5432, 30000)
       await waitForPostgres({
         host: '127.0.0.1',
         port: 5555, // or 5555 if you remap
@@ -72,28 +70,6 @@ const Containers = {
   }
 }
 
-async function waitForPort (host, port, timeoutMs = 10000) {
-  return new Promise((resolve, reject) => {
-    const start = Date.now()
-    function tryConnect () {
-      const socket = net.connect(port, host)
-      socket.once('connect', () => {
-        socket.destroy()
-        resolve()
-      })
-      socket.once('error', () => {
-        socket.destroy()
-        if (Date.now() - start > timeoutMs) {
-          reject(new Error(`Timed out waiting for port ${port}`))
-        } else {
-          setTimeout(tryConnect, 100)
-        }
-      })
-    }
-    tryConnect()
-  })
-}
-
 async function waitForPostgres (config, timeoutMs = 30000) {
   const start = Date.now()
   return new Promise((resolve, reject) => {
@@ -117,4 +93,3 @@ async function waitForPostgres (config, timeoutMs = 30000) {
 
 module.exports = dockerConsole
 module.exports.Containers = Containers
-module.exports.waitForPort = waitForPort
