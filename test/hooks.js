@@ -6,12 +6,11 @@ const docker = dockerHelper()
 const { Containers } = dockerHelper
 
 exports.mochaGlobalSetup = async function () {
-//   this.timeout(20000)
   await docker.startContainer(Containers.postgres)
-  console.log('container running on port 5555')
+  console.log('test db container running')
 }
 
 exports.mochaGlobalTeardown = async function () {
   await docker.stopContainer(Containers.postgres)
-  console.log('container stopped!')
+  console.log('test db container stopped!')
 }
