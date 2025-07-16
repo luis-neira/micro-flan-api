@@ -1,91 +1,138 @@
-# Express 2025
+# Node.js API
+A Node.js REST API built with Express.js following a modular, dependency-injected architecture using Awilix.
+Supports PostgreSQL via Knex.js and pg, with structured logging powered by Pino.
 
-**Express 2025** is a practice repository designed to explore and demonstrate various features of the Express.js framework in a Node.js environment. It serves as a sandbox for experimenting with middleware, routing, error handling, and other Express-related functionalities.
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-* [Node.js](https://nodejs.org/) (version 20 or higher)
-* [npm](https://www.npmjs.com/) (comes with Node.js)
-* [Knex.js](https://knexjs.org/) (for database migrations and queries)
-
-### Installation
-
-1. **Clone the repository:**
-
-   ```bash
-   git clone https://github.com/luis-neira/express-2025.git
-   cd express-2025
-   ```
-
-2. **Install dependencies:**
-
-   ```bash
-   npm install
-   ```
-
-3. **Set up environment variables:**
-
-   Create a `.env` file in the root directory and define necessary environment variables. For example:
-
-   ```env
-   PORT=3000
-   ```
-
-4. **Run database migrations (if applicable):**
-
-   ```bash
-   npx knex migrate:latest
-   ```
-
-5. **Start the development server:**
-
-   ```bash
-   npm start
-   ```
-
-   The server should now be running at `http://localhost:3000`.
-
-## 🧪 Available Scripts
-
-* **Start the server:**
-
-  ```bash
-  npm start
-  ```
-
-* **Run tests:**
-
-  ```bash
-  npm test
-  ```
-
-* **Run database migrations:**
-
-  ```bash
-  npx knex migrate:latest
-  ```
-
-* **Rollback migrations:**
-
-  ```bash
-  npx knex migrate:rollback
-  ```
+---
 
 ## 🛠️ Features
+- Modular and maintainable architecture with controllers, repositories, and middleware
 
-* **Express.js** for building the server and handling routes.
-* **Knex.js** for database migrations and query building.
-* Structured project architecture for scalability and maintainability.
-* Sample data provided in `data.json` for testing purposes.
+- Dependency injection for loose coupling and testability
 
-## 📄 License
+- Config management and environment variable validation
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+- Database migrations and query building with Knex + PostgreSQL
 
-## 🙌 Acknowledgments
+- Fast, structured logging with Pino and pino-http
 
-* [Express.js](https://expressjs.com/) - Fast, unopinionated, minimalist web framework for Node.js.
-* [Knex.js](https://knexjs.org/) - A SQL query builder for JavaScript.
+- Safe bootstrapping and error handling during startup
 
+---
+
+## 📦 Tech Stack
+| Purpose                | Library          |
+| ---------------------- | ---------------- |
+| Web framework          | Express.js       |
+| Dependency injection   | Awilix           |
+| DB access & migrations | Knex + pg        |
+| Config loading         | dotenv           |
+| Config validation      | AJV              |
+| Logging                | Pino & pino-http |
+
+---
+
+## 🏛️ Architecture
+This API follows a modular, dependency-injected architecture that promotes loose coupling, testability, and maintainability.
+
+### Core Concepts
+- **Dependency Injection with Awilix**:
+The API uses Awilix to manage dependencies. Instead of modules importing dependencies directly, all dependencies are registered in a DI container and injected where needed. This makes it easy to swap implementations or mock components for testing.
+
+- **Layers and Responsibilities**:
+
+   - **Controllers**: Handle incoming HTTP requests, invoke business logic, and return responses.
+
+   - **Repositories**: Encapsulate all data access logic. They interact with the database via Knex, abstracting query building and persistence.
+
+   - **Database Client**: The Knex instance is created once and injected as a singleton. Repositories receive it via DI.
+
+   - **Middleware**: For cross-cutting concerns like authentication, logging, and error handling.
+
+   - **Config and Logger**: Both are injected as singletons, providing consistent configuration and logging throughout the app.
+
+---
+
+## 📂 Project Structure
+```
+src/
+├── api
+│   ├── controllers
+│   ├── middleware
+│   ├── repos
+│   └── routes
+├── app.js
+├── bootstrap
+│   ├── safeBuildContainer.js
+│   ├── safeBuildExpressApp.js
+│   ├── safeStartHttpServer.js
+│   └── safeTestDatabaseConnection.js
+├── config
+│   ├── defaultsValidator.js
+│   ├── index.js
+│   └── validator.js
+├── container
+│   └── index.js
+├── index.js
+├── infra
+│   ├── db
+│   └── logger
+├── lib
+│   ├── format-bootstrap-error.js
+│   ├── with-scope-handler.js
+│   ├── wrap-async.js
+│   └── wrap-controller.js
+└── server.js
+```
+
+---
+
+## ⚙️ Configuration
+- Uses `.env` files + dotenv
+
+- Validated at startup with AJV
+
+- Config is injected into the Awilix container so it’s accessible anywhere
+
+Example .env:
+```
+# Application
+NODE_VERSION=20.11.0
+PORT=3000
+NODE_ENV=production
+ENABLE_SERVER_LOGGING=true
+ENABLE_STACK_TRACE=true
+ENABLE_CORS=false
+
+# Database
+POSTGRES_HOST=db
+POSTGRES_PORT=5432
+POSTGRES_DB=postgres
+POSTGRES_USER=
+POSTGRES_PASSWORD=
+DB_ENV=development
+
+# Other Services
+JWT_SECRET=
+
+```
+
+
+---
+
+## 🪵 Logging
+- Application logs: Pino
+
+- HTTP logs: pino-http
+
+- Logs are JSON structured, making them easy to search and parse in production
+
+---
+
+## 🐘 Database
+- PostgreSQL as the database
+
+- Knex.js used for:
+
+   - Query building in repositories
+
+   - Running migrations and seeds
