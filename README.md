@@ -2,8 +2,6 @@
 A Node.js REST API built with Express.js following a modular, dependency-injected architecture using Awilix.
 Supports PostgreSQL via Knex.js and pg, with structured logging powered by Pino.
 
----
-
 ## 🛠️ Features
 - Modular and maintainable architecture with controllers, repositories, and middleware
 
@@ -17,8 +15,6 @@ Supports PostgreSQL via Knex.js and pg, with structured logging powered by Pino.
 
 - Safe bootstrapping and error handling during startup
 
----
-
 ## 📦 Tech Stack
 | Purpose                | Library          |
 | ---------------------- | ---------------- |
@@ -28,8 +24,6 @@ Supports PostgreSQL via Knex.js and pg, with structured logging powered by Pino.
 | Config loading         | dotenv           |
 | Config validation      | AJV              |
 | Logging                | Pino & pino-http |
-
----
 
 ## 🏛️ Architecture
 This API follows a modular, dependency-injected architecture that promotes loose coupling, testability, and maintainability.
@@ -49,8 +43,6 @@ The API uses Awilix to manage dependencies. Instead of modules importing depende
    - **Middleware**: For cross-cutting concerns like authentication, logging, and error handling.
 
    - **Config and Logger**: Both are injected as singletons, providing consistent configuration and logging throughout the app.
-
----
 
 ## 📂 Project Structure
 ```
@@ -84,8 +76,6 @@ src/
 └── server.js
 ```
 
----
-
 ## ⚙️ Configuration
 - Uses `.env` files + dotenv
 
@@ -116,17 +106,12 @@ JWT_SECRET=
 
 ```
 
-
----
-
 ## 🪵 Logging
 - Application logs: Pino
 
 - HTTP logs: pino-http
 
 - Logs are JSON structured, making them easy to search and parse in production
-
----
 
 ## 🐘 Database
 - PostgreSQL as the database
