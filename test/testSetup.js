@@ -1,7 +1,7 @@
 'use strict'
 
 const config = require('../src/config')
-const { buildContainer } = require('../src/infra/ioc-container')
+const { buildContainer } = require('../src/container')
 const buildExpressApp = require('../src/app')
 
 async function setupTestApp () {

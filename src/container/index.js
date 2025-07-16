@@ -4,7 +4,7 @@ const awilix = require('awilix')
 
 const makeRentalRepo = require('@api/repos/rental')
 const makeTenantRepo = require('@api/repos/tenant')
-const makeKnexInstance = require('../db')
+const makeKnexInstance = require('../infra/db')
 
 function buildContainer ({ config, logger }) {
   const {
