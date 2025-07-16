@@ -2,10 +2,10 @@
 
 const initServer = require('../server')
 
-function startHttpServer (app, opts) {
+function safeStartHttpServer (app, opts) {
   try {
     const { logger } = opts
-    logger.info('→ Starting HTTP server')
+    logger.info('Starting HTTP server...')
     const server = initServer(app, opts)
     return server
   } catch (err) {
@@ -13,4 +13,4 @@ function startHttpServer (app, opts) {
   }
 }
 
-module.exports = startHttpServer
+module.exports = safeStartHttpServer

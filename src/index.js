@@ -7,10 +7,10 @@ const { promisify } = require('node:util')
 const config = require('./config')
 const buildLogger = require('./infra/logger')
 
-const initDIContainer = require('./bootstrap/initDIContainer')
-const testDBConnection = require('./bootstrap/testDBConnection')
-const initExpressApp = require('./bootstrap/initExpressApp')
-const startHttpServer = require('./bootstrap/startHttpServer')
+const safeBuildContainer = require('./bootstrap/safeBuildContainer')
+const safeTestDatabaseConnection = require('./bootstrap/safeTestDatabaseConnection')
+const safeBuildExpressApp = require('./bootstrap/safeBuildExpressApp')
+const safeStartHttpServer = require('./bootstrap/safeStartHttpServer')
 
 main()
 
@@ -20,12 +20,12 @@ async function main () {
   try {
     logger.info('Bootstrapping application...')
 
-    const container = initDIContainer({ config, logger })
+    const container = safeBuildContainer({ config, logger })
 
-    await testDBConnection(container.cradle)
+    await safeTestDatabaseConnection(container.cradle)
 
-    const app = initExpressApp(container)
-    const server = startHttpServer(app, container.cradle)
+    const app = safeBuildExpressApp(container)
+    const server = safeStartHttpServer(app, container.cradle)
 
     closeWithGrace({ delay: 5000 }, async function ({ signal, err, manual }) {
       if (err) {
