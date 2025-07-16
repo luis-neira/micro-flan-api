@@ -5,6 +5,7 @@ const closeWithGrace = require('close-with-grace')
 const { promisify } = require('node:util')
 
 const config = require('./config')
+const formatBootstrapError = require('./lib/format-bootstrap-error')
 const buildLogger = require('./infra/logger')
 
 const safeBuildContainer = require('./bootstrap/safeBuildContainer')
@@ -54,12 +55,4 @@ async function main () {
     logger.error(formatBootstrapError(error))
     process.exit(1)
   }
-}
-
-function formatBootstrapError (error) {
-  let message = `Bootstrap error: ${error.message}`
-  if (error.cause) {
-    message += `\nCaused by: ${error.cause.stack || error.cause.message}`
-  }
-  return message
 }
