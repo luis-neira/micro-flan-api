@@ -13,7 +13,7 @@ function dockerConsole () {
         return running.Names.some(name => name.includes(container.name))
       })
     },
-    async startContainer (container) {
+    async startContainer (container, config) {
       const run = await this.getRunningContainer(container)
       if (!run) {
         await pullImage(container)
@@ -22,10 +22,10 @@ function dockerConsole () {
       }
       await waitForPostgres({
         host: '127.0.0.1',
-        port: 5555, // or 5555 if you remap
-        user: 'postgres',
-        password: 'password',
-        database: 'postgres' // default
+        port: config.postgresPort,
+        user: config.postgresUser,
+        password: config.postgresPassword,
+        database: config.postgresDatabase
       })
     },
     async stopContainer (container) {
