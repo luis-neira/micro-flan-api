@@ -8,4 +8,4 @@ function formatBootstrapError (error) {
   return message
 }
 
-export default formatBootstrapError
+module.exports = formatBootstrapError
