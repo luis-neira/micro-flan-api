@@ -2,7 +2,7 @@
 A Node.js REST API built with Express.js following a modular, dependency-injected architecture using Awilix.
 Supports PostgreSQL via Knex.js and pg, with structured logging powered by Pino.
 
-## 🛠️ Features
+## Features
 - Modular and maintainable architecture with controllers, repositories, and middleware
 
 - Dependency injection for loose coupling and testability
@@ -15,7 +15,7 @@ Supports PostgreSQL via Knex.js and pg, with structured logging powered by Pino.
 
 - Safe bootstrapping and error handling during startup
 
-## 📦 Tech Stack
+## Tech Stack
 | Purpose                | Library          |
 | ---------------------- | ---------------- |
 | Web framework          | Express.js       |
@@ -25,7 +25,7 @@ Supports PostgreSQL via Knex.js and pg, with structured logging powered by Pino.
 | Config validation      | AJV              |
 | Logging                | Pino & pino-http |
 
-## 🏛️ Architecture
+## Architecture
 This API follows a modular, dependency-injected architecture that promotes loose coupling, testability, and maintainability.
 
 ### Core Concepts
@@ -44,7 +44,7 @@ The API uses Awilix to manage dependencies. Instead of modules importing depende
 
    - **Config and Logger**: Both are injected as singletons, providing consistent configuration and logging throughout the app.
 
-## 📂 Project Structure
+## Project Structure
 ```
 src/
 ├── api
@@ -76,7 +76,7 @@ src/
 └── server.js
 ```
 
-## ⚙️ Configuration
+## Configuration
 - Uses `.env` files + dotenv
 
 - Validated at startup with AJV
@@ -106,14 +106,14 @@ JWT_SECRET=
 
 ```
 
-## 🪵 Logging
+## Logging
 - Application logs: Pino
 
 - HTTP logs: pino-http
 
 - Logs are JSON structured, making them easy to search and parse in production
 
-## 🐘 Database
+## Database
 - PostgreSQL as the database
 
 - Knex.js used for:
@@ -121,3 +121,8 @@ JWT_SECRET=
    - Query building in repositories
 
    - Running migrations and seeds
+
+## Getting Started
+1. git clone the repsitory.
+2. create a .env file at the root of the project and copy the environment variables from `.env.example` and fill in the values accordingly.
+3. run `docker compose up`
