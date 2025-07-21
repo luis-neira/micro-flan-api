@@ -5,6 +5,7 @@ const { scopePerRequest } = require('awilix-express')
 const cookieParser = require('cookie-parser')
 const helmet = require('helmet')
 const { xss } = require('express-xss-sanitizer')
+const { ValidationError } = require('express-json-validator-middleware')
 
 const pinoHttp = require('./middleware/logger')
 const cors = require('./middleware/cors')
@@ -44,6 +45,17 @@ function buildExpressApp (container) {
 
   // error handlers
   app.use(notFoundHandler)
+  app.use((error, request, response, next) => {
+    // Check the error is a validation error
+    if (error instanceof ValidationError) {
+      // Handle the error
+      response.status(400).send(error.validationErrors)
+      next()
+    } else {
+      // Pass error on if not a validation error
+      next(error)
+    }
+  })
   app.use(errorConverter)
   app.use(errorHandler)
 
