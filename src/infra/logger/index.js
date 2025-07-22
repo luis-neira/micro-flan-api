@@ -2,11 +2,11 @@
 
 const pino = require('pino')
 
-function buildLogger () {
+function buildLogger (config) {
   let instance = null
 
   if (!instance) {
-    instance = pino()
+    instance = pino(config)
   }
 
   return instance

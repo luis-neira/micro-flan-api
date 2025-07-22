@@ -32,5 +32,6 @@ module.exports = Object.freeze({
   enableStackTrace: env.ENABLE_STACK_TRACE,
   enableServerLogging: env.ENABLE_SERVER_LOGGING,
   enableCors: env.ENABLE_CORS,
-  dbEnv: env.DB_ENV
+  dbEnv: env.DB_ENV,
+  logLevel: env.LOG_LEVEL
 })
