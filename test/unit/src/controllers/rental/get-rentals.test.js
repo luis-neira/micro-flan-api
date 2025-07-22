@@ -1,6 +1,6 @@
 const chai = require('chai')
 const sinon = require('sinon')
-const getRentals = require('@api/controllers/rental/get-rentals')
+const getRentals = require('@api/routes/rental/usecase/getRental/get-rentals.controller')
 const { expect } = chai
 
 // TODO fix spies, stubs & mocks

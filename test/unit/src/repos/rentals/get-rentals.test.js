@@ -1,6 +1,6 @@
 const sinon = require('sinon')
 const chai = require('chai')
-const getRentalsByType = require('@api/repos/rental/get-rentals')
+const getRentalsByType = require('@api/routes/rental/usecase/getRental/get-rentals.repository')
 const { expect } = chai
 
 describe("rental-repository: 'getRentals'", () => {
