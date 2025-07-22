@@ -4,7 +4,8 @@ const awilix = require('awilix')
 
 const makeRentalRepo = require('@api/routes/rental/repository')
 const makeTenantRepo = require('@api/routes/tenant/repository')
-const makeKnexInstance = require('../infra/db')
+// const makeKnexInstance = require('../infra/db')
+const { makePgInstance } = require('../infra/db')
 
 function buildContainer ({ config, logger }) {
   const {
@@ -20,10 +21,10 @@ function buildContainer ({ config, logger }) {
   awilixContainer.register({
     config: asValue(config),
     logger: asValue(logger),
-    db: asFunction(makeKnexInstance, {
+    db: asFunction(makePgInstance, {
       lifetime: Lifetime.SINGLETON,
       injectionMode: InjectionMode.CLASSIC,
-      dispose: (knex) => knex.destroy()
+      dispose: (pg) => pg.end()
     }),
     rentalRepo: asFunction(makeRentalRepo, {
       lifetime: Lifetime.SINGLETON

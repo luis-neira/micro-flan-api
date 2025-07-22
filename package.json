@@ -29,6 +29,7 @@
     "@config": "src/config",
     "@api": "src/api",
     "@lib": "src/lib",
+    "@infra": "src/infra",
     "@middleware": "src/middleware",
     "@testSetup": "test/testSetup.js"
   },

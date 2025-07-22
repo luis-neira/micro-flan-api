@@ -18,6 +18,7 @@ describe('GET /tenants', () => {
 
   after(async () => {
     await knex.migrate.rollback({}, true)
+    await knex.destroy()
     await container.dispose()
   })
 

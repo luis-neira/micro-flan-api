@@ -10,7 +10,10 @@ describe("rental-repository: 'getRentals'", () => {
       // from: sinon.stub().returnsThis(),
       // where: sinon.stub().resolves([{ id: 1, property_type: 'apartment' }])
       // raw: sinon.stub().resolves([{ id: 1, property_type: 'apartment' }])
-      raw: sinon.stub().resolves({
+      // raw: sinon.stub().resolves({
+      //   rows: [{ id: 1, property_type: 'apartment' }]
+      // })
+      query: sinon.stub().resolves({
         rows: [{ id: 1, property_type: 'apartment' }]
       })
     }
@@ -20,7 +23,7 @@ describe("rental-repository: 'getRentals'", () => {
     // expect(db.select.calledOnce).to.equal(true)
     // expect(db.from.calledWith('rentals')).to.equal(true)
     // expect(db.where.calledWith({ property_type: 'apartment' })).to.equal(true)
-    expect(db.raw.calledOnce).to.equal(true)
+    expect(db.query.calledOnce).to.equal(true)
     expect(result).to.deep.equal([{ id: 1, property_type: 'apartment' }])
   })
 })

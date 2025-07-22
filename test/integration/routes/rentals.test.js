@@ -94,6 +94,7 @@ describe('POST /rentals', () => {
 
   after(async () => {
     await knex.migrate.rollback({}, true)
+    await knex.destroy()
     await container.dispose()
   })
 
