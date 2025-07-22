@@ -2,7 +2,7 @@
 
 async function safeTestDatabaseConnection ({ db, logger }) {
   try {
-    logger.info('Testing database connection...')
+    logger.debug('Testing database connection...')
     await db.query('SELECT 1+1 AS result')
     const client = await db.getClient()
     client.release()

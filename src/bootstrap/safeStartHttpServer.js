@@ -5,7 +5,7 @@ const initServer = require('../server')
 function safeStartHttpServer (app, opts) {
   try {
     const { logger } = opts
-    logger.info('Starting HTTP server...')
+    logger.debug('Starting HTTP server...')
     const server = initServer(app, opts)
     return server
   } catch (err) {

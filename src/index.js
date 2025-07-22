@@ -16,7 +16,9 @@ const safeStartHttpServer = require('./bootstrap/safeStartHttpServer')
 main()
 
 async function main () {
-  const logger = buildLogger()
+  const logger = buildLogger({
+    level: config.logLevel
+  })
 
   try {
     logger.info('Bootstrapping application...')
@@ -37,14 +39,14 @@ async function main () {
 
       try {
         await promisify(server.close.bind(server))()
-        logger.info('HTTP server closed')
+        logger.debug('HTTP server closed')
       } catch (error) {
         logger.error(error, 'Error closing server')
       }
 
       try {
         await container.dispose()
-        logger.info('DI Container disposed')
+        logger.debug('DI Container disposed')
       } catch (disposeErr) {
         logger.error(disposeErr, 'Error disposing DI Container')
       }
