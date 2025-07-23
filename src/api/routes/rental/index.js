@@ -8,6 +8,7 @@ const makeValidator = require('@middleware/validate')
 const createRentalSchema = require('./usecase/createRental/create-rental.schema')
 const getRentalsSchema = require('./usecase/getRental/get-rentals.schema')
 const getRentalTenantsSchema = require('./usecase/getRentalTenants/get-rental-tenants.schema')
+const deleteRentalSchema = require('./usecase/deleteRental/delete-rental.schema')
 
 const router = express.Router()
 
@@ -25,7 +26,7 @@ router.route('/')
 
 router.route('/:id')
   .patch(api('updateRental'))
-  .delete(api('deleteRental'))
+  .delete(validate({ params: deleteRentalSchema.paramsSchema }), api('deleteRental'))
 
 router.route('/:id/tenants')
   .get(validate({ params: getRentalTenantsSchema.paramsSchema }), api('getRentalTenants'))

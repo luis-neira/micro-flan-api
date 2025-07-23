@@ -6,13 +6,7 @@ function deleteRental ({ rentalRepo }) {
   return async (req, res, next) => {
     const { id } = req.params
 
-    const parsedId = Number(id)
-
-    if (Number.isNaN(parsedId)) {
-      return next(createError.BadRequest())
-    }
-
-    const result = await rentalRepo.deleteRental(parsedId)
+    const result = await rentalRepo.deleteRental(id)
 
     if (result === 0) {
       return next(createError.NotFound())
