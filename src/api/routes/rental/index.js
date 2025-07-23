@@ -7,20 +7,27 @@ const makeRentalAPI = require('./controller/index')
 const makeValidator = require('@middleware/validate')
 const createRentalSchema = require('./usecase/createRental/create-rental.schema')
 const getRentalsSchema = require('./usecase/getRental/get-rentals.schema')
+const getRentalTenantsSchema = require('./usecase/getRentalTenants/get-rental-tenants.schema')
 
 const router = express.Router()
 
 const { makeFunctionInvoker } = awilixExpress
 const api = makeFunctionInvoker(makeRentalAPI)
 
-const { validate } = makeValidator({ allErrors: true })
+const { validate } = makeValidator({
+  allErrors: true,
+  coerceTypes: true
+})
 
 router.route('/')
   .get(validate({ query: getRentalsSchema.querySchema }), api('getRentals'))
   .post(validate({ body: createRentalSchema.bodySchema }), api('createRental'))
 
-router.route('/:id').patch(api('updateRental')).delete(api('deleteRental'))
+router.route('/:id')
+  .patch(api('updateRental'))
+  .delete(api('deleteRental'))
 
-router.route('/:id/tenants').get(api('getRentalTenants'))
+router.route('/:id/tenants')
+  .get(validate({ params: getRentalTenantsSchema.paramsSchema }), api('getRentalTenants'))
 
 module.exports = router
