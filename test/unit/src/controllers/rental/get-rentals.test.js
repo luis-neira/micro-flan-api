@@ -1,6 +1,6 @@
 const chai = require('chai')
 const sinon = require('sinon')
-const getRentals = require('@api/routes/rental/usecase/getRental/get-rentals.controller')
+const makeRentalController = require('@api/routes/rental/controller')
 const { expect } = chai
 
 // TODO fix spies, stubs & mocks
@@ -21,7 +21,9 @@ describe("rental-controller: 'getRentals'", () => {
       json: sinon.spy()
     }
 
-    await getRentals({ rentalRepo: mock })(req, res)
+    const rentalController = makeRentalController({ rentalRepo: mock })
+
+    await rentalController.getRentals(req, res)
 
     expect(res.json.calledWith(fakeRentals)).to.equal(true)
   })
