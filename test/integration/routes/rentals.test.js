@@ -155,7 +155,6 @@ describe('PATCH /rentals/:id', () => {
     const id = 5
 
     const newData = {
-      id,
       title: 'Student Studio',
       location: 'Paris, FR',
       price: 900,
@@ -166,6 +165,8 @@ describe('PATCH /rentals/:id', () => {
         "Small but VERY VERY functional studio, great for students or holidays in France's capital !",
       image: 'https://www.example.com/student-studio.jpg'
     }
+
+    const returnData = { ...newData, id }
 
     request(app)
       .patch(`/rentals/${id}`)
@@ -178,7 +179,7 @@ describe('PATCH /rentals/:id', () => {
           return done(err)
         }
 
-        chai.expect(res.body).to.be.eql(newData)
+        chai.expect(res.body).to.be.eql(returnData)
 
         done()
       })
