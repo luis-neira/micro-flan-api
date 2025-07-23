@@ -9,6 +9,7 @@ const createRentalSchema = require('./usecase/createRental/create-rental.schema'
 const getRentalsSchema = require('./usecase/getRental/get-rentals.schema')
 const getRentalTenantsSchema = require('./usecase/getRentalTenants/get-rental-tenants.schema')
 const deleteRentalSchema = require('./usecase/deleteRental/delete-rental.schema')
+const updateRentalSchema = require('./usecase/updateRental/update-rental.schema')
 
 const router = express.Router()
 
@@ -25,7 +26,10 @@ router.route('/')
   .post(validate({ body: createRentalSchema.bodySchema }), api('createRental'))
 
 router.route('/:id')
-  .patch(api('updateRental'))
+  .patch(validate({
+    params: updateRentalSchema.paramsSchema,
+    body: updateRentalSchema.bodySchema
+  }), api('updateRental'))
   .delete(validate({ params: deleteRentalSchema.paramsSchema }), api('deleteRental'))
 
 router.route('/:id/tenants')

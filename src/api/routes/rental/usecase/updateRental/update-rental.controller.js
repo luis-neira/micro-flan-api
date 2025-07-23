@@ -7,12 +7,6 @@ function updateRental ({ rentalRepo }) {
     const rental = req.body
     const { id } = req.params
 
-    const parsedId = Number(id)
-
-    if (Number.isNaN(parsedId)) {
-      return next(createError.BadRequest())
-    }
-
     const [updatedRental] = await rentalRepo.updateRental(id, rental)
 
     if (updatedRental == null) {
