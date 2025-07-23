@@ -6,6 +6,7 @@ const makeRentalAPI = require('./controller/index')
 
 const makeValidator = require('@middleware/validate')
 const createRentalSchema = require('./usecase/createRental/create-rental.schema')
+const getRentalsSchema = require('./usecase/getRental/get-rentals.schema')
 
 const router = express.Router()
 
@@ -15,7 +16,7 @@ const api = makeFunctionInvoker(makeRentalAPI)
 const { validate } = makeValidator({ allErrors: true })
 
 router.route('/')
-  .get(api('getRentals'))
+  .get(validate({ query: getRentalsSchema.querySchema }), api('getRentals'))
   .post(validate({ body: createRentalSchema.bodySchema }), api('createRental'))
 
 router.route('/:id').patch(api('updateRental')).delete(api('deleteRental'))
