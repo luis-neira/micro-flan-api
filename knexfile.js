@@ -2,19 +2,10 @@
 
 // Update with your config settings.
 const os = require('node:os')
-// const path = require('node:path')
-
-// const location = path.join(__dirname, 'tmp', 'test.db')
 
 function getKnexfile (config) {
   return {
     test: {
-      // client: 'better-sqlite3',
-      // connection: {
-      //   // filename: ":memory:",
-      //   filename: location
-      // },
-      // useNullAsDefault: true,
       client: 'pg',
       connection: {
         host: config.postgresHost,

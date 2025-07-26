@@ -6,7 +6,6 @@ async function safeTestDatabaseConnection ({ db, logger }) {
     await db.query('SELECT 1+1 AS result')
     const client = await db.getClient()
     client.release()
-    // const { connection } = db.client.config
     const { port } = client.connectionParameters
     logger.info(`Database connected on port ${port}`)
   } catch (err) {

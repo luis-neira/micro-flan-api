@@ -4,7 +4,6 @@ const awilix = require('awilix')
 
 const makeRentalRepo = require('@api/routes/rental/repository')
 const makeTenantRepo = require('@api/routes/tenant/repository')
-// const makeKnexInstance = require('../infra/db')
 const { makePgInstance } = require('../infra/db')
 
 function buildContainer ({ config, logger }) {

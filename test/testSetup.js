@@ -8,7 +8,6 @@ const makeKnexInstance = require('@infra/db')
 async function setupTestApp () {
   // fresh container
   const container = buildContainer({ config, logger: () => {} })
-  // const knex = container.resolve('db')
   const knex = makeKnexInstance(config)
 
   // migrate db
