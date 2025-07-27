@@ -27,7 +27,71 @@ const api = makeInvoker(cradle => ({
   getRentalTenants: cradle.getRentalTenantsController
 }))
 
+/**
+ * @swagger
+ * definitions:
+ *   Rental:
+ *     type: object
+ *     required:
+ *       - id
+ *       - title
+ *       - location
+ *       - price
+ *     properties:
+ *       id:
+ *         type: integer
+ *         example: 1
+ *       title:
+ *         type: string
+ *         example: Luxury Studio Apartment
+ *       location:
+ *         type: string
+ *         example: New York, NY
+ *       price:
+ *         type: number
+ *         example: 2500
+ *       bedrooms:
+ *         type: integer
+ *         example: 1
+ *       bathrooms:
+ *         type: integer
+ *         example: 1
+ *       property_type:
+ *         type: string
+ *         example: apartment
+ *       description:
+ *         type: string
+ *         example: A beautiful and spacious studio apartment with high-end finishes. The building amenities include a gym, pool, and rooftop lounge.
+ *       image:
+ *         type: string
+ *         format: uri
+ *         example: https://images.unsplash.com/photo-1729053809347-c27ce1269bc3
+ */
+
+/**
+ * @swagger
+ * tags:
+ *   - name: Rentals
+ *     description: Operations about rentals
+ */
+
 router.route('/')
+  /**
+   * @swagger
+   * /rentals:
+   *   get:
+   *     summary: Returns a list of rentals
+   *     tags: [Rentals]
+   *     produces:
+   *       - application/json
+   *     responses:
+   *       200:
+   *         description: Successful response
+   *         schema:
+   *           type: array
+   *           items:
+   *             $ref: '#/definitions/Rental'
+   */
   .get(validate({ query: getRentalsSchema.querySchema }), api('getRentals'))
   .post(validate({ body: createRentalSchema.bodySchema }), api('createRental'))
 

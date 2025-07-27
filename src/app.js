@@ -5,6 +5,8 @@ const { scopePerRequest } = require('awilix-express')
 const cookieParser = require('cookie-parser')
 const helmet = require('helmet')
 const { xss } = require('express-xss-sanitizer')
+const swaggerUi = require('swagger-ui-express')
+const specs = require('./infra/swagger')
 
 const pinoHttp = require('./middleware/logger')
 const cors = require('./middleware/cors')
@@ -41,6 +43,14 @@ function buildExpressApp (container) {
   app.use('/rentals', rentalRoutes)
   app.use('/tenants', tenantRoutes)
   app.use('/auth', authRoutes)
+
+  // Serve Swagger docs at /api-docs
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs))
+
+  app.get('/api-docs.json', (req, res) => {
+    res.setHeader('Content-Type', 'application/json')
+    res.send(specs)
+  })
 
   // error handlers
   app.use(notFoundHandler)
