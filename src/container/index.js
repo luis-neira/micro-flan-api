@@ -16,8 +16,8 @@ function buildContainer ({ config, logger }) {
   const awilixContainer = createContainer()
 
   awilixContainer.loadModules([
-    'src/api/routes/**/usecase/**/*.repository.js',
-    'src/api/routes/**/usecase/**/*.controller.js'
+    'src/api/**/usecase/**/*.repository.js',
+    'src/api/**/usecase/**/*.controller.js'
   ], {
     formatName: 'camelCase',
     resolverOptions: {

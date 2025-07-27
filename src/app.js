@@ -12,9 +12,9 @@ const timer = require('./middleware/timer')
 const notFoundHandler = require('./middleware/not-found')
 const err = require('./middleware/error')
 
-const rentalRoutes = require('./api/routes/rental')
-const tenantRoutes = require('./api/routes/tenant')
-const authRoutes = require('./api/routes/auth')
+const rentalRoutes = require('./api/rental')
+const tenantRoutes = require('./api/tenant')
+const authRoutes = require('./api/auth')
 
 function buildExpressApp (container) {
   const { config, logger } = container.cradle
