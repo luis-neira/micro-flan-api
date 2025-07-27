@@ -6,8 +6,8 @@ const cookieParser = require('cookie-parser')
 const helmet = require('helmet')
 const { xss } = require('express-xss-sanitizer')
 const swaggerUi = require('swagger-ui-express')
-const specs = require('./infra/swagger')
 
+const specs = require('./infra/swagger')
 const pinoHttp = require('./middleware/logger')
 const cors = require('./middleware/cors')
 const timer = require('./middleware/timer')
@@ -46,7 +46,6 @@ function buildExpressApp (container) {
 
   // Serve Swagger docs at /api-docs
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs))
-
   app.get('/api-docs.json', (req, res) => {
     res.setHeader('Content-Type', 'application/json')
     res.send(specs)
