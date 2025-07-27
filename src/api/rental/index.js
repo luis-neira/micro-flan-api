@@ -30,20 +30,21 @@ const api = makeInvoker(cradle => ({
 /**
  * @swagger
  * definitions:
- *   Rental:
+ *   RentalBase:
  *     type: object
  *     required:
- *       - id
  *       - title
  *       - location
  *       - price
+ *       - bedrooms
+ *       - bathrooms
+ *       - property_type
+ *       - description
+ *       - image
  *     properties:
- *       id:
- *         type: integer
- *         example: 1
  *       title:
  *         type: string
- *         example: Luxury Studio Apartment
+ *         example: Cool Flat
  *       location:
  *         type: string
  *         example: New York, NY
@@ -70,16 +71,32 @@ const api = makeInvoker(cradle => ({
 
 /**
  * @swagger
- * tags:
- *   - name: Rentals
- *     description: Operations about rentals
+ * definitions:
+ *   NewRental:
+ *     allOf:
+ *       - $ref: '#/definitions/RentalBase'
+ */
+
+/**
+ * @swagger
+ * definitions:
+ *   Rental:
+ *     allOf:
+ *       - $ref: '#/definitions/RentalBase'
+ *       - type: object
+ *         required:
+ *           - id
+ *         properties:
+ *           id:
+ *             type: integer
+ *             example: 6
  */
 
 /**
  * @swagger
  * tags:
- *   - name: RentalTenants
- *     description: Get tenants for a specific rental
+ *   - name: Rentals
+ *     description: Operations about rentals
  */
 
 router.route('/')
@@ -100,6 +117,30 @@ router.route('/')
    *             $ref: '#/definitions/Rental'
    */
   .get(validate({ query: getRentalsSchema.querySchema }), api('getRentals'))
+
+  /**
+   * @swagger
+   * /rentals:
+   *   post:
+   *     summary: Create a new rental
+   *     tags: [Rentals]
+   *     consumes:
+   *       - application/json
+   *     produces:
+   *       - application/json
+   *     parameters:
+   *       - in: body
+   *         name: rental
+   *         description: The rental to create
+   *         required: true
+   *         schema:
+   *           $ref: '#/definitions/NewRental'
+   *     responses:
+   *       200:
+   *         description: Successfully created rental
+   *         schema:
+   *           $ref: '#/definitions/Rental'
+   */
   .post(validate({ body: createRentalSchema.bodySchema }), api('createRental'))
 
 router.route('/:id')
@@ -107,19 +148,53 @@ router.route('/:id')
     params: updateRentalSchema.paramsSchema,
     body: updateRentalSchema.bodySchema
   }), api('updateRental'))
+
+  /**
+   * @swagger
+   * /rentals/{id}:
+   *   delete:
+   *     summary: Delete a rental by ID
+   *     tags: [Rentals]
+   *     produces:
+   *       - application/json
+   *     parameters:
+   *       - name: id
+   *         in: path
+   *         required: true
+   *         description: ID of the rental to delete
+   *         type: integer
+   *         example: 2
+   *     responses:
+   *       200:
+   *         description: Successfully deleted
+   *         schema:
+   *           type: object
+   *           properties:
+   *             message:
+   *               type: string
+   *               example: Rental deleted successfully
+   *       404:
+   *         description: Rental not found
+   *         schema:
+   *           type: object
+   *           properties:
+   *             message:
+   *               type: string
+   *               example: Rental not found
+   */
   .delete(validate({ params: deleteRentalSchema.paramsSchema }), api('deleteRental'))
 
 router.route('/:id/tenants')
   /**
    * @swagger
-   * /rentals/{rentalId}/tenants:
+   * /rentals/{id}/tenants:
    *   get:
    *     summary: Get tenants for a specific rental
-   *     tags: [RentalTenants]
+   *     tags: [Tenants]
    *     produces:
    *       - application/json
    *     parameters:
-   *       - name: rentalId
+   *       - name: id
    *         in: path
    *         required: true
    *         description: ID of the rental
