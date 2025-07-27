@@ -7,7 +7,6 @@ function deleteRentalController ({ deleteRentalRepository }) {
   return wrap(async (req, res, next) => {
     const { id } = req.params
 
-    // const result = await rentalRepo.deleteRental(id)
     const result = await deleteRentalRepository(id)
 
     if (result === 0) {

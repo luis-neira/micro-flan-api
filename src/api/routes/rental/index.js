@@ -2,7 +2,6 @@
 
 const express = require('express')
 const awilixExpress = require('awilix-express')
-// const makeRentalAPI = require('./controller/index')
 
 const makeValidator = require('@middleware/validate')
 const createRentalSchema = require('./usecase/createRental/create-rental.schema')
@@ -13,11 +12,7 @@ const updateRentalSchema = require('./usecase/updateRental/update-rental.schema'
 
 const router = express.Router()
 
-const {
-  // makeFunctionInvoker,
-  makeInvoker
-} = awilixExpress
-// const api = makeFunctionInvoker(makeRentalAPI)
+const { makeInvoker } = awilixExpress
 
 const { validate } = makeValidator({
   allErrors: true,

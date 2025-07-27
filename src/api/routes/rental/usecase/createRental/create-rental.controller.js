@@ -6,7 +6,6 @@ function createRentalController ({ createRentalRepository }) {
   return wrap(async (req, res, next) => {
     const rental = req.body
 
-    // const newRental = await rentalRepo.createRental(rental)
     const newRental = await createRentalRepository(rental)
 
     res.status(201).json(newRental)

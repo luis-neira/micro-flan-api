@@ -6,7 +6,6 @@ function getRentalsController ({ getRentalsRepository }) {
   return wrap(async (req, res, next) => {
     const { type } = req.query
 
-    // const rentals = await rentalRepo.getRentals(type)
     const rentals = await getRentalsRepository(type)
 
     res.json(rentals)

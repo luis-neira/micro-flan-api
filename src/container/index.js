@@ -2,8 +2,6 @@
 
 const awilix = require('awilix')
 
-// const makeRentalRepo = require('@api/routes/rental/repository')
-// const makeTenantRepo = require('@api/routes/tenant/repository')
 const { makePgInstance } = require('../infra/db')
 
 function buildContainer ({ config, logger }) {
@@ -35,15 +33,7 @@ function buildContainer ({ config, logger }) {
       injectionMode: InjectionMode.CLASSIC,
       dispose: (pg) => pg.end()
     })
-    // rentalRepo: asFunction(makeRentalRepo, {
-    //   lifetime: Lifetime.SINGLETON
-    // }),
-    // tenantRepo: asFunction(makeTenantRepo, {
-    //   lifetime: Lifetime.SINGLETON
-    // })
   })
-
-  // console.log(awilixContainer.registrations)
 
   return awilixContainer
 }
