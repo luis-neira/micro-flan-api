@@ -1,6 +1,6 @@
 'use strict'
 
-function getRentals ({ db }) {
+function getRentalsRepo ({ db }) {
   return async (type) => {
     if (type === 'house' || type === 'apartment') {
       const result = await db.query('SELECT * FROM rentals WHERE property_type = $1', [type])
@@ -14,4 +14,4 @@ function getRentals ({ db }) {
   }
 }
 
-module.exports = getRentals
+module.exports = getRentalsRepo

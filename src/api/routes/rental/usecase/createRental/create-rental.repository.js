@@ -1,6 +1,6 @@
 'use strict'
 
-function createRental ({ db }) {
+function createRentalRepo ({ db }) {
   return async (inputData) => {
     const keys = Object.keys(inputData)
     const values = Object.values(inputData)
@@ -17,4 +17,4 @@ function createRental ({ db }) {
   }
 }
 
-module.exports = createRental
+module.exports = createRentalRepo

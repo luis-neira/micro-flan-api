@@ -2,8 +2,8 @@
 
 const awilix = require('awilix')
 
-const makeRentalRepo = require('@api/routes/rental/repository')
-const makeTenantRepo = require('@api/routes/tenant/repository')
+// const makeRentalRepo = require('@api/routes/rental/repository')
+// const makeTenantRepo = require('@api/routes/tenant/repository')
 const { makePgInstance } = require('../infra/db')
 
 function buildContainer ({ config, logger }) {
@@ -17,6 +17,16 @@ function buildContainer ({ config, logger }) {
 
   const awilixContainer = createContainer()
 
+  awilixContainer.loadModules([
+    'src/api/routes/**/usecase/**/*.repository.js',
+    'src/api/routes/**/usecase/**/*.controller.js'
+  ], {
+    formatName: 'camelCase',
+    resolverOptions: {
+      lifetime: Lifetime.SINGLETON
+    }
+  })
+
   awilixContainer.register({
     config: asValue(config),
     logger: asValue(logger),
@@ -24,14 +34,16 @@ function buildContainer ({ config, logger }) {
       lifetime: Lifetime.SINGLETON,
       injectionMode: InjectionMode.CLASSIC,
       dispose: (pg) => pg.end()
-    }),
-    rentalRepo: asFunction(makeRentalRepo, {
-      lifetime: Lifetime.SINGLETON
-    }),
-    tenantRepo: asFunction(makeTenantRepo, {
-      lifetime: Lifetime.SINGLETON
     })
+    // rentalRepo: asFunction(makeRentalRepo, {
+    //   lifetime: Lifetime.SINGLETON
+    // }),
+    // tenantRepo: asFunction(makeTenantRepo, {
+    //   lifetime: Lifetime.SINGLETON
+    // })
   })
+
+  // console.log(awilixContainer.registrations)
 
   return awilixContainer
 }

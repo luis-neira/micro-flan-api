@@ -1,6 +1,6 @@
 'use strict'
 
-function updateRental ({ db }) {
+function updateRentalRepo ({ db }) {
   return async (id, rental) => {
     const keys = Object.keys(rental)
     const values = Object.values(rental)
@@ -24,4 +24,4 @@ function updateRental ({ db }) {
   }
 }
 
-module.exports = updateRental
+module.exports = updateRentalRepo

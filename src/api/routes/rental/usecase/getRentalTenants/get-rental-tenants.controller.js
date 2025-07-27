@@ -1,13 +1,16 @@
 'use strict'
 
-function getRentalTenants ({ rentalRepo }) {
-  return async (req, res, next) => {
+const wrap = require('@lib/wrap-async')
+
+function getRentalTenantsController ({ getRentalTenantsRepository }) {
+  return wrap(async (req, res, next) => {
     const { id } = req.params
 
-    const tenants = await rentalRepo.getRentalTenants(id)
+    // const tenants = await rentalRepo.getRentalTenants(id)
+    const tenants = await getRentalTenantsRepository(id)
 
     res.json(tenants)
-  }
+  })
 }
 
-module.exports = getRentalTenants
+module.exports = getRentalTenantsController

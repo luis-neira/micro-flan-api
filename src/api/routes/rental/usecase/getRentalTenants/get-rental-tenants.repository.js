@@ -1,6 +1,6 @@
 'use strict'
 
-function getRentalTenants ({ db }) {
+function getRentalTenantsRepo ({ db }) {
   return async (id) => {
     const result = await db.query('SELECT * FROM tenants WHERE rental_id = $1', [id])
 
@@ -8,4 +8,4 @@ function getRentalTenants ({ db }) {
   }
 }
 
-module.exports = getRentalTenants
+module.exports = getRentalTenantsRepo

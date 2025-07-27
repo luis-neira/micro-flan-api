@@ -7,7 +7,7 @@ const config = require('@config')
 
 const USERS = [{ id: 1, username: 'admin', password: 'password123' }]
 
-function loginUser () {
+function loginController () {
   return (req, res, next) => {
     const { username, password } = req.body
 
@@ -29,4 +29,4 @@ function loginUser () {
   }
 }
 
-module.exports = loginUser
+module.exports = loginController
