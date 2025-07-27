@@ -138,13 +138,20 @@ router.route('/')
    * @swagger
    * /rentals:
    *   get:
-   *     summary: Returns a list of rentals
+   *     summary: Returns a list of rentals, optionally filtered by property type
    *     tags: [Rentals]
    *     produces:
    *       - application/json
+   *     parameters:
+   *       - name: type
+   *         in: query
+   *         description: Filter rentals by property type (e.g., apartment, house)
+   *         required: false
+   *         type: string
+   *         example: apartment
    *     responses:
    *       200:
-   *         description: Successful response
+   *         description: Successful response with list of rentals
    *         schema:
    *           type: array
    *           items:
