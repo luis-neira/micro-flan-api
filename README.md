@@ -46,12 +46,42 @@ The API uses Awilix to manage dependencies. Instead of modules importing depende
 
 ## Project Structure
 ```
-src/
+src
 ├── api
-│   ├── controllers
-│   ├── middleware
-│   ├── repos
-│   └── routes
+│   ├── auth
+│   │   ├── index.js
+│   │   └── usecase
+│   │       └── login
+│   │           └── login.controller.js
+│   ├── rental
+│   │   ├── index.js
+│   │   └── usecase
+│   │       ├── createRental
+│   │       │   ├── create-rental.controller.js
+│   │       │   ├── create-rental.repository.js
+│   │       │   └── create-rental.schema.js
+│   │       ├── deleteRental
+│   │       │   ├── delete-rental.controller.js
+│   │       │   ├── delete-rental.repository.js
+│   │       │   └── delete-rental.schema.js
+│   │       ├── getRental
+│   │       │   ├── get-rentals.controller.js
+│   │       │   ├── get-rentals.repository.js
+│   │       │   └── get-rentals.schema.js
+│   │       ├── getRentalTenants
+│   │       │   ├── get-rental-tenants.controller.js
+│   │       │   ├── get-rental-tenants.repository.js
+│   │       │   └── get-rental-tenants.schema.js
+│   │       └── updateRental
+│   │           ├── update-rental.controller.js
+│   │           ├── update-rental.repository.js
+│   │           └── update-rental.schema.js
+│   └── tenant
+│       ├── index.js
+│       └── usecase
+│           └── getTenants
+│               ├── get-tenants.controller.js
+│               └── get-tenants.repository.js
 ├── app.js
 ├── bootstrap
 │   ├── safeBuildContainer.js
@@ -67,12 +97,21 @@ src/
 ├── index.js
 ├── infra
 │   ├── db
+│   │   └── index.js
 │   └── logger
+│       └── index.js
 ├── lib
 │   ├── format-bootstrap-error.js
 │   ├── with-scope-handler.js
-│   ├── wrap-async.js
-│   └── wrap-controller.js
+│   └── wrap-async.js
+├── middleware
+│   ├── authenticate-token.js
+│   ├── cors.js
+│   ├── error.js
+│   ├── logger.js
+│   ├── not-found.js
+│   ├── timer.js
+│   └── validate.js
 └── server.js
 ```
 
