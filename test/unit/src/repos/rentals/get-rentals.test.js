@@ -1,6 +1,6 @@
 const sinon = require('sinon')
 const chai = require('chai')
-const makeRentalRepository = require('@api/routes/rental/repository')
+const getRentalsRepository = require('@api/routes/rental/usecase/getRental/get-rentals.repository')
 const { expect } = chai
 
 describe("rental-repository: 'getRentals'", () => {
@@ -11,9 +11,9 @@ describe("rental-repository: 'getRentals'", () => {
       })
     }
 
-    const rentalRepository = makeRentalRepository({ db })
+    const rentalRepository = getRentalsRepository({ db })
 
-    const result = await rentalRepository.getRentals('apartment')
+    const result = await rentalRepository('apartment')
 
     expect(db.query.calledOnce).to.equal(true)
     expect(result).to.deep.equal([{ id: 1, property_type: 'apartment' }])
