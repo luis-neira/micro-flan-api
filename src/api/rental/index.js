@@ -75,6 +75,13 @@ const api = makeInvoker(cradle => ({
  *     description: Operations about rentals
  */
 
+/**
+ * @swagger
+ * tags:
+ *   - name: RentalTenants
+ *     description: Get tenants for a specific rental
+ */
+
 router.route('/')
   /**
    * @swagger
@@ -103,6 +110,29 @@ router.route('/:id')
   .delete(validate({ params: deleteRentalSchema.paramsSchema }), api('deleteRental'))
 
 router.route('/:id/tenants')
+  /**
+   * @swagger
+   * /rentals/{rentalId}/tenants:
+   *   get:
+   *     summary: Get tenants for a specific rental
+   *     tags: [RentalTenants]
+   *     produces:
+   *       - application/json
+   *     parameters:
+   *       - name: rentalId
+   *         in: path
+   *         required: true
+   *         description: ID of the rental
+   *         type: integer
+   *         example: 1
+   *     responses:
+   *       200:
+   *         description: List of tenants for the rental
+   *         schema:
+   *           type: array
+   *           items:
+   *             $ref: '#/definitions/Tenant'
+   */
   .get(validate({ params: getRentalTenantsSchema.paramsSchema }), api('getRentalTenants'))
 
 module.exports = router
