@@ -11,7 +11,7 @@
     "pretest": "npm run lint",
     "test": "mocha -r test/setup.js -r test/hooks.js --recursive --exit",
     "test:unit": "mocha -r test/setup.js 'test/unit/**/*.test.js'",
-    "test:integration": "mocha -r test/setup.js -r test/hooks.js 'test/integration/**/*.test.js' --exit",
+    "test:e2e": "mocha -r test/setup.js -r test/hooks.js 'test/e2e/**/*.test.js' --exit",
     "coverage": "nyc mocha -r test/setup.js -r test/hooks.js --recursive",
     "db:init": "node -r dotenv/config utils/init-db.js",
     "docker:build": "docker build -t node-express-2025 --progress=plain --no-cache --target test .",
