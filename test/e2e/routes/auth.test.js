@@ -9,19 +9,19 @@ let app = null
 let container = null
 let knex = null
 
-before(async () => {
-  const setup = await setupTestApp()
-  app = setup.app
-  container = setup.container
-  knex = setup.knex
-})
-
-after(async () => {
-  await knex.destroy()
-  await container.dispose()
-})
-
 describe('POST /auth/login', () => {
+  before(async () => {
+    const setup = await setupTestApp()
+    app = setup.app
+    container = setup.container
+    knex = setup.knex
+  })
+  
+  after(async () => {
+    await knex.destroy()
+    await container.dispose()
+  })
+
   it('returns a valid token', (done) => {
     request(app)
       .post('/auth/login')

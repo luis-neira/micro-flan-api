@@ -18,6 +18,7 @@ describe('GET /rentals', () => {
 
   after(async () => {
     await knex.migrate.rollback({}, true)
+    await knex.destroy()
     await container.dispose()
   })
 
@@ -148,6 +149,7 @@ describe('PATCH /rentals/:id', () => {
 
   after(async () => {
     await knex.migrate.rollback({}, true)
+    await knex.destroy()
     await container.dispose()
   })
 
@@ -196,6 +198,7 @@ describe('DELETE /rentals/:id', () => {
 
   after(async () => {
     await knex.migrate.rollback({}, true)
+    await knex.destroy()
     await container.dispose()
   })
 
@@ -236,6 +239,7 @@ describe('GET /rentals/1/tenants', () => {
 
   after(async () => {
     await knex.migrate.rollback({}, true)
+    await knex.destroy()
     await container.dispose()
   })
 
