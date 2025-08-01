@@ -5,6 +5,7 @@ const { buildContainer } = require('../src/container')
 const buildExpressApp = require('../src/app')
 const makeKnexInstance = require('@infra/db')
 
+// TODO: instead of invoking knex use a node child process and invoke the db-infra repo, use config to validate the path from an env var.
 async function setupTestApp () {
   // fresh container
   const container = buildContainer({ config, logger: () => {} })

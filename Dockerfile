@@ -49,4 +49,4 @@ RUN --mount=type=bind,source=package.json,target=package.json \
 COPY . .
 
 # Use POSIX-compatible `sh -c` with `set -a` to export envs
-RUN /bin/sh -c "set -a && . .env.test && npm run test:unit"
+RUN /bin/sh -c "set -a && . .env.test && npm run test"
