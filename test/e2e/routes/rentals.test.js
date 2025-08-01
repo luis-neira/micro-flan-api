@@ -3,11 +3,12 @@
 const chai = require('chai')
 const request = require('supertest')
 const setupTestApp = require('@testSetup')
+const Migrator = require('../../run-migration-command')
 
 let app = null
 let container = null
 
-describe.skip('GET /rentals', () => {
+describe('GET /rentals', () => {
   before(async () => {
     const setup = await setupTestApp()
     app = setup.app
@@ -16,6 +17,7 @@ describe.skip('GET /rentals', () => {
 
   after(async () => {
     await container.dispose()
+    Migrator.reset()
   })
 
   it('gets all rentals', (done) => {
@@ -81,7 +83,7 @@ describe.skip('GET /rentals', () => {
   })
 })
 
-describe.skip('POST /rentals', () => {
+describe('POST /rentals', () => {
   before(async () => {
     const setup = await setupTestApp()
     app = setup.app
@@ -90,6 +92,7 @@ describe.skip('POST /rentals', () => {
 
   after(async () => {
     await container.dispose()
+    Migrator.reset()
   })
 
   it('add rental', (done) => {
@@ -132,7 +135,7 @@ describe.skip('POST /rentals', () => {
   })
 })
 
-describe.skip('PATCH /rentals/:id', () => {
+describe('PATCH /rentals/:id', () => {
   before(async () => {
     const setup = await setupTestApp()
     app = setup.app
@@ -141,6 +144,7 @@ describe.skip('PATCH /rentals/:id', () => {
 
   after(async () => {
     await container.dispose()
+    Migrator.reset()
   })
 
   it('edit rental by ID', (done) => {
@@ -178,7 +182,7 @@ describe.skip('PATCH /rentals/:id', () => {
   })
 })
 
-describe.skip('DELETE /rentals/:id', () => {
+describe('DELETE /rentals/:id', () => {
   before(async () => {
     const setup = await setupTestApp()
     app = setup.app
@@ -187,6 +191,7 @@ describe.skip('DELETE /rentals/:id', () => {
 
   after(async () => {
     await container.dispose()
+    Migrator.reset()
   })
 
   it('delete rental by ID', (done) => {
@@ -216,7 +221,7 @@ describe.skip('DELETE /rentals/:id', () => {
   })
 })
 
-describe.skip('GET /rentals/1/tenants', () => {
+describe('GET /rentals/1/tenants', () => {
   before(async () => {
     const setup = await setupTestApp()
     app = setup.app
@@ -225,6 +230,7 @@ describe.skip('GET /rentals/1/tenants', () => {
 
   after(async () => {
     await container.dispose()
+    Migrator.reset()
   })
 
   it('gets all tenents per rental', (done) => {
