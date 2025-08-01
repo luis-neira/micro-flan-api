@@ -6,19 +6,15 @@ const setupTestApp = require('@testSetup')
 
 let app = null
 let container = null
-// let knex = null
 
 describe.skip('GET /rentals', () => {
   before(async () => {
     const setup = await setupTestApp()
     app = setup.app
     container = setup.container
-    // knex = setup.knex
   })
 
   after(async () => {
-    // await knex.migrate.rollback({}, true)
-    // await knex.destroy()
     await container.dispose()
   })
 
@@ -90,12 +86,9 @@ describe.skip('POST /rentals', () => {
     const setup = await setupTestApp()
     app = setup.app
     container = setup.container
-    // knex = setup.knex
   })
 
   after(async () => {
-    // await knex.migrate.rollback({}, true)
-    // await knex.destroy()
     await container.dispose()
   })
 
@@ -144,12 +137,9 @@ describe.skip('PATCH /rentals/:id', () => {
     const setup = await setupTestApp()
     app = setup.app
     container = setup.container
-    // knex = setup.knex
   })
 
   after(async () => {
-    // await knex.migrate.rollback({}, true)
-    // await knex.destroy()
     await container.dispose()
   })
 
@@ -193,12 +183,9 @@ describe.skip('DELETE /rentals/:id', () => {
     const setup = await setupTestApp()
     app = setup.app
     container = setup.container
-    // knex = setup.knex
   })
 
   after(async () => {
-    // await knex.migrate.rollback({}, true)
-    // await knex.destroy()
     await container.dispose()
   })
 
@@ -234,12 +221,9 @@ describe.skip('GET /rentals/1/tenants', () => {
     const setup = await setupTestApp()
     app = setup.app
     container = setup.container
-    // knex = setup.knex
   })
 
   after(async () => {
-    // await knex.migrate.rollback({}, true)
-    // await knex.destroy()
     await container.dispose()
   })
 

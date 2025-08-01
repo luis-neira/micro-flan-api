@@ -7,20 +7,15 @@ const runMigrationCommand = require('../../run-migration-command')
 
 let app = null
 let container = null
-// let knex = null
 
 describe('GET /tenants', () => {
   before(async () => {
     const setup = await setupTestApp()
     app = setup.app
     container = setup.container
-    // knex = setup.knex
   })
 
   after(async () => {
-    // await knex.migrate.rollback({}, true)
-    // await knex.destroy()
-    // runMigrationCommand('npx graphile-migrate reset')
     await container.dispose()
     runMigrationCommand('npm run gm -- reset --erase')
   })

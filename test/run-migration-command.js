@@ -11,12 +11,7 @@ function runMigrationCommand (cmd) {
       ...process.env,
       DATABASE_URL: 'postgres://postgres:password@localhost:5555/myapp',
       SHADOW_DATABASE_URL: 'postgres://postgres:password@localhost:5555/myapp_shadow',
-      ROOT_DATABASE_URL: 'postgres://postgres:password@localhost:5555/postgres',
-      POSTGRES_HOST: 'localhost',
-      POSTGRES_PORT: 5555,
-      POSTGRES_DB: 'myapp',
-      POSTGRES_USER: 'postgres',
-      POSTGRES_PASSWORD: 'password'
+      ROOT_DATABASE_URL: 'postgres://postgres:password@localhost:5555/postgres'
     }
   })
 }
