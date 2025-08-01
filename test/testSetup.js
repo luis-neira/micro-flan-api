@@ -14,7 +14,6 @@ async function setupTestApp () {
   const container = buildContainer({ config, logger: () => {} })
 
   // migrate db
-  console.log('Running graphile-migrate migrations...')
   try {
     runMigrationCommand('npm run init:test')
   } catch (err) {

@@ -6,7 +6,11 @@ const path = require('node:path')
 function runMigrationCommand (cmd) {
   execSync(cmd, {
     cwd: path.resolve('..', 'micro-flan-migrations'),
-    stdio: 'inherit',
+    stdio: [
+      'inherit',
+      'ignore',
+      'inherit'
+    ],
     env: {
       ...process.env,
       DATABASE_URL: 'postgres://postgres:password@localhost:5555/myapp',
