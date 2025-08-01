@@ -58,7 +58,9 @@ const Containers = {
     name: 'test-postgres',
     Image: 'postgres:17-alpine3.21',
     Env: [
-      'POSTGRES_PASSWORD=password'
+      'POSTGRES_PASSWORD=password',
+      'POSTGRES_DB=myapp',
+      'POSTGRES_USER=postgres'
     ],
     Tty: false,
     HostConfig: {

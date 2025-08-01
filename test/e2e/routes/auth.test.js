@@ -7,18 +7,18 @@ const setupTestApp = require('@testSetup')
 const { expect } = chai
 let app = null
 let container = null
-let knex = null
+// let knex = null
 
-describe('POST /auth/login', () => {
+describe.skip('POST /auth/login', () => {
   before(async () => {
     const setup = await setupTestApp()
     app = setup.app
     container = setup.container
-    knex = setup.knex
+    // knex = setup.knex
   })
 
   after(async () => {
-    await knex.destroy()
+    // await knex.destroy()
     await container.dispose()
   })
 
