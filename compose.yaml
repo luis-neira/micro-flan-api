@@ -52,18 +52,19 @@ services:
         - action: rebuild
           path: ./package.json
 
-  web-ui:
-    build:
-      context: ../full-mantine-client
-      dockerfile: Dockerfile.dev
-    ports:
-      - "5173:5173"
-    develop:
-      watch:
-        - action: sync
-          path: ../full-mantine-client
-          target: /app
-          ignore:
-            - node_modules/
-        - action: rebuild
-          path: ./package.json
+# Comment in if you have a UI.
+  # web-ui:
+  #   build:
+  #     context: ${WEB_UI_DIR}
+  #     dockerfile: Dockerfile.dev
+  #   ports:
+  #     - "5173:5173"
+  #   develop:
+  #     watch:
+  #       - action: sync
+  #         path: ${WEB_UI_DIR}
+  #         target: /app
+  #         ignore:
+  #           - node_modules/
+  #       - action: rebuild
+  #         path: ./package.json
