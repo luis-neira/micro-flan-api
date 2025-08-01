@@ -27,7 +27,7 @@ services:
         condition: service_healthy
     command: ["npm", "run", "init"]
 
-  server:
+  realty-service:
     build:
       context: .
       target: dev
@@ -47,6 +47,22 @@ services:
         - action: sync
           path: ./
           target: /usr/src/app
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: ./package.json
+
+  web-ui:
+    build:
+      context: ../full-mantine-client
+      dockerfile: Dockerfile.dev
+    ports:
+      - "5173:5173"
+    develop:
+      watch:
+        - action: sync
+          path: ../full-mantine-client
+          target: /app
           ignore:
             - node_modules/
         - action: rebuild
