@@ -2,6 +2,7 @@
 
 const Docker = require('dockerode')
 const { Client } = require('pg')
+const config = require('../src/config')
 
 function dockerConsole () {
   const docker = new Docker()
@@ -58,9 +59,9 @@ const Containers = {
     name: 'test-postgres',
     Image: 'postgres:17-alpine3.21',
     Env: [
-      'POSTGRES_PASSWORD=password',
-      'POSTGRES_DB=myapp',
-      'POSTGRES_USER=postgres'
+      `POSTGRES_PASSWORD=${config.postgresPassword}`,
+      `POSTGRES_DB=${config.postgresDatabase}`,
+      `POSTGRES_USER=${config.postgresUser}`
     ],
     Tty: false,
     HostConfig: {
