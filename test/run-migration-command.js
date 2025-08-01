@@ -17,4 +17,14 @@ function runMigrationCommand (cmd) {
   })
 }
 
+function reset () {
+  runMigrationCommand('npm run gm -- reset --erase')
+}
+
+function migrate () {
+  runMigrationCommand('npm run init:test')
+}
+
 module.exports = runMigrationCommand
+module.exports.reset = reset
+module.exports.migrate = migrate

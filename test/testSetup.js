@@ -6,16 +6,15 @@
 const config = require('../src/config')
 const { buildContainer } = require('../src/container')
 const buildExpressApp = require('../src/app')
-const runMigrationCommand = require('./run-migration-command')
+const Migrator = require('./run-migration-command')
 
-// TODO: instead of invoking knex use a node child process and invoke the db-infra repo, use config to validate the path from an env var.
 async function setupTestApp () {
   // fresh container
   const container = buildContainer({ config, logger: () => {} })
 
   // migrate db
   try {
-    runMigrationCommand('npm run init:test')
+    Migrator.migrate()
   } catch (err) {
     console.error('Migration failed:', err)
     throw err

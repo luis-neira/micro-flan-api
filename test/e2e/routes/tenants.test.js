@@ -3,7 +3,7 @@
 const chai = require('chai')
 const request = require('supertest')
 const setupTestApp = require('@testSetup')
-const runMigrationCommand = require('../../run-migration-command')
+const Migrator = require('../../run-migration-command')
 
 let app = null
 let container = null
@@ -17,7 +17,7 @@ describe('GET /tenants', () => {
 
   after(async () => {
     await container.dispose()
-    runMigrationCommand('npm run gm -- reset --erase')
+    Migrator.reset()
   })
 
   it('gets all tenants', (done) => {
