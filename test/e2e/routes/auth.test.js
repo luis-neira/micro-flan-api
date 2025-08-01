@@ -16,7 +16,7 @@ describe('POST /auth/login', () => {
     container = setup.container
     knex = setup.knex
   })
-  
+
   after(async () => {
     await knex.destroy()
     await container.dispose()
