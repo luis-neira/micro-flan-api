@@ -22,7 +22,7 @@ function reset () {
 }
 
 function migrate () {
-  runMigrationCommand('npm run init:test')
+  runMigrationCommand('npm run gm -- migrate')
 }
 
 module.exports = runMigrationCommand
