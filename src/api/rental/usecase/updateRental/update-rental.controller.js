@@ -1,10 +1,9 @@
 'use strict'
 
 const createError = require('http-errors')
-const wrap = require('@lib/wrap-async')
 
 function updateRentalController ({ updateRentalRepository }) {
-  return wrap(async (req, res, next) => {
+  return async (req, res, next) => {
     const rental = req.body
     const { id } = req.params
 
@@ -15,7 +14,7 @@ function updateRentalController ({ updateRentalRepository }) {
     }
 
     res.json(updatedRental)
-  })
+  }
 }
 
 module.exports = updateRentalController

@@ -1,10 +1,9 @@
 'use strict'
 
 const createError = require('http-errors')
-const wrap = require('@lib/wrap-async')
 
 function deleteRentalController ({ deleteRentalRepository }) {
-  return wrap(async (req, res, next) => {
+  return async (req, res, next) => {
     const { id } = req.params
 
     const result = await deleteRentalRepository(id)
@@ -14,7 +13,7 @@ function deleteRentalController ({ deleteRentalRepository }) {
     }
 
     res.sendStatus(200)
-  })
+  }
 }
 
 module.exports = deleteRentalController
