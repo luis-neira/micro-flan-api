@@ -36,7 +36,6 @@ services:
     ports:
       - 3000:3000
       - 9229:9229
-    command: ["npm", "run", "dev"]
     depends_on:
       db:
         condition: service_healthy
