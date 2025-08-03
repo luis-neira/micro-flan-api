@@ -1,9 +1,5 @@
 'use strict'
 
-const Ajv = require('ajv')
-
-const ajvStrict = new Ajv() // no `useDefaults` here — we've already applied them
-
 const fullSchema = {
   type: 'object',
   properties: {
@@ -46,8 +42,4 @@ const fullSchema = {
   additionalProperties: true
 }
 
-function getValidator () {
-  return ajvStrict.compile(fullSchema)
-}
-
-module.exports = getValidator
+module.exports.fullSchema = fullSchema

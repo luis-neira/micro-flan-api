@@ -1,9 +1,5 @@
 'use strict'
 
-const Ajv = require('ajv')
-
-const ajvWithDefaults = new Ajv({ useDefaults: true })
-
 const defaultSchema = {
   type: 'object',
   properties: {
@@ -15,8 +11,4 @@ const defaultSchema = {
   additionalProperties: true
 }
 
-function getDefaultsValidator () {
-  return ajvWithDefaults.compile(defaultSchema)
-}
-
-module.exports = getDefaultsValidator
+module.exports.defaultSchema = defaultSchema

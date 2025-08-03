@@ -1,12 +1,16 @@
 'use strict'
 
 const Ajv = require('ajv')
-const getDefaultsValidator = require('./defaultsValidator')
-const getFullValidator = require('./validator')
+const { defaultSchema } = require('./defaultsValidator')
+const { fullSchema } = require('./validator')
 
 const ajv = new Ajv()
-const defaultsValidator = getDefaultsValidator()
-const fullValidator = getFullValidator()
+
+const ajvWithDefaults = new Ajv({ useDefaults: true })
+const ajvStrict = new Ajv() // no `useDefaults` here — we've already applied them
+
+const defaultsValidator = ajvWithDefaults.compile(defaultSchema)
+const fullValidator = ajvStrict.compile(fullSchema)
 
 // Clone env so we don't modify process.env directly
 const env = { ...process.env }
