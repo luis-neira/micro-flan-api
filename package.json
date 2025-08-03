@@ -14,6 +14,8 @@
     "test:e2e": "mocha -r test/setup.js -r test/hooks.js 'test/e2e/**/*.test.js'",
     "test:e2e-coverage": "nyc npm run test:e2e",
     "docker:build": "docker build -t node-express-2025 --progress=plain --no-cache --target test .",
+    "docker:test": "docker compose run --rm realty-service npm run test",
+    "docker:test-coverage": "docker compose run --rm --user=root realty-service npm run test:coverage",
     "prepare": "husky"
   },
   "lint-staged": {
