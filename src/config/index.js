@@ -1,8 +1,8 @@
 'use strict'
 
 const Ajv = require('ajv')
-const { defaultSchema } = require('./defaultsValidator')
-const { fullSchema } = require('./validator')
+const { defaultSchema } = require('./default.schema')
+const { fullSchema } = require('./full.schema')
 
 const ajv = new Ajv()
 
